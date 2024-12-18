@@ -11,6 +11,7 @@
 
 #include "../../mine/scene/triangle.h"
 #include "../../mine/scene/scene.h"
+#include "../../mine/scene/look/textureloader.h"
 
 class SceneBuilder {
 public:
@@ -176,12 +177,17 @@ public:
                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
                                               Bitmap::defaultNormalMap());
         
+        auto metal = std::make_shared<Material>(*BitmapLoader::load("Metal055A_2K-JPG_Color.jpg"),
+                                                *BitmapLoader::load("Metal055A_2K-JPG_Roughness.jpg"),
+                                                *BitmapLoader::load("Metal055A_2K-JPG_Metalness.jpg"),
+                                                *BitmapLoader::load("Metal055A_2K-JPG_NormalGL.jpg"));
+        
         for (auto const & triangle : triangles) {
             tObjects.push_back(TriangleObject(triangle, white));
         }
         
         std::vector<SphereObject> spheres = {
-            SphereObject(Sphere({50, -60, 160}, 40), red),
+            SphereObject(Sphere({50, -60, 160}, 40), metal),
             SphereObject(Sphere({-50, -60, 120}, 40), blue)
         };
         
