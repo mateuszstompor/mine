@@ -10,6 +10,7 @@
 #include <optional>
 
 #include "sphereintersector.h"
+#include "triangleintersector.h"
 #include "../scene/rayintersection.h"
 
 class Intersector {
@@ -26,6 +27,17 @@ public:
             simd_float3 normal = simd_normalize(point - sphere.center);
             assignIfCloser(closest, RayIntersection(normal, point, t));
         }
+        for (Triangle const & triangle : s.triangles) {
+            std::optional<float> intersection = tIntersector.intersect(r, triangle);
+            if (!intersection) {
+                continue;
+            }
+            float t = (*intersection);
+            simd_float3 point = r.origin + r.direction * t;
+            simd::float2 uv = tIntersector.getTextureCoordinates(point, triangle);
+            assignIfCloser(closest, RayIntersection(triangle.normal, point, t));
+        }
+        
         return closest;
     }
 private:
@@ -36,4 +48,5 @@ private:
         }
     }
     SphereIntersector sIntersector;
+    TriangleIntersector tIntersector;
 };

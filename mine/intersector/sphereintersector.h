@@ -27,4 +27,3 @@ public:
         return t1 > t2 ? std::vector<T>{t2, t1} : std::vector<T>{t1, t2};
     }
 };
-

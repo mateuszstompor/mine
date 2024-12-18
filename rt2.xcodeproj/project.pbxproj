@@ -21,6 +21,9 @@
 		05B4B9CA2D1331BD00BCED51 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		05B4B9CB2D13570300BCED51 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
 		05B4B9CD2D1358B800BCED51 /* textureloader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = textureloader.h; sourceTree = "<group>"; };
+		05B4B9E22D135DB100BCED51 /* triangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
+		05B4B9E32D135E2D00BCED51 /* scenebuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scenebuilder.h; sourceTree = "<group>"; };
+		05B4B9E42D135F1500BCED51 /* triangleintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleintersector.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -62,6 +65,7 @@
 		057BBD262D130C38002C204E /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9E32D135E2D00BCED51 /* scenebuilder.h */,
 				05B4B9C72D1330EB00BCED51 /* intersector */,
 				05B4B9742D13200600BCED51 /* raytracer.h */,
 				05B4B9722D131FDD00BCED51 /* scene */,
@@ -74,6 +78,7 @@
 		05B4B9722D131FDD00BCED51 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9E22D135DB100BCED51 /* triangle.h */,
 				05B4B9CC2D1358A800BCED51 /* look */,
 				05B4B9CA2D1331BD00BCED51 /* camera.h */,
 				05B4B9C62D13309800BCED51 /* rayintersection.h */,
@@ -96,6 +101,7 @@
 		05B4B9C72D1330EB00BCED51 /* intersector */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9E42D135F1500BCED51 /* triangleintersector.h */,
 				05B4B9C92D13312500BCED51 /* intersector.h */,
 				05B4B9C82D1330F400BCED51 /* sphereintersector.h */,
 			);

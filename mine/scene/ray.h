@@ -5,6 +5,8 @@
 //  Copyright © 2024 Mateusz Stompór. All rights reserved.
 //
 
+#pragma once
+
 #include <simd/simd.h>
 
 struct Ray {
