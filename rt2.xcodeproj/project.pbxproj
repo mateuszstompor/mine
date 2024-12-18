@@ -26,6 +26,7 @@
 		05B4B9E52D13649200BCED51 /* nearestsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nearestsampler.h; sourceTree = "<group>"; };
 		05B4B9E62D13686200BCED51 /* triangleobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleobject.h; sourceTree = "<group>"; };
 		05B4B9E82D136E4B00BCED51 /* sphereobject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = sphereobject.h; sourceTree = "<group>"; };
+		05B4BA072D13756400BCED51 /* linearsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = linearsampler.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -67,6 +68,7 @@
 		057BBD262D130C38002C204E /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				05B4BA072D13756400BCED51 /* linearsampler.h */,
 				05B4B9E52D13649200BCED51 /* nearestsampler.h */,
 				05B4B9C72D1330EB00BCED51 /* intersector */,
 				05B4B9742D13200600BCED51 /* raytracer.h */,
