@@ -20,12 +20,12 @@
 		05B4B9C92D13312500BCED51 /* intersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = intersector.h; sourceTree = "<group>"; };
 		05B4B9CA2D1331BD00BCED51 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		05B4B9CB2D13570300BCED51 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
-		05B4B9CD2D1358B800BCED51 /* textureloader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = textureloader.h; sourceTree = "<group>"; };
+		05B4B9CD2D1358B800BCED51 /* textureloader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = textureloader.h; sourceTree = "<group>"; };
 		05B4B9E22D135DB100BCED51 /* triangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
 		05B4B9E42D135F1500BCED51 /* triangleintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleintersector.h; sourceTree = "<group>"; };
 		05B4B9E52D13649200BCED51 /* nearestsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nearestsampler.h; sourceTree = "<group>"; };
 		05B4B9E62D13686200BCED51 /* triangleobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleobject.h; sourceTree = "<group>"; };
-		05B4B9E82D136E4B00BCED51 /* sphereobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphereobject.h; sourceTree = "<group>"; };
+		05B4B9E82D136E4B00BCED51 /* sphereobject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = sphereobject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
