@@ -7,10 +7,12 @@
 
 #import <AppKit/AppKit.h>
 #import "../../mine/cgbitmap.h"
+#import "../../mine/raytracer.h"
 
 @interface BitmapView : NSView
 {
     CGBitmap * cgbitmap;
+    RayTracer rt;
 }
 @end
 
@@ -34,11 +36,8 @@
 - (void)generateBitmapData {
     for (size_t y = 0; y < cgbitmap->bitmap.height; y++) {
         for (size_t x = 0; x < cgbitmap->bitmap.width; x++) {
-            size_t index = (y * cgbitmap->bitmap.width + x) * 4;
-            cgbitmap->bitmap.data[index] = (uint8_t)(x % 255);
-            cgbitmap->bitmap.data[index + 1] = (uint8_t)(y % 255);
-            cgbitmap->bitmap.data[index + 2] = 128;
-            cgbitmap->bitmap.data[index + 3] = 255;
+            simd_float4 color = rt.trace(x, y);
+            cgbitmap->bitmap.setNormalizedRGBA(x, y, color);
         }
     }
 }
