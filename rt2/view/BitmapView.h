@@ -21,7 +21,7 @@
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        cgbitmap = new CGBitmap(1000, 1000, 4);
+        cgbitmap = new CGBitmap(2000, 2000, 4);
         [self generateBitmapData];
     }
     return self;
@@ -34,11 +34,15 @@
 }
 
 - (void)generateBitmapData {
+    Scene s;
+    s.spheres.push_back(Sphere({0, 0, 100}, 30));
+    s.spheres.push_back(Sphere({-30, 30, 40}, 40));
+    
     uint16_t width = cgbitmap->bitmap.width;
     uint16_t height = cgbitmap->bitmap.height;
-    for (size_t y = 0; y < height; y++) {
-        for (size_t x = 0; x < width; x++) {
-            simd_float4 color = rt.trace(x, y, width, height);
+    for (uint16_t y = 0; y < height; y++) {
+        for (uint16_t x = 0; x < width; x++) {
+            simd_float4 color = rt.trace(x, y, width, height, s);
             cgbitmap->bitmap.setNormalizedRGBA(x, y, color);
         }
     }

@@ -23,6 +23,7 @@ struct CGBitmap {
                                               colorSpace,
                                               kCGImageAlphaPremultipliedLast);
     }
+    CGBitmap & operator=(CGBitmap const &) = delete;
     ~CGBitmap() {
         CGContextRelease(bitmapContext);
         CGColorSpaceRelease(colorSpace);

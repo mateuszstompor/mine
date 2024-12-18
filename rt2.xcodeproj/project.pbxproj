@@ -13,6 +13,12 @@
 		05B4B9732D131FE500BCED51 /* sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
 		05B4B9742D13200600BCED51 /* raytracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = raytracer.h; sourceTree = "<group>"; };
 		05B4B9752D13232500BCED51 /* ray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ray.h; sourceTree = "<group>"; };
+		05B4B99D2D132F2500BCED51 /* scene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		05B4B99F2D132F6800BCED51 /* omnilight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = omnilight.h; sourceTree = "<group>"; };
+		05B4B9C62D13309800BCED51 /* rayintersection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rayintersection.h; sourceTree = "<group>"; };
+		05B4B9C82D1330F400BCED51 /* sphereintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphereintersector.h; sourceTree = "<group>"; };
+		05B4B9C92D13312500BCED51 /* intersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = intersector.h; sourceTree = "<group>"; };
+		05B4B9CA2D1331BD00BCED51 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -54,6 +60,7 @@
 		057BBD262D130C38002C204E /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9C72D1330EB00BCED51 /* intersector */,
 				05B4B9742D13200600BCED51 /* raytracer.h */,
 				05B4B9722D131FDD00BCED51 /* scene */,
 				057BBD2B2D13130A002C204E /* cgbitmap.h */,
@@ -65,10 +72,31 @@
 		05B4B9722D131FDD00BCED51 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9CA2D1331BD00BCED51 /* camera.h */,
+				05B4B9C62D13309800BCED51 /* rayintersection.h */,
+				05B4B99E2D132F6300BCED51 /* light */,
+				05B4B99D2D132F2500BCED51 /* scene.h */,
 				05B4B9752D13232500BCED51 /* ray.h */,
 				05B4B9732D131FE500BCED51 /* sphere.h */,
 			);
 			path = scene;
+			sourceTree = "<group>";
+		};
+		05B4B99E2D132F6300BCED51 /* light */ = {
+			isa = PBXGroup;
+			children = (
+				05B4B99F2D132F6800BCED51 /* omnilight.h */,
+			);
+			path = light;
+			sourceTree = "<group>";
+		};
+		05B4B9C72D1330EB00BCED51 /* intersector */ = {
+			isa = PBXGroup;
+			children = (
+				05B4B9C92D13312500BCED51 /* intersector.h */,
+				05B4B9C82D1330F400BCED51 /* sphereintersector.h */,
+			);
+			path = intersector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

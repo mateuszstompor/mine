@@ -1,5 +1,5 @@
 //
-//  sphere.h
+//  rayintersection.h
 //
 //  Created on 18/12/2024.
 //  Copyright © 2024 Mateusz Stompór. All rights reserved.
@@ -9,7 +9,8 @@
 
 #include <simd/simd.h>
 
-struct Sphere {
-    simd_float3 center;
-    float radius;
+struct RayIntersection {
+    simd_float3 N;
+    simd_float3 point;
+    float t;
 };
