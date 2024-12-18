@@ -17,35 +17,97 @@
 
 class RayTracer {
 public:
-    
+    float distributionGGX(float alpha, const simd_float3& n, const simd_float3& h) {
+        float nDotH = std::max(simd::dot(n, h), 0.0f);
+        float alphaSq = alpha * alpha;
+        float denom = (nDotH * nDotH * (alphaSq - 1.0f) + 1.0f);
+        return alphaSq / (M_PI * denom * denom);
+    }
+
+    float fresnelSchlick(float f0, const simd_float3& v, const simd_float3& h) {
+        float cosTheta = simd::clamp(simd::dot(v, h), 0.0f, 1.0f);
+        return f0 + (1.0f - f0) * std::pow(1.0f - cosTheta, 5.0f);
+    }
+
+    float geometrySchlickGGX(const simd_float3& v, const simd_float3& n, float k) {
+        float nDotV = std::max(simd::dot(n, v), 0.0f);
+        return nDotV / (nDotV * (1.0 - k) + k);
+    }
+
+    float geometrySmith(const simd_float3& v, const simd_float3& n, const simd_float3& l, float k) {
+        float gV = geometrySchlickGGX(v, n, k);
+        float gL = geometrySchlickGGX(l, n, k);
+        return gV * gL;
+    }
+
+    simd_float3 cookTorrance(const simd_float3& v, const simd_float3& n, const simd_float3& h, const simd_float3& l,
+                              const simd_float3& albedo, const simd_float3& indirect, float metalness, float roughness,
+                              float li) {
+        simd_float3 diffuse = albedo / M_PI;
+        float lamberts = simd::clamp(simd::dot(l, n), 0.0f, 1.0f);
+        float alpha = std::pow(roughness, 2);
+        float d = distributionGGX(alpha, n, h);
+        
+        simd_float3 f0;
+        f0.x = simd::lerp(0.04f, albedo.x, metalness);
+        f0.y = simd::lerp(0.04f, albedo.y, metalness);
+        f0.z = simd::lerp(0.04f, albedo.z, metalness);
+
+        simd_float3 f;
+        f.x = fresnelSchlick(f0.x, v, h);
+        f.y = fresnelSchlick(f0.y, v, h);
+        f.z = fresnelSchlick(f0.z, v, h);
+        
+        simd_float3 kS = f;
+        simd_float3 kD = simd::make_float3(1.0, 1.0, 1.0) - kS;
+        kD *= 1.0 - metalness;
+
+        float k = std::pow(alpha + 1.0, 2) / 8.0;
+        float g = geometrySmith(v, n, l, k);
+        const float epsilon = 1e-5;
+
+        simd_float3 specular = (f * g * d) / std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
+
+        simd_float3 a = kD * diffuse + kS * specular;
+        simd_float3 b = kD * indirect;
+
+        return a * lamberts * li + b;
+    }
     simd_float4 trace(uint16_t x,
                       uint16_t y,
                       uint16_t width,
                       uint16_t height,
                       Scene const & scene) {
-        
-        
-        simd_float4 color{0, 0, 0, 1};
-        
+                
         Ray r = scene.camera.ray(x, y, width, height);
         std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
-        if (closest != std::nullopt) {
-            simd_float3 point = closest->point;
-            simd_float2 uv = closest->uv;
-            simd::float4 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo);
-            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
-            normal = (normal * 2.0f) - 1.0f;
-            
-            simd::float3x3 tbn(closest->T, closest->B, closest->N);
-            normal = tbn * normal;
-            
-            
-            simd_float3 l = simd_normalize(scene.omnilights[0].representation.center - point);
-            float cosine = simd::clamp(simd::dot(normal, l), 0.0f, 1.0f);
-            return simd_make_float4(albedo.xyz * cosine, 1);
+        if (closest == std::nullopt) {
+            return simd_make_float4(0, 0, 0, 1);
         }
         
-        return color;
+        simd_float3 point = closest->point;
+        simd_float2 uv = closest->uv;
+        simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo).xyz;
+        simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
+        float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness).x;
+        float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness).x;
+        
+        normal = (normal * 2.0f) - 1.0f;
+        
+        simd::float3x3 tbn(closest->T, closest->B, closest->N);
+        normal = tbn * normal;
+        
+        
+        simd_float3 l = simd_normalize(scene.omnilights[0].representation.center - point);
+        float llength = simd::length(scene.omnilights[0].representation.center - point);
+        
+        simd_float3 v = simd::normalize(r.origin - closest->point);
+        simd_float3 h = simd::normalize(closest->point + v);
+        
+        
+        simd_float3 color = cookTorrance(v, normal, h, l, albedo.xyz, simd_float3(0), metalness, roughness, scene.omnilights[0].intensity * 1.0f/std::pow(llength, 2.0f));
+        
+        return simd_make_float4(color, 1);
     }
 private:
     Intersector intersector;
