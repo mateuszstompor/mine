@@ -36,14 +36,16 @@
 - (void)generateBitmapData {
     Scene s;
     s.spheres.push_back(Sphere({0, 0, 100}, 30));
-    s.spheres.push_back(Sphere({-30, 30, 40}, 40));
-    
+    s.spheres.push_back(Sphere({-30, 30, 80}, 40));
+    s.omnilights.push_back(OmniLight(Sphere({0, 80, 0}, 30),
+                                     100,
+                                     {1, 0, 0}));
     uint16_t width = cgbitmap->bitmap.width;
     uint16_t height = cgbitmap->bitmap.height;
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
             simd_float4 color = rt.trace(x, y, width, height, s);
-            cgbitmap->bitmap.setNormalizedRGBA(x, y, color);
+            cgbitmap->bitmap.setNormalizedRGBA(x, height - y - 1, color);
         }
     }
 }

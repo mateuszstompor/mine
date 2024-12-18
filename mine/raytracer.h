@@ -29,7 +29,10 @@ public:
         Ray r = scene.camera.ray(x, y, width, height);
         std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
         if (closest != std::nullopt) {
-            return {1, 0, 0, 1};
+            simd_float3 point = closest->point;
+            simd_float3 l = simd_normalize(scene.omnilights[0].representation.center - point);
+            float cosine = simd::clamp(simd::dot(closest->N, l), 0.0f, 1.0f);
+            return simd_make_float4(simd_make_float3(1, 0, 0) * cosine, 1);
         }
         
         return color;
