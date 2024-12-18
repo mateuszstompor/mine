@@ -15,6 +15,18 @@
 
 class SphereIntersector {
 public:
+    Ray ray(int x, int y, int width, int height) {
+        float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
+        float aspect = static_cast<float>(width) / height;
+        float newY = (static_cast<float>(y) / (height - 1)) / aspect * 2 - 1;
+
+        simd_float3 origin = simd_make_float3(0, 0, 0);
+        simd_float3 newP = simd_make_float3(newX, newY, 1.0);
+        simd_float3 direction = simd_normalize(newP - origin);
+
+        return Ray{origin, direction};
+    }
+    
     std::vector<double> intersect(const Ray& ray, const Sphere& sphere) const {
         auto oc = ray.origin - sphere.center;
         double k1 = simd::dot(ray.direction, ray.direction);
@@ -80,13 +92,14 @@ private:
 
 class RayTracer {
 public:
-    simd_float4 trace(uint16_t x, uint16_t y) {
+    simd_float4 trace(uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
         simd_float4 color{0, 0, 0, 1};
-        Ray r(simd_make_float3(x, y, 0),
-              simd_normalize(simd_make_float3(0, 0, 1)));
-        Sphere s(40, {500, 500, 200});
-        
         SphereIntersector i;
+        
+        Ray r = i.ray(x, y, width, height);
+        Sphere s(40, {0, 0, 200});
+        
+        
         auto t = i.intersect(r, s);
         if (t.size() != 0) {
             return {1, 0, 0, 1};

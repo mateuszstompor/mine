@@ -34,9 +34,11 @@
 }
 
 - (void)generateBitmapData {
-    for (size_t y = 0; y < cgbitmap->bitmap.height; y++) {
-        for (size_t x = 0; x < cgbitmap->bitmap.width; x++) {
-            simd_float4 color = rt.trace(x, y);
+    uint16_t width = cgbitmap->bitmap.width;
+    uint16_t height = cgbitmap->bitmap.height;
+    for (size_t y = 0; y < height; y++) {
+        for (size_t x = 0; x < width; x++) {
+            simd_float4 color = rt.trace(x, y, width, height);
             cgbitmap->bitmap.setNormalizedRGBA(x, y, color);
         }
     }
