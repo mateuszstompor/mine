@@ -16,10 +16,10 @@
 
 @implementation BitmapView
 
-- (instancetype)initWithFrame:(NSRect)frame width:(size_t)width height:(size_t)height {
+- (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        cgbitmap = new CGBitmap(width, height, 4);
+        cgbitmap = new CGBitmap(1000, 1000, 4);
         [self generateBitmapData];
     }
     return self;
