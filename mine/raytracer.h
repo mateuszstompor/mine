@@ -33,9 +33,15 @@ public:
             simd_float3 point = closest->point;
             simd_float2 uv = closest->uv;
             simd::float4 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo);
+            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
+            normal = (normal * 2.0f) - 1.0f;
+            
+            simd::float3x3 tbn(closest->T, closest->B, closest->N);
+            normal = tbn * normal;
+            
             
             simd_float3 l = simd_normalize(scene.omnilights[0].representation.center - point);
-            float cosine = simd::clamp(simd::dot(closest->N, l), 0.0f, 1.0f);
+            float cosine = simd::clamp(simd::dot(normal, l), 0.0f, 1.0f);
             return simd_make_float4(albedo.xyz * cosine, 1);
         }
         

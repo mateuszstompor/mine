@@ -27,7 +27,11 @@ public:
             simd_float3 point = r.origin + r.direction * t;
             simd_float3 normal = simd_normalize(point - sphere.center);
             simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
-            assignIfCloser(closest, RayIntersection(normal, point, uv, sObject.material, t));
+            simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
+            simd::float3 tmp = simd::cross(A, normal);
+            simd::float3 tangent = tmp / simd::length(tmp);
+            simd::float3 bitangent = simd::cross(normal, tangent);
+            assignIfCloser(closest, RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, t));
         }
         for (TriangleObject const & tObject : s.triangles) {
             std::optional<float> intersection = tIntersector.intersect(r, tObject.triangle);
@@ -37,7 +41,13 @@ public:
             float t = (*intersection);
             simd_float3 point = r.origin + r.direction * t;
             simd::float2 uv = tIntersector.getTextureCoordinates(point, tObject.triangle);
-            assignIfCloser(closest, RayIntersection(tObject.triangle.normal, point, uv, tObject.material, t));
+            assignIfCloser(closest, RayIntersection(tObject.triangle.tangent,
+                                                    tObject.triangle.bitangent,
+                                                    tObject.triangle.normal,
+                                                    point,
+                                                    uv,
+                                                    tObject.material,
+                                                    t));
         }
         
         return closest;
