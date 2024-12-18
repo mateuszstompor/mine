@@ -6,7 +6,7 @@
 //
 
 #import <AppKit/AppKit.h>
-#import "../mine/cgbitmap.h"
+#import "../../mine/cgbitmap.h"
 
 @interface BitmapView : NSView
 {
