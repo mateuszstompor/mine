@@ -17,7 +17,8 @@ class Intersector {
 public:
     std::optional<RayIntersection> closestIntersection(Scene const & s, Ray const & r) {
         std::optional<RayIntersection> closest = std::nullopt;
-        for (Sphere const & sphere : s.spheres) {
+        for (SphereObject const & sObject : s.spheres) {
+            auto const & sphere = sObject.sphere;
             std::vector<float> allIntersections = sIntersector.intersect<float>(r, sphere);
             if (allIntersections.empty()) {
                 continue;
@@ -26,17 +27,17 @@ public:
             simd_float3 point = r.origin + r.direction * t;
             simd_float3 normal = simd_normalize(point - sphere.center);
             simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
-            assignIfCloser(closest, RayIntersection(normal, point, uv, t));
+            assignIfCloser(closest, RayIntersection(normal, point, uv, sObject.material, t));
         }
-        for (Triangle const & triangle : s.triangles) {
-            std::optional<float> intersection = tIntersector.intersect(r, triangle);
+        for (TriangleObject const & tObject : s.triangles) {
+            std::optional<float> intersection = tIntersector.intersect(r, tObject.triangle);
             if (!intersection) {
                 continue;
             }
             float t = (*intersection);
             simd_float3 point = r.origin + r.direction * t;
-            simd::float2 uv = tIntersector.getTextureCoordinates(point, triangle);
-            assignIfCloser(closest, RayIntersection(triangle.normal, point, uv, t));
+            simd::float2 uv = tIntersector.getTextureCoordinates(point, tObject.triangle);
+            assignIfCloser(closest, RayIntersection(tObject.triangle.normal, point, uv, tObject.material, t));
         }
         
         return closest;

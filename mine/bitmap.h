@@ -19,6 +19,14 @@ struct Bitmap {
     const uint8_t bytesPerPixel;
     std::vector<uint8_t> data;
     
+    Bitmap(simd_float4 color)
+    : Bitmap(1, 1, 4) {
+        *(data.data()) = color.x * 255;
+        *(data.data() + 1) = color.y * 255;
+        *(data.data() + 2) = color.z * 255;
+        *(data.data() + 3) = color.w * 255;
+    }
+    
     Bitmap(uint16_t width, uint16_t height, uint8_t bytesPerPixel)
     : width{width}
     , height{height}
@@ -52,6 +60,10 @@ struct Bitmap {
          data[(y * width + x) * bytesPerPixel + 2] / 255.0,
          data[(y * width + x) * bytesPerPixel + 3] / 255.0
         );
+    }
+    
+    static Bitmap defaultNormalMap() {
+        return Bitmap(simd_make_float4((simd_make_float3(0, 0, 1) + 1) / 2.0, 1));
     }
     
     void setNormalizedRGBA(uint16_t x, uint16_t y, simd_float4 const & normalized) {

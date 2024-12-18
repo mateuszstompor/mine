@@ -24,6 +24,8 @@
 		05B4B9E22D135DB100BCED51 /* triangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
 		05B4B9E42D135F1500BCED51 /* triangleintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleintersector.h; sourceTree = "<group>"; };
 		05B4B9E52D13649200BCED51 /* nearestsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nearestsampler.h; sourceTree = "<group>"; };
+		05B4B9E62D13686200BCED51 /* triangleobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleobject.h; sourceTree = "<group>"; };
+		05B4B9E82D136E4B00BCED51 /* sphereobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphereobject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -78,6 +80,8 @@
 		05B4B9722D131FDD00BCED51 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9E82D136E4B00BCED51 /* sphereobject.h */,
+				05B4B9E62D13686200BCED51 /* triangleobject.h */,
 				05B4B9E22D135DB100BCED51 /* triangle.h */,
 				05B4B9CC2D1358A800BCED51 /* look */,
 				05B4B9CA2D1331BD00BCED51 /* camera.h */,
@@ -312,6 +316,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
 				CODE_SIGN_ENTITLEMENTS = "rt2/supporting files/rt2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -338,6 +343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
 				CODE_SIGN_ENTITLEMENTS = "rt2/supporting files/rt2.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;

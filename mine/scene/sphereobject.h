@@ -1,5 +1,5 @@
 //
-//  rayintersection.h
+//  sphereobject.h
 //
 //  Created on 18/12/2024.
 //  Copyright © 2024 Mateusz Stompór. All rights reserved.
@@ -9,14 +9,10 @@
 
 #include <memory>
 
-#include <simd/simd.h>
-
 #include "look/material.h"
+#include "sphere.h"
 
-struct RayIntersection {
-    simd_float3 N;
-    simd_float3 point;
-    simd_float2 uv;
+struct SphereObject {
+    Sphere sphere;
     std::shared_ptr<Material> material;
-    float t;
 };

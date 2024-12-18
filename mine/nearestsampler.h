@@ -14,10 +14,14 @@
 class NearestSampler {
 public:
     simd::float4 sample(float u, float v, const Bitmap & texture) {
-        assert(u < 1);
-        assert(v < 1);
-        uint16_t x = texture.width * u;
-        uint16_t y = texture.height * v;
+//        assert(u <= 1 && u >= 0);
+//        assert(v <= 1 && v >= 0);
+        
+        float normalizedU = simd::clamp(u, 0.0f, 1.0f);
+        float normalizedV = simd::clamp(v, 0.0f, 1.0f);
+        
+        uint16_t x = (texture.width - 1) * normalizedU;
+        uint16_t y = (texture.height - 1) * normalizedV;
         
         return texture.colorAt(x, y);
     }

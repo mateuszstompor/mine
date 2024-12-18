@@ -10,13 +10,13 @@
 #include <vector>
 
 #include "light/omnilight.h"
-#include "sphere.h"
+#include "sphereobject.h"
 #include "camera.h"
-#include "triangle.h"
+#include "triangleobject.h"
 
 struct Scene {
     Camera camera;
     std::vector<OmniLight> omnilights;
-    std::vector<Sphere> spheres;
-    std::vector<Triangle> triangles;
+    std::vector<SphereObject> spheres;
+    std::vector<TriangleObject> triangles;
 };

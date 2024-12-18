@@ -16,7 +16,7 @@
 
 class TriangleIntersector {
 public:
-    std::optional<float> intersect(const Ray& ray, const Triangle& triangle, float epsilon = 1e-10) const {
+    std::optional<float> intersect(const Ray& ray, const Triangle& triangle, float epsilon = 1e-3) const {
         simd::float3 origin = (triangle.v0 + triangle.v1 + triangle.v2) / 3.0;
         float a = simd::dot(origin - ray.origin, triangle.normal);
         float b = simd::dot(ray.direction, triangle.normal);

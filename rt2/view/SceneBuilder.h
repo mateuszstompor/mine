@@ -152,16 +152,40 @@ public:
     }
     
     static Scene cornellBox() {
-        auto triangles = closedCornellBox();
+        std::vector<Triangle> triangles = closedCornellBox();
+        std::vector<TriangleObject> tObjects;
+        
         std::vector<OmniLight> lights = {
             OmniLight(Sphere({0, 60, 120}, 5), 10000.0)
         };
-        std::vector<Sphere> spheres = {
-            Sphere({50, -60, 160}, 40),
-            Sphere({-50, -60, 120}, 40)
-        };
+        
         Scene s{};
-        s.triangles = triangles;
+        
+        auto white = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.9, 0.9, 1.0)),
+                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                                Bitmap::defaultNormalMap());
+        
+        auto blue = std::make_shared<Material>(Bitmap(simd_make_float4(0.1, 0.1, 0.9, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                               Bitmap::defaultNormalMap());
+        
+        auto red = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.1, 0.1, 1.0)),
+                                              Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                              Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                              Bitmap::defaultNormalMap());
+        
+        for (auto const & triangle : triangles) {
+            tObjects.push_back(TriangleObject(triangle, white));
+        }
+        
+        std::vector<SphereObject> spheres = {
+            SphereObject(Sphere({50, -60, 160}, 40), red),
+            SphereObject(Sphere({-50, -60, 120}, 40), blue)
+        };
+        
+        s.triangles = tObjects;
         s.omnilights = lights;
         s.spheres = spheres;
         return s;
