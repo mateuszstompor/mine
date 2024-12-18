@@ -13,6 +13,7 @@
 #include "scene/scene.h"
 #include "intersector/intersector.h"
 #include "scene/rayintersection.h"
+#include "nearestsampler.h"
 
 class RayTracer {
 public:

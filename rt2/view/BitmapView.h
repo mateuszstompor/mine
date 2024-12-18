@@ -9,7 +9,7 @@
 
 #import "../../mine/cgbitmap.h"
 #import "../../mine/raytracer.h"
-#import "../../mine/scenebuilder.h"
+#import "SceneBuilder.h"
 #import "../../mine/scene/look/textureloader.h"
 
 @interface BitmapView : NSView

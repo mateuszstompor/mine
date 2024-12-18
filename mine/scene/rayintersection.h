@@ -12,5 +12,6 @@
 struct RayIntersection {
     simd_float3 N;
     simd_float3 point;
+    simd_float2 uv;
     float t;
 };

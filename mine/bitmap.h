@@ -45,6 +45,15 @@ struct Bitmap {
         return data[(y * width + x) * bytesPerPixel + channel];
     }
     
+    simd::float4 colorAt(uint16_t x, uint16_t y) const {
+        return simd::make_float4(
+         data[(y * width + x) * bytesPerPixel] / 255.0,
+         data[(y * width + x) * bytesPerPixel + 1] / 255.0,
+         data[(y * width + x) * bytesPerPixel + 2] / 255.0,
+         data[(y * width + x) * bytesPerPixel + 3] / 255.0
+        );
+    }
+    
     void setNormalizedRGBA(uint16_t x, uint16_t y, simd_float4 const & normalized) {
         data[(y * width + x) * bytesPerPixel] = normalized.x * 255;
         data[(y * width + x) * bytesPerPixel + 1] = normalized.y * 255;

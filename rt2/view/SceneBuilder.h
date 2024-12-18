@@ -9,8 +9,8 @@
 
 #include <vector>
 
-#include "./scene/triangle.h"
-#include "./scene/scene.h"
+#include "../../mine/scene/triangle.h"
+#include "../../mine/scene/scene.h"
 
 class SceneBuilder {
 public:
