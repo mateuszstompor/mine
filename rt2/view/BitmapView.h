@@ -21,8 +21,15 @@
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        cgbitmap = new CGBitmap(2000, 2000, 4);
-        [self generateBitmapData];
+        cgbitmap = new CGBitmap(1000, 1000, 4);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            [self generateBitmapData];
+        });
+        [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setNeedsDisplay:YES];
+            });
+        }];
     }
     return self;
 }
