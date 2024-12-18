@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  rt2
 //
-//  Created by Motion VFX on 18/12/2024.
+//  Created on 18/12/2024.
+//  Copyright © 2024 Mateusz Stompór. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
