@@ -57,6 +57,8 @@
     uint16_t height = cgbitmap->bitmap.height;
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
+            simd_float4 color = rt.trace(x, y, width, height, s);
+            
             cgbitmap->bitmap.setNormalizedRGBA(x, height - y - 1, color);
         }
     }
