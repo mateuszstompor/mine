@@ -5,8 +5,12 @@
 //  Copyright © 2024 Mateusz Stompór. All rights reserved.
 //
 
+#pragma once
+
 #include <cstdint>
 #include <vector>
+#include <cstring>
+
 #include <simd/simd.h>
 
 struct Bitmap {
@@ -19,13 +23,26 @@ struct Bitmap {
     : width{width}
     , height{height}
     , bytesPerPixel{bytesPerPixel}
-    , data(static_cast<int>(width) * static_cast<int>(height) * static_cast<int>(bytesPerPixel))
+    , data(static_cast<int>(width) *
+           static_cast<int>(height) *
+           static_cast<int>(bytesPerPixel))
     {
         // Empty
     }
     
-    uint8_t& at(uint16_t x, uint16_t y) {
-        return data[(y * width + x) * bytesPerPixel];
+    Bitmap(uint8_t const * rawData,
+           uint16_t width,
+           uint16_t height,
+           uint8_t bytesPerPixel)
+    : Bitmap(width, height, bytesPerPixel)
+    {
+        std::memcpy(data.data(),
+                    rawData,
+                    width * height * bytesPerPixel);
+    }
+    
+    uint8_t& at(uint16_t x, uint16_t y, uint8_t channel = 0) {
+        return data[(y * width + x) * bytesPerPixel + channel];
     }
     
     void setNormalizedRGBA(uint16_t x, uint16_t y, simd_float4 const & normalized) {

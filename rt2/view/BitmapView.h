@@ -6,8 +6,10 @@
 //
 
 #import <AppKit/AppKit.h>
+
 #import "../../mine/cgbitmap.h"
 #import "../../mine/raytracer.h"
+#import "../../mine/scene/look/textureloader.h"
 
 @interface BitmapView : NSView
 {
@@ -47,11 +49,14 @@
     s.omnilights.push_back(OmniLight(Sphere({0, 80, 0}, 30),
                                      100,
                                      {1, 0, 0}));
+    
+    Bitmap albedo = *BitmapLoader::load("Metal055A_2K-JPG_Color.jpg");
+    
+    
     uint16_t width = cgbitmap->bitmap.width;
     uint16_t height = cgbitmap->bitmap.height;
     for (uint16_t y = 0; y < height; y++) {
         for (uint16_t x = 0; x < width; x++) {
-            simd_float4 color = rt.trace(x, y, width, height, s);
             cgbitmap->bitmap.setNormalizedRGBA(x, height - y - 1, color);
         }
     }

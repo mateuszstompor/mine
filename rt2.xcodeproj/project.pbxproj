@@ -19,6 +19,8 @@
 		05B4B9C82D1330F400BCED51 /* sphereintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphereintersector.h; sourceTree = "<group>"; };
 		05B4B9C92D13312500BCED51 /* intersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = intersector.h; sourceTree = "<group>"; };
 		05B4B9CA2D1331BD00BCED51 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		05B4B9CB2D13570300BCED51 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
+		05B4B9CD2D1358B800BCED51 /* textureloader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp.preprocessed; path = textureloader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -72,6 +74,7 @@
 		05B4B9722D131FDD00BCED51 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				05B4B9CC2D1358A800BCED51 /* look */,
 				05B4B9CA2D1331BD00BCED51 /* camera.h */,
 				05B4B9C62D13309800BCED51 /* rayintersection.h */,
 				05B4B99E2D132F6300BCED51 /* light */,
@@ -97,6 +100,15 @@
 				05B4B9C82D1330F400BCED51 /* sphereintersector.h */,
 			);
 			path = intersector;
+			sourceTree = "<group>";
+		};
+		05B4B9CC2D1358A800BCED51 /* look */ = {
+			isa = PBXGroup;
+			children = (
+				05B4B9CD2D1358B800BCED51 /* textureloader.h */,
+				05B4B9CB2D13570300BCED51 /* material.h */,
+			);
+			path = look;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
