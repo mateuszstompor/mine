@@ -18,7 +18,7 @@
                BlueprintIdentifier = "053D4D072D12E08800D1876F"
                BuildableName = "rt2.app"
                BlueprintName = "rt2"
-               ReferencedContainer = "container:rt2.xcodeproj">
+               ReferencedContainer = "container:RT2.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,7 +47,7 @@
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
             BuildableName = "rt2.app"
             BlueprintName = "rt2"
-            ReferencedContainer = "container:rt2.xcodeproj">
+            ReferencedContainer = "container:RT2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
             BuildableName = "rt2.app"
             BlueprintName = "rt2"
-            ReferencedContainer = "container:rt2.xcodeproj">
+            ReferencedContainer = "container:RT2.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

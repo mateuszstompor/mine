@@ -6,11 +6,12 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "../mine/cgbitmap.h"
 
 @interface BitmapView : NSView
-@property (nonatomic, assign) size_t width;
-@property (nonatomic, assign) size_t height;
-@property (nonatomic) uint8_t *bitmapData;
+{
+    CGBitmap * cgbitmap;
+}
 @end
 
 @implementation BitmapView
@@ -18,56 +19,37 @@
 - (instancetype)initWithFrame:(NSRect)frame width:(size_t)width height:(size_t)height {
     self = [super initWithFrame:frame];
     if (self) {
-        _width = width;
-        _height = height;
-        _bitmapData = malloc(width * height * 4); // RGBA 8-bit per channel
-        [self generateBitmapData]; // Optional: Fill the bitmap with data
+        cgbitmap = new CGBitmap(width, height, 4);
+        [self generateBitmapData];
     }
     return self;
 }
 
-- (void)dealloc {
-    if (_bitmapData) {
-        free(_bitmapData);
-    }
+- (void)dealloc
+{
+    delete cgbitmap;
+    [super dealloc];
 }
 
-// Fill bitmap data with a pattern or colors
 - (void)generateBitmapData {
-    for (size_t y = 0; y < self.height; y++) {
-        for (size_t x = 0; x < self.width; x++) {
-            size_t index = (y * self.width + x) * 4;
-            _bitmapData[index] = (uint8_t)(x % 255);     // Red
-            _bitmapData[index + 1] = (uint8_t)(y % 255); // Green
-            _bitmapData[index + 2] = 128;                // Blue
-            _bitmapData[index + 3] = 255;                // Alpha
+    for (size_t y = 0; y < cgbitmap->bitmap.height; y++) {
+        for (size_t x = 0; x < cgbitmap->bitmap.width; x++) {
+            size_t index = (y * cgbitmap->bitmap.width + x) * 4;
+            cgbitmap->bitmap.data[index] = (uint8_t)(x % 255);
+            cgbitmap->bitmap.data[index + 1] = (uint8_t)(y % 255);
+            cgbitmap->bitmap.data[index + 2] = 128;
+            cgbitmap->bitmap.data[index + 3] = 255;
         }
     }
 }
 
-// Draw the bitmap
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef bitmapContext = CGBitmapContextCreate(
-        _bitmapData,
-        _width,
-        _height,
-        8, // Bits per component
-        _width * 4, // Bytes per row
-        colorSpace,
-        kCGImageAlphaPremultipliedLast
-    );
-
-    CGImageRef image = CGBitmapContextCreateImage(bitmapContext);
+    CGImageRef image = CGBitmapContextCreateImage(cgbitmap->bitmapContext);
     CGContextDrawImage(context, self.bounds, image);
-    
     CGImageRelease(image);
-    CGContextRelease(bitmapContext);
-    CGColorSpaceRelease(colorSpace);
 }
 
 @end

@@ -8,6 +8,8 @@
 
 /* Begin PBXFileReference section */
 		053D4D082D12E08800D1876F /* rt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		057BBD272D130C3E002C204E /* bitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
+		057BBD2B2D13130A002C204E /* cgbitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgbitmap.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +34,7 @@
 		053D4CFF2D12E08800D1876F = {
 			isa = PBXGroup;
 			children = (
+				057BBD262D130C38002C204E /* mine */,
 				053D4D0A2D12E08800D1876F /* rt2 */,
 				053D4D092D12E08800D1876F /* Products */,
 			);
@@ -43,6 +46,15 @@
 				053D4D082D12E08800D1876F /* rt2.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		057BBD262D130C38002C204E /* mine */ = {
+			isa = PBXGroup;
+			children = (
+				057BBD2B2D13130A002C204E /* cgbitmap.h */,
+				057BBD272D130C3E002C204E /* bitmap.h */,
+			);
+			path = mine;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,7 +96,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 053D4D032D12E08800D1876F /* Build configuration list for PBXProject "rt2" */;
+			buildConfigurationList = 053D4D032D12E08800D1876F /* Build configuration list for PBXProject "RT2" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -133,7 +145,6 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -147,7 +158,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -194,7 +204,6 @@
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -208,7 +217,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
@@ -294,7 +302,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		053D4D032D12E08800D1876F /* Build configuration list for PBXProject "rt2" */ = {
+		053D4D032D12E08800D1876F /* Build configuration list for PBXProject "RT2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				053D4D192D12E08A00D1876F /* Debug */,
