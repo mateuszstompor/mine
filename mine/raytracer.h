@@ -40,9 +40,15 @@ public:
         return gV * gL;
     }
 
-    simd_float3 cookTorrance(const simd_float3& v, const simd_float3& n, const simd_float3& h, const simd_float3& l,
-                              const simd_float3& albedo, const simd_float3& indirect, float metalness, float roughness,
-                              float li) {
+    simd_float3 cookTorrance(const simd_float3& v,
+                             const simd_float3& n,
+                             const simd_float3& h,
+                             const simd_float3& l,
+                             const simd_float3& albedo,
+                             const simd_float3& indirect,
+                             float metalness,
+                             float roughness,
+                             float li) {
         simd_float3 diffuse = albedo / M_PI;
         float lamberts = simd::clamp(simd::dot(l, n), 0.0f, 1.0f);
         float alpha = std::pow(roughness, 2);
@@ -78,7 +84,6 @@ public:
                       uint16_t width,
                       uint16_t height,
                       Scene const & scene) {
-                
         Ray r = scene.camera.ray(x, y, width, height);
         std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
         if (closest == std::nullopt) {
@@ -87,6 +92,7 @@ public:
         
         simd_float3 point = closest->point;
         simd_float2 uv = closest->uv;
+        
         simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo).xyz;
         simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
         float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness).x;
@@ -97,17 +103,31 @@ public:
         simd::float3x3 tbn(closest->T, closest->B, closest->N);
         normal = tbn * normal;
         
+        simd::float3 accumulatedColor = simd::float3(0);
         
-        simd_float3 l = simd_normalize(scene.omnilights[0].representation.center - point);
-        float llength = simd::length(scene.omnilights[0].representation.center - point);
-        
-        simd_float3 v = simd::normalize(r.origin - closest->point);
-        simd_float3 h = simd::normalize(closest->point + v);
-        
-        
-        simd_float3 color = cookTorrance(v, normal, h, l, albedo.xyz, simd_float3(0), metalness, roughness, scene.omnilights[0].intensity * 1.0f/std::pow(llength, 2.0f));
-        
-        return simd_make_float4(color, 1);
+        for (auto const & light: scene.omnilights) {
+            
+            simd_float3 l = light.representation.center - point;
+            simd_float3 ln = simd::normalize(l);
+            float l2 = simd::dot(l, l);
+            
+            float li = light.intensity * 1.0f/l2;
+            
+            simd_float3 v = simd::normalize(r.origin - closest->point);
+            simd_float3 h = simd::normalize(l + v);
+            
+            
+            accumulatedColor += cookTorrance(v, normal,
+                                             h, ln,
+                                             albedo.xyz,
+                                             simd_float3(0),
+                                             metalness,
+                                             roughness,
+                                             li);
+        }
+        return simd_make_float4(simd::clamp(accumulatedColor,
+                                            simd::float3(0.0f),
+                                            simd::float3(1.0f)), 1.0f);
     }
 private:
     Intersector intersector;
