@@ -6,6 +6,8 @@
 //
 
 #include <cstdint>
+#include <cmath>
+#include <optional>
 
 #include <simd/simd.h>
 
@@ -45,7 +47,6 @@ public:
                              const simd_float3& h,
                              const simd_float3& l,
                              const simd_float3& albedo,
-                             const simd_float3& indirect,
                              float metalness,
                              float roughness,
                              float li) {
@@ -74,10 +75,9 @@ public:
 
         simd_float3 specular = (f * g * d) / std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
 
-        simd_float3 a = kD * diffuse + kS * specular;
-        simd_float3 b = kD * indirect;
+        simd_float3 direct = kD * diffuse + kS * specular;
 
-        return a * lamberts * li + b;
+        return direct * lamberts * li;
     }
     simd_float4 trace(uint16_t x,
                       uint16_t y,
@@ -119,8 +119,7 @@ public:
             
             accumulatedColor += cookTorrance(v, normal,
                                              h, ln,
-                                             albedo.xyz,
-                                             simd_float3(0),
+                                             albedo,
                                              metalness,
                                              roughness,
                                              li);

@@ -49,7 +49,9 @@ private:
         size_t bytesPerRow = bytesPerPixel * width;
 
         NSMutableData *rawData = [NSMutableData dataWithLength:width * height * bytesPerPixel];
-        CGColorSpaceRef colorSpace = CGImageGetColorSpace(cgImage);
+        // Detect and use monochrome or whatever is suggested
+        // CGColorSpaceRef colorSpace = CGImageGetColorSpace(cgImage);
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         if (!colorSpace) return nil;
 
         CGContextRef context = CGBitmapContextCreate(rawData.mutableBytes,
