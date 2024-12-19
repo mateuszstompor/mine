@@ -51,8 +51,8 @@ public:
                              float roughness,
                              float li) {
         simd_float3 diffuse = albedo / M_PI;
-        float lamberts = simd::clamp(simd::dot(l, n), 0.0f, 1.0f);
-        float alpha = std::pow(roughness, 2);
+        float lamberts = simd::max(simd::dot(l, n), 0.0f);
+        float alpha = std::pow(roughness, 2.0f);
         float d = distributionGGX(alpha, n, h);
         
         simd_float3 f0;
@@ -66,10 +66,10 @@ public:
         f.z = fresnelSchlick(f0.z, v, h);
         
         simd_float3 kS = f;
-        simd_float3 kD = simd::make_float3(1.0, 1.0, 1.0) - kS;
+        simd_float3 kD = simd::float3(1.0) - kS;
         kD *= 1.0 - metalness;
 
-        float k = std::pow(alpha + 1.0, 2) / 8.0;
+        float k = std::pow(alpha + 1.0f, 2.0f) / 8.0f;
         float g = geometrySmith(v, n, l, k);
         const float epsilon = 1e-5;
 
@@ -100,8 +100,11 @@ public:
         
         normal = (normal * 2.0f) - 1.0f;
         
-        simd::float3x3 tbn(closest->T, closest->B, closest->N);
-        normal = tbn * normal;
+        simd::float3x3 tbn(closest->T,
+                           closest->B,
+                           closest->N);
+        
+        normal = simd::normalize(tbn * normal);
         
         simd::float3 accumulatedColor = simd::float3(0);
         

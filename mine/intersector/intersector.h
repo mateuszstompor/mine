@@ -30,7 +30,7 @@ public:
             simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
             simd::float3 tmp = simd::cross(A, normal);
             simd::float3 tangent = tmp / simd::length(tmp);
-            simd::float3 bitangent = simd::cross(normal, tangent);
+            simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
             assignIfCloser(closest, RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, t));
         }
         for (TriangleObject const & tObject : s.triangles) {
