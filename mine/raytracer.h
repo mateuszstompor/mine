@@ -26,8 +26,10 @@ public:
         return alphaSq / (M_PI * denom * denom);
     }
 
-    float fresnelSchlick(float f0, const simd_float3& v, const simd_float3& h) {
-        float cosTheta = simd::clamp(simd::dot(v, h), 0.0f, 1.0f);
+    simd_float3 fresnelSchlick(const simd_float3& f0,
+                               const simd_float3& v,
+                               const simd_float3& h) {
+        float cosTheta = simd::max(simd::dot(v, h), 0.0f);
         return f0 + (1.0f - f0) * std::pow(1.0f - cosTheta, 5.0f);
     }
 
@@ -55,15 +57,11 @@ public:
         float alpha = std::pow(roughness, 2.0f);
         float d = distributionGGX(alpha, n, h);
         
-        simd_float3 f0;
-        f0.x = simd::lerp(0.04f, albedo.x, metalness);
-        f0.y = simd::lerp(0.04f, albedo.y, metalness);
-        f0.z = simd::lerp(0.04f, albedo.z, metalness);
+        simd_float3 f0 = simd::lerp(simd_float3(0.04f),
+                                    albedo,
+                                    simd_float3(metalness));
 
-        simd_float3 f;
-        f.x = fresnelSchlick(f0.x, v, h);
-        f.y = fresnelSchlick(f0.y, v, h);
-        f.z = fresnelSchlick(f0.z, v, h);
+        simd_float3 f = fresnelSchlick(f0, v, h);
         
         simd_float3 kS = f;
         simd_float3 kD = simd::float3(1.0) - kS;
