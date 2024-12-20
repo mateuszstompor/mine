@@ -126,11 +126,12 @@ public:
     }
     
     static std::vector<Triangle> closedCornellBox() {
+        float offset = 190.0f;
         auto cornellBox = openCornellBox();
         Triangle front11({
-            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale),
-            simd::make_float3(-1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale),
-            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale)
+            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale + offset),
+            simd::make_float3(-1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale + offset),
+            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale + offset)
         }, {
             simd::make_float2(0, 0),
             simd::make_float2(0, 1),
@@ -138,9 +139,9 @@ public:
         });
         
         Triangle front12({
-            simd::make_float3( 1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale),
-            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale),
-            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale)
+            simd::make_float3( 1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale + offset),
+            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, -1.0 * backScale + offset),
+            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, -1.0 * backScale + offset)
         }, {
             simd::make_float2(1, 0),
             simd::make_float2(0, 0),
@@ -157,7 +158,7 @@ public:
         std::vector<TriangleObject> tObjects;
         
         std::vector<OmniLight> lights = {
-            OmniLight(Sphere({0, 60, 0}, 5), 10000.0)
+            OmniLight(Sphere({0, 60, 120}, 5), 10000.0)
         };
         
         Scene s{};

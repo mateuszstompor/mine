@@ -16,6 +16,7 @@
 #include "intersector/intersector.h"
 #include "scene/rayintersection.h"
 #include "linearsampler.h"
+#include "hemisphere.h"
 
 class RayTracer {
 public:
@@ -35,7 +36,7 @@ public:
 
     float geometrySchlickGGX(const simd_float3& v, const simd_float3& n, float k) {
         float nDotV = std::max(simd::dot(n, v), 0.0f);
-        return nDotV / (nDotV * (1.0 - k) + k);
+        return nDotV / (nDotV * (1.0f - k) + k);
     }
 
     float geometrySmith(const simd_float3& v, const simd_float3& n, const simd_float3& l, float k) {
@@ -71,21 +72,27 @@ public:
         float g = geometrySmith(v, n, l, k);
         const float epsilon = 1e-5;
 
-        simd_float3 specular = (f * g * d) / std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
+        float denominator = std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
+        simd_float3 specular = (f * g * d) / denominator;
 
         simd_float3 direct = kD * diffuse + kS * specular;
 
         return direct * lamberts * li;
     }
-    simd_float4 trace(uint16_t x,
-                      uint16_t y,
-                      uint16_t width,
-                      uint16_t height,
-                      Scene const & scene) {
-        Ray r = scene.camera.ray(x, y, width, height);
+    simd_float4 trace(Ray const & r,
+                      Scene const & scene,
+                      int depth) {
+        if (depth < 0) {
+            return simd_make_float4(simd::float3(0), 1.0f);
+        }
+        
         std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
         if (closest == std::nullopt) {
             return simd_make_float4(0, 0, 0, 1);
+        }
+        
+        if (closest->material == nil) {
+            return simd_make_float4(1, 1, 1, 1);
         }
         
         simd_float3 point = closest->point;
@@ -125,7 +132,18 @@ public:
                                              roughness,
                                              li);
         }
-        return simd_make_float4(simd::clamp(accumulatedColor,
+        
+        
+        simd::float3 totalIndirect(0);
+        int samplesTotal = 1;
+        for (int i = 0; i < samplesTotal; ++i) {
+            simd::float3 newDirection = sampleHemisphere(normal);
+            Ray newRay(closest->point + newDirection * 1e-5, newDirection);
+            totalIndirect += trace(newRay, scene, depth - 1).xyz;
+        }
+        totalIndirect /= static_cast<float>(samplesTotal);
+        
+        return simd_make_float4(simd::clamp(accumulatedColor + totalIndirect,
                                             simd::float3(0.0f),
                                             simd::float3(1.0f)), 1.0f);
     }
