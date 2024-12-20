@@ -8,6 +8,7 @@
 
 /* Begin PBXFileReference section */
 		0510C5762D1582F2001EFA03 /* rngstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rngstd.h; sourceTree = "<group>"; };
+		0510C5772D158A66001EFA03 /* rtwriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtwriter.h; sourceTree = "<group>"; };
 		053D4D082D12E08800D1876F /* rt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		057BBD272D130C3E002C204E /* bitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
 		057BBD2B2D13130A002C204E /* cgbitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgbitmap.h; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		057BBD262D130C38002C204E /* mine */ = {
 			isa = PBXGroup;
 			children = (
+				0510C5772D158A66001EFA03 /* rtwriter.h */,
 				0510C5752D1582EB001EFA03 /* rng */,
 				05EBC06D2D1560F0008E812C /* hemisphere.h */,
 				05B4BA072D13756400BCED51 /* linearsampler.h */,

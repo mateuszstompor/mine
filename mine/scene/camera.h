@@ -9,6 +9,8 @@
 
 #include <simd/simd.h>
 
+#include "ray.h"
+
 struct Camera {
     Ray ray(int x, int y, int width, int height) const {
         float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
