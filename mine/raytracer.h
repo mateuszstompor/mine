@@ -17,6 +17,7 @@
 #include "scene/rayintersection.h"
 #include "linearsampler.h"
 #include "hemisphere.h"
+#include "rng/rngstd.h"
 
 class RayTracer {
 public:
@@ -137,9 +138,12 @@ public:
         simd::float3 totalIndirect(0);
         int samplesTotal = 1;
         for (int i = 0; i < samplesTotal; ++i) {
-            simd::float3 newDirection = sampleHemisphere(normal);
+            simd::float3 newDirection = sampleHemisphere(normal,
+                                                         rng.random(),
+                                                         rng.random());
             Ray newRay(closest->point + newDirection * 1e-5, newDirection);
-            totalIndirect += trace(newRay, scene, depth - 1).xyz;
+            float affect = std::max(simd::dot(normal, newDirection), 0.0f);
+            totalIndirect += trace(newRay, scene, depth - 1).xyz * affect;
         }
         totalIndirect /= static_cast<float>(samplesTotal);
         
@@ -148,6 +152,7 @@ public:
                                             simd::float3(1.0f)), 1.0f);
     }
 private:
+    RNGSTD rng;
     Intersector intersector;
     LinearSampler sampler;
 };

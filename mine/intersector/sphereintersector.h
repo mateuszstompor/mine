@@ -35,7 +35,7 @@ public:
         return std::abs(d - e) < epsilon;
     }
     simd::float2 getSphericalCoordinates(const simd::float3& nonCenteredPoint, const Sphere& sphere) {
-        assert(isOnSphere(nonCenteredPoint, sphere, 0.1));
+        assert(isOnSphere(nonCenteredPoint, sphere, 1e-1));
         
         simd::float3 point = nonCenteredPoint - sphere.center;
         double phi = std::atan2(point.z, point.x);
