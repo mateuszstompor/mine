@@ -11,6 +11,7 @@
 
 #include "sphereintersector.h"
 #include "triangleintersector.h"
+#include "diskintersector.h"
 #include "../scene/rayintersection.h"
 
 class Intersector {
@@ -26,12 +27,13 @@ public:
             float t = allIntersections[0];
             simd_float3 point = r.origin + r.direction * t;
             simd_float3 normal = simd_normalize(point - sphere.center);
-            simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
+//            simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
+            simd::float2 uv = simd_float2(0);
             simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
             simd::float3 tmp = simd::cross(A, normal);
             simd::float3 tangent = tmp / simd::length(tmp);
             simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
-            assignIfCloser(closest, RayIntersection(tangent, bitangent, normal, point, uv, nil, t));
+            assignIfCloser(closest, RayIntersection(tangent, bitangent, normal, point, uv, nullptr, t));
         }
         for (SphereObject const & sObject : s.spheres) {
             auto const & sphere = sObject.sphere;
@@ -71,7 +73,7 @@ public:
 private:
     void assignIfCloser(std::optional<RayIntersection> & currentBest,
                         RayIntersection const & newIntersection) {
-        if (!currentBest || currentBest->t > newIntersection.t) {
+        if (!currentBest || (currentBest->t > newIntersection.t && newIntersection.t >= 0)) {
             currentBest = newIntersection;
         }
     }

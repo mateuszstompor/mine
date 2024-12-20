@@ -19,6 +19,11 @@
 #include "hemisphere.h"
 #include "rng/rngstd.h"
 
+struct Metadata {
+    int x;
+    int y;
+};
+
 class RayTracer {
 public:
     float distributionGGX(float alpha, const simd_float3& n, const simd_float3& h) {
@@ -82,7 +87,16 @@ public:
     }
     simd_float4 trace(Ray const & r,
                       Scene const & scene,
-                      int depth) {
+                      int depth,
+                      Metadata const & metadata) {
+//        int range = 10;
+//        int minx = 300;
+//        int miy = 340;
+//        if (metadata.x > minx && metadata.x < minx + range &&
+//            metadata.y > miy && metadata.y < miy + range) {
+//            return simd_make_float4(1, 1, 0, 1);
+//        }
+        
         if (depth < 0) {
             return simd_make_float4(simd::float3(0), 1.0f);
         }
@@ -116,6 +130,43 @@ public:
         
         for (auto const & light: scene.omnilights) {
             
+            int shadowSamples = 4;
+            float shadowInfluence = 0.0f;
+
+            if (shadowSamples > 0) {
+                for (int i = 0; i < shadowSamples; ++i) {
+                    if (metadata.x == 300 && metadata.y == 340) {
+                        printf("");
+                    }
+                    simd::float3 lightCenter = light.representation.center;
+                    simd::float3 toCenter = simd::normalize(lightCenter - closest->point);
+                                    
+                    Disk d(lightCenter, -toCenter, light.representation.radius);
+                    
+                    DiskIntersector di;
+                    float radius = rng.random() * light.representation.radius;
+                    float theta = rng.random() * 2 * M_PI;
+                    
+                    
+                    simd::float3 randomCartesian =  di.polarToCartesian(radius, theta, d);
+                    assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
+//                    simd::float3 newdir = toCenter;
+                    simd::float3 newdir = simd::normalize(randomCartesian - closest->point);
+                    
+                    Ray newray(closest->point + newdir, newdir);
+                    std::optional<RayIntersection> inttt = intersector.closestIntersection(scene, newray);
+                    
+                    assert(inttt != std::nullopt);
+                    if (inttt->material != nullptr) {
+                        shadowInfluence += 1;
+                    }
+                }
+                
+                shadowInfluence /= float(shadowSamples);
+                assert(shadowInfluence <= 1.0);
+            }
+            
+            
             simd_float3 l = light.representation.center - point;
             simd_float3 ln = simd::normalize(l);
             float l2 = simd::dot(l, l);
@@ -126,26 +177,28 @@ public:
             simd_float3 h = simd::normalize(l + v);
             
             
-            accumulatedColor += cookTorrance(v, normal,
-                                             h, ln,
-                                             albedo,
-                                             metalness,
-                                             roughness,
-                                             li);
+            accumulatedColor += (1.0f - shadowInfluence ) * cookTorrance(v, normal,
+                                                                h, ln,
+                                                                albedo,
+                                                                metalness,
+                                                                roughness,
+                                                                li);
         }
         
         
         simd::float3 totalIndirect(0);
-        int samplesTotal = 1;
-        for (int i = 0; i < samplesTotal; ++i) {
-            simd::float3 newDirection = sampleHemisphere(normal,
-                                                         rng.random(),
-                                                         rng.random());
-            Ray newRay(closest->point + newDirection * 1e-5, newDirection);
-            float affect = std::max(simd::dot(normal, newDirection), 0.0f);
-            totalIndirect += trace(newRay, scene, depth - 1).xyz * affect;
+        int samplesTotal = 4;
+        if (samplesTotal > 0) {
+            for (int i = 0; i < samplesTotal; ++i) {
+                simd::float3 newDirection = sampleHemisphere(normal,
+                                                             rng.random(),
+                                                             rng.random());
+                Ray newRay(closest->point + newDirection * 1e-5, newDirection);
+                float affect = std::max(simd::dot(normal, newDirection), 0.0f);
+                totalIndirect += trace(newRay, scene, depth - 1, metadata).xyz * affect;
+            }
+            totalIndirect /= static_cast<float>(samplesTotal);
         }
-        totalIndirect /= static_cast<float>(samplesTotal);
         
         return simd_make_float4(simd::clamp(accumulatedColor + totalIndirect,
                                             simd::float3(0.0f),

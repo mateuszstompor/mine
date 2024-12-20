@@ -158,7 +158,7 @@ public:
         std::vector<TriangleObject> tObjects;
         
         std::vector<OmniLight> lights = {
-            OmniLight(Sphere({0, 60, 120}, 5), 10000.0)
+            OmniLight(Sphere({0, 60, 60}, 20), 10000.0)
         };
         
         Scene s{};
@@ -186,10 +186,15 @@ public:
         for (auto const & triangle : triangles) {
             tObjects.push_back(TriangleObject(triangle, white));
         }
+        tObjects[2].material = red;
+        tObjects[3].material = red;
+        
+        tObjects[4].material = blue;
+        tObjects[5].material = blue;
         
         std::vector<SphereObject> spheres = {
             SphereObject(Sphere({50, -60, 160}, 40), metal),
-            SphereObject(Sphere({-50, -60, 120}, 40), blue)
+            SphereObject(Sphere({-50, -60, 120}, 40), white)
         };
         
         s.triangles = tObjects;

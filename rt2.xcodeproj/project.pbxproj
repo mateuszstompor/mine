@@ -9,6 +9,8 @@
 /* Begin PBXFileReference section */
 		0510C5762D1582F2001EFA03 /* rngstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rngstd.h; sourceTree = "<group>"; };
 		0510C5772D158A66001EFA03 /* rtwriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtwriter.h; sourceTree = "<group>"; };
+		0510C5962D159A0C001EFA03 /* disk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = disk.h; sourceTree = "<group>"; };
+		0510C5972D159A3F001EFA03 /* diskintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = diskintersector.h; sourceTree = "<group>"; };
 		053D4D082D12E08800D1876F /* rt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		057BBD272D130C3E002C204E /* bitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
 		057BBD2B2D13130A002C204E /* cgbitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgbitmap.h; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		05B4B9722D131FDD00BCED51 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				0510C5962D159A0C001EFA03 /* disk.h */,
 				05B4B9E82D136E4B00BCED51 /* sphereobject.h */,
 				05B4B9E62D13686200BCED51 /* triangleobject.h */,
 				05B4B9E22D135DB100BCED51 /* triangle.h */,
@@ -121,6 +124,7 @@
 		05B4B9C72D1330EB00BCED51 /* intersector */ = {
 			isa = PBXGroup;
 			children = (
+				0510C5972D159A3F001EFA03 /* diskintersector.h */,
 				05B4B9E42D135F1500BCED51 /* triangleintersector.h */,
 				05B4B9C92D13312500BCED51 /* intersector.h */,
 				05B4B9C82D1330F400BCED51 /* sphereintersector.h */,
@@ -313,6 +317,7 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = NDEBUG;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

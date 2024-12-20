@@ -47,18 +47,18 @@ struct RTWriter {
         std::default_random_engine rng(rd());
         std::shuffle(regions.begin(), regions.end(), rng);
         
-        int raysPerPixel = 100;
+        int raysPerPixel = 1000;
         for (int i = 0; i < raysPerPixel; ++i) {
             for (Region<uint16_t> const & region : regions) {
                 [queue addOperationWithBlock:^{
                     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
                         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
-                            
+                            Metadata meta(x, y);
                             Ray ray = scene.camera.ray(x,
                                                        y,
                                                        cgbitmap.bitmap.width,
                                                        cgbitmap.bitmap.height);
-                            simd_float4 color = rt.trace(ray, scene, 2);
+                            simd_float4 color = rt.trace(ray, scene, 3, meta);
                             
                             simd_float4 currentColor = cgbitmap.bitmap.colorAt(x, cgbitmap.bitmap.height - y - 1);
                             simd_float4 newColor = (currentColor * i + color) / float(i + 1);

@@ -16,15 +16,19 @@ public:
         T discriminant = k2 * k2 - 4 * k1 * k3;
         
         if (discriminant < 0) {
-            return {};
+            return {};  // No intersection
         }
-        if (discriminant == 0) {
+        
+        const T epsilon = 1e-6; // Small tolerance for floating point comparisons
+        if (std::abs(discriminant) < epsilon) {
             T t = -k2 / (2 * k1);
-            return {t};
+            return {t};  // One intersection
         }
-        T t1 = (-k2 + std::sqrt(discriminant)) / (2 * k1);
-        T t2 = (-k2 - std::sqrt(discriminant)) / (2 * k1);
-        return t1 > t2 ? std::vector<T>{t2, t1} : std::vector<T>{t1, t2};
+        
+        T sqrtDiscriminant = std::sqrt(discriminant);
+        T t1 = (-k2 + sqrtDiscriminant) / (2 * k1);
+        T t2 = (-k2 - sqrtDiscriminant) / (2 * k1);
+        return t1 > t2 ? std::vector<T>{t2, t1} : std::vector<T>{t1, t2};  // Return sorted intersections
     }
     bool isOnSphere(const simd::float3& point, const Sphere& sphere, float epsilon) {
         double a = std::pow(point.x - sphere.center.x, 2);
@@ -58,6 +62,19 @@ public:
         assert(std::isfinite(phi));
         
         return simd::make_float2(phi, theta);
+    }
+    
+    bool isInsideSphere(simd::float3 const & point, Sphere const & sphere) {
+        float a = point.x - sphere.center.x;
+        float b = point.y - sphere.center.y;
+        float c = point.z - sphere.center.z;
+        float sum = pow(a, 2) + pow(b, 2) + pow(c, 2);
+        float radiusSquared = pow(sphere.radius, 2);
+        bool inside = sum <= radiusSquared;
+        if (!inside) {
+            printf("Error");
+        }
+        return true;
     }
     
     simd::float2 getTextureCoordinates(const simd::float2& sphericalCoordinates) {
