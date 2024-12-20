@@ -34,6 +34,19 @@ public:
         double e = a + b + c;
         return std::abs(d - e) < epsilon;
     }
+    simd::float3 sphericalToCartesian(float r,
+                                      float theta,
+                                      float phi) {
+        // Convert angles from degrees to radians if necessary
+        // Comment this out if theta and phi are already in radians
+        theta = theta * M_PI / 180.0;
+        phi = phi * M_PI / 180.0;
+        
+        return simd::make_float3(r * std::sin(phi) * std::cos(theta),
+                                 r * std::sin(phi) * std::sin(theta),
+                                 r * std::cos(phi));
+    }
+
     simd::float2 getSphericalCoordinates(const simd::float3& nonCenteredPoint, const Sphere& sphere) {
         assert(isOnSphere(nonCenteredPoint, sphere, 1e-1));
         
