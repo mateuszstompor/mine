@@ -5,11 +5,10 @@
 //  Copyright © 2024 Mateusz Stompór. All rights reserved.
 //
 
-#import <AppKit/AppKit.h>
+#include <AppKit/AppKit.h>
+#include <mine/mine.h>
 
-#import "SceneBuilder.h"
-#import "../../mine/rtwriter.h"
-#import "../../mine/scene/look/textureloader.h"
+#include "SceneBuilder.h"
 
 @interface BitmapView : NSView
 {

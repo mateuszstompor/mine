@@ -6,12 +6,9 @@
 //
 
 #include <simd/simd.h>
+#include <mine/mine.h>
 
 #include <vector>
-
-#include "../../mine/scene/triangle.h"
-#include "../../mine/scene/scene.h"
-#include "../../mine/scene/look/textureloader.h"
 
 class SceneBuilder {
 public:

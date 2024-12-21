@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "053D4D072D12E08800D1876F"
-               BuildableName = "rt2.app"
-               BlueprintName = "rt2"
-               ReferencedContainer = "container:RT2.xcodeproj">
+               BuildableName = "workbench.app"
+               BlueprintName = "workbench"
+               ReferencedContainer = "container:workbench.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -31,7 +31,7 @@
       shouldAutocreateTestPlan = "YES">
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Release"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
-            BuildableName = "rt2.app"
-            BlueprintName = "rt2"
-            ReferencedContainer = "container:RT2.xcodeproj">
+            BuildableName = "workbench.app"
+            BlueprintName = "workbench"
+            ReferencedContainer = "container:workbench.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
-            BuildableName = "rt2.app"
-            BlueprintName = "rt2"
-            ReferencedContainer = "container:RT2.xcodeproj">
+            BuildableName = "workbench.app"
+            BlueprintName = "workbench"
+            ReferencedContainer = "container:workbench.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

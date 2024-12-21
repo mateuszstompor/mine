@@ -6,41 +6,36 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXFileReference section */
-		0510C5762D1582F2001EFA03 /* rngstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rngstd.h; sourceTree = "<group>"; };
-		0510C5772D158A66001EFA03 /* rtwriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtwriter.h; sourceTree = "<group>"; };
-		0510C5962D159A0C001EFA03 /* disk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = disk.h; sourceTree = "<group>"; };
-		0510C5972D159A3F001EFA03 /* diskintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = diskintersector.h; sourceTree = "<group>"; };
-		053D4D082D12E08800D1876F /* rt2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = rt2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		057BBD272D130C3E002C204E /* bitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitmap.h; sourceTree = "<group>"; };
-		057BBD2B2D13130A002C204E /* cgbitmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cgbitmap.h; sourceTree = "<group>"; };
-		05B4B9732D131FE500BCED51 /* sphere.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphere.h; sourceTree = "<group>"; };
-		05B4B9742D13200600BCED51 /* raytracer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = raytracer.h; sourceTree = "<group>"; };
-		05B4B9752D13232500BCED51 /* ray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ray.h; sourceTree = "<group>"; };
-		05B4B99D2D132F2500BCED51 /* scene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
-		05B4B99F2D132F6800BCED51 /* omnilight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = omnilight.h; sourceTree = "<group>"; };
-		05B4B9C62D13309800BCED51 /* rayintersection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rayintersection.h; sourceTree = "<group>"; };
-		05B4B9C82D1330F400BCED51 /* sphereintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sphereintersector.h; sourceTree = "<group>"; };
-		05B4B9C92D13312500BCED51 /* intersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = intersector.h; sourceTree = "<group>"; };
-		05B4B9CA2D1331BD00BCED51 /* camera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
-		05B4B9CB2D13570300BCED51 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
-		05B4B9CD2D1358B800BCED51 /* textureloader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = textureloader.h; sourceTree = "<group>"; };
-		05B4B9E22D135DB100BCED51 /* triangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangle.h; sourceTree = "<group>"; };
-		05B4B9E42D135F1500BCED51 /* triangleintersector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleintersector.h; sourceTree = "<group>"; };
-		05B4B9E52D13649200BCED51 /* nearestsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = nearestsampler.h; sourceTree = "<group>"; };
-		05B4B9E62D13686200BCED51 /* triangleobject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = triangleobject.h; sourceTree = "<group>"; };
-		05B4B9E82D136E4B00BCED51 /* sphereobject.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = sphereobject.h; sourceTree = "<group>"; };
-		05B4BA072D13756400BCED51 /* linearsampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = linearsampler.h; sourceTree = "<group>"; };
-		05EBC06D2D1560F0008E812C /* hemisphere.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.h; path = hemisphere.h; sourceTree = "<group>"; };
-/* End PBXFileReference section */
+/* Begin PBXBuildFile section */
+		05A2DC102D1717C2001DEC8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DBFC2D1717C2001DEC8B /* AppDelegate.m */; };
+		05A2DC112D1717C2001DEC8B /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DC0D2D1717C2001DEC8B /* ViewController.mm */; };
+		05A2DC122D1717C2001DEC8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DBFD2D1717C2001DEC8B /* main.m */; };
+		05A2DC132D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DBFF2D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg */; };
+		05A2DC142D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC022D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg */; };
+		05A2DC152D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC012D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg */; };
+		05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC002D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg */; };
+		05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC072D1717C2001DEC8B /* Main.storyboard */; };
+		05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC052D1717C2001DEC8B /* Assets.xcassets */; };
+/* End PBXBuildFile section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		053D4D0A2D12E08800D1876F /* rt2 */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = rt2;
-			sourceTree = "<group>";
-		};
-/* End PBXFileSystemSynchronizedRootGroup section */
+/* Begin PBXFileReference section */
+		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05A2DBFB2D1717C2001DEC8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		05A2DBFC2D1717C2001DEC8B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		05A2DBFD2D1717C2001DEC8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		05A2DBFF2D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal055A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		05A2DC002D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal055A_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
+		05A2DC012D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal055A_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		05A2DC022D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal055A_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
+		05A2DC052D1717C2001DEC8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		05A2DC062D1717C2001DEC8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		05A2DC082D1717C2001DEC8B /* rt2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rt2.entitlements; sourceTree = "<group>"; };
+		05A2DC0A2D1717C2001DEC8B /* BitmapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitmapView.h; sourceTree = "<group>"; };
+		05A2DC0B2D1717C2001DEC8B /* SceneBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneBuilder.h; sourceTree = "<group>"; };
+		05A2DC0C2D1717C2001DEC8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		05A2DC0D2D1717C2001DEC8B /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		05A2DC192D1717CD001DEC8B /* mine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mine.xcodeproj; path = ../mine/mine.xcodeproj; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		053D4D052D12E08800D1876F /* Frameworks */ = {
@@ -53,19 +48,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0510C5752D1582EB001EFA03 /* rng */ = {
-			isa = PBXGroup;
-			children = (
-				0510C5762D1582F2001EFA03 /* rngstd.h */,
-			);
-			path = rng;
-			sourceTree = "<group>";
-		};
 		053D4CFF2D12E08800D1876F = {
 			isa = PBXGroup;
 			children = (
-				057BBD262D130C38002C204E /* mine */,
-				053D4D0A2D12E08800D1876F /* rt2 */,
+				05A2DC192D1717CD001DEC8B /* mine.xcodeproj */,
+				05A2DC0F2D1717C2001DEC8B /* workbench */,
 				053D4D092D12E08800D1876F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,80 +60,85 @@
 		053D4D092D12E08800D1876F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				053D4D082D12E08800D1876F /* rt2.app */,
+				053D4D082D12E08800D1876F /* workbench.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		057BBD262D130C38002C204E /* mine */ = {
+		05A2DBFE2D1717C2001DEC8B /* app */ = {
 			isa = PBXGroup;
 			children = (
-				0510C5772D158A66001EFA03 /* rtwriter.h */,
-				0510C5752D1582EB001EFA03 /* rng */,
-				05EBC06D2D1560F0008E812C /* hemisphere.h */,
-				05B4BA072D13756400BCED51 /* linearsampler.h */,
-				05B4B9E52D13649200BCED51 /* nearestsampler.h */,
-				05B4B9C72D1330EB00BCED51 /* intersector */,
-				05B4B9742D13200600BCED51 /* raytracer.h */,
-				05B4B9722D131FDD00BCED51 /* scene */,
-				057BBD2B2D13130A002C204E /* cgbitmap.h */,
-				057BBD272D130C3E002C204E /* bitmap.h */,
+				05A2DBFB2D1717C2001DEC8B /* AppDelegate.h */,
+				05A2DBFC2D1717C2001DEC8B /* AppDelegate.m */,
+				05A2DBFD2D1717C2001DEC8B /* main.m */,
 			);
-			path = mine;
+			path = app;
 			sourceTree = "<group>";
 		};
-		05B4B9722D131FDD00BCED51 /* scene */ = {
+		05A2DC032D1717C2001DEC8B /* Metal055A_2K-JPG */ = {
 			isa = PBXGroup;
 			children = (
-				0510C5962D159A0C001EFA03 /* disk.h */,
-				05B4B9E82D136E4B00BCED51 /* sphereobject.h */,
-				05B4B9E62D13686200BCED51 /* triangleobject.h */,
-				05B4B9E22D135DB100BCED51 /* triangle.h */,
-				05B4B9CC2D1358A800BCED51 /* look */,
-				05B4B9CA2D1331BD00BCED51 /* camera.h */,
-				05B4B9C62D13309800BCED51 /* rayintersection.h */,
-				05B4B99E2D132F6300BCED51 /* light */,
-				05B4B99D2D132F2500BCED51 /* scene.h */,
-				05B4B9752D13232500BCED51 /* ray.h */,
-				05B4B9732D131FE500BCED51 /* sphere.h */,
+				05A2DBFF2D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg */,
+				05A2DC002D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg */,
+				05A2DC012D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg */,
+				05A2DC022D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg */,
 			);
-			path = scene;
+			path = "Metal055A_2K-JPG";
 			sourceTree = "<group>";
 		};
-		05B4B99E2D132F6300BCED51 /* light */ = {
+		05A2DC042D1717C2001DEC8B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
-				05B4B99F2D132F6800BCED51 /* omnilight.h */,
+				05A2DC032D1717C2001DEC8B /* Metal055A_2K-JPG */,
 			);
-			path = light;
+			path = Textures;
 			sourceTree = "<group>";
 		};
-		05B4B9C72D1330EB00BCED51 /* intersector */ = {
+		05A2DC092D1717C2001DEC8B /* supporting files */ = {
 			isa = PBXGroup;
 			children = (
-				0510C5972D159A3F001EFA03 /* diskintersector.h */,
-				05B4B9E42D135F1500BCED51 /* triangleintersector.h */,
-				05B4B9C92D13312500BCED51 /* intersector.h */,
-				05B4B9C82D1330F400BCED51 /* sphereintersector.h */,
+				05A2DC042D1717C2001DEC8B /* Textures */,
+				05A2DC052D1717C2001DEC8B /* Assets.xcassets */,
+				05A2DC072D1717C2001DEC8B /* Main.storyboard */,
+				05A2DC082D1717C2001DEC8B /* rt2.entitlements */,
 			);
-			path = intersector;
+			path = "supporting files";
 			sourceTree = "<group>";
 		};
-		05B4B9CC2D1358A800BCED51 /* look */ = {
+		05A2DC0E2D1717C2001DEC8B /* view */ = {
 			isa = PBXGroup;
 			children = (
-				05B4B9CD2D1358B800BCED51 /* textureloader.h */,
-				05B4B9CB2D13570300BCED51 /* material.h */,
+				05A2DC0A2D1717C2001DEC8B /* BitmapView.h */,
+				05A2DC0B2D1717C2001DEC8B /* SceneBuilder.h */,
+				05A2DC0C2D1717C2001DEC8B /* ViewController.h */,
+				05A2DC0D2D1717C2001DEC8B /* ViewController.mm */,
 			);
-			path = look;
+			path = view;
+			sourceTree = "<group>";
+		};
+		05A2DC0F2D1717C2001DEC8B /* workbench */ = {
+			isa = PBXGroup;
+			children = (
+				05A2DBFE2D1717C2001DEC8B /* app */,
+				05A2DC092D1717C2001DEC8B /* supporting files */,
+				05A2DC0E2D1717C2001DEC8B /* view */,
+			);
+			path = workbench;
+			sourceTree = "<group>";
+		};
+		05A2DC512D1717CD001DEC8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		053D4D072D12E08800D1876F /* rt2 */ = {
+		053D4D072D12E08800D1876F /* workbench */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 053D4D1B2D12E08A00D1876F /* Build configuration list for PBXNativeTarget "rt2" */;
+			buildConfigurationList = 053D4D1B2D12E08A00D1876F /* Build configuration list for PBXNativeTarget "workbench" */;
 			buildPhases = (
 				053D4D042D12E08800D1876F /* Sources */,
 				053D4D052D12E08800D1876F /* Frameworks */,
@@ -156,14 +148,11 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				053D4D0A2D12E08800D1876F /* rt2 */,
-			);
-			name = rt2;
+			name = workbench;
 			packageProductDependencies = (
 			);
 			productName = rt2;
-			productReference = 053D4D082D12E08800D1876F /* rt2.app */;
+			productReference = 053D4D082D12E08800D1876F /* workbench.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -180,7 +169,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 053D4D032D12E08800D1876F /* Build configuration list for PBXProject "RT2" */;
+			buildConfigurationList = 053D4D032D12E08800D1876F /* Build configuration list for PBXProject "workbench" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -192,9 +181,15 @@
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 053D4D092D12E08800D1876F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 05A2DC512D1717CD001DEC8B /* Products */;
+					ProjectRef = 05A2DC192D1717CD001DEC8B /* mine.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
-				053D4D072D12E08800D1876F /* rt2 */,
+				053D4D072D12E08800D1876F /* workbench */,
 			);
 		};
 /* End PBXProject section */
@@ -204,6 +199,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05A2DC132D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg in Resources */,
+				05A2DC142D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg in Resources */,
+				05A2DC152D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg in Resources */,
+				05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */,
+				05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */,
+				05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,10 +215,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05A2DC102D1717C2001DEC8B /* AppDelegate.m in Sources */,
+				05A2DC112D1717C2001DEC8B /* ViewController.mm in Sources */,
+				05A2DC122D1717C2001DEC8B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		05A2DC072D1717C2001DEC8B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				05A2DC062D1717C2001DEC8B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		053D4D192D12E08A00D1876F /* Debug */ = {
@@ -338,13 +353,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
-				CODE_SIGN_ENTITLEMENTS = "rt2/supporting files/rt2.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "workbench/supporting files/workbench.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../mine";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -365,13 +381,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++23";
-				CODE_SIGN_ENTITLEMENTS = "rt2/supporting files/rt2.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "workbench/supporting files/workbench.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = R78NEXF6E2;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "${PROJECT_DIR}/../mine";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -389,7 +406,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		053D4D032D12E08800D1876F /* Build configuration list for PBXProject "RT2" */ = {
+		053D4D032D12E08800D1876F /* Build configuration list for PBXProject "workbench" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				053D4D192D12E08A00D1876F /* Debug */,
@@ -398,7 +415,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		053D4D1B2D12E08A00D1876F /* Build configuration list for PBXNativeTarget "rt2" */ = {
+		053D4D1B2D12E08A00D1876F /* Build configuration list for PBXNativeTarget "workbench" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				053D4D1C2D12E08A00D1876F /* Debug */,
