@@ -20,5 +20,6 @@ namespace mine {
         uint16_t indirectLightSamples;
         uint16_t regionSide;
         uint8_t depth;
+        uint8_t threads;
     };
 }

@@ -38,7 +38,7 @@ namespace mine {
         : cgbitmap(config.width,config.height, 4)
         , config{config} {
             queue = [[NSOperationQueue alloc] init];
-            queue.maxConcurrentOperationCount = 8;
+            queue.maxConcurrentOperationCount = config.threads;
         }
         ~RTWriter() {
             [queue release];
@@ -59,6 +59,7 @@ namespace mine {
                                                            cgbitmap.bitmap.height);
                                 simd_float4 color = rt.trace(ray,
                                                              scene,
+                                                             config,
                                                              config.depth,
                                                              meta);
                                 uint16_t flippedY = cgbitmap.bitmap.height - y - 1;

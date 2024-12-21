@@ -22,19 +22,30 @@
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        mine::Config c(1000,
+        mine::Config c(// width
                        1000,
+                       // height
+                       1000,
+                       // rays per pixel
                        100,
+                       // shadow samples
                        2,
+                       // indirect light sampling
                        2,
+                       // tile size
                        100,
-                       1);
+                       // depth
+                       1,
+                       // threads
+                       8);
         writer = new mine::RTWriter(c);
         scene = SceneBuilder::cornellBox();
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             writer->capture(scene);
         });
-        [NSTimer scheduledTimerWithTimeInterval:0.1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [NSTimer scheduledTimerWithTimeInterval:0.1
+                                        repeats:YES
+                                          block:^(NSTimer * _Nonnull timer) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setNeedsDisplay:YES];
             });
