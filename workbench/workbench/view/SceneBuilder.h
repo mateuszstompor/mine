@@ -202,7 +202,7 @@ public:
         std::vector<SphereObject> spheres = {
             SphereObject(Sphere({50, -60, 160}, 40), metal),
             SphereObject(Sphere({-50, -60, 120}, 40), white),
-            SphereObject(Sphere({0, -60, 70}, 20), mirror)
+            SphereObject(Sphere({0, -80, 170}, 20), mirror)
         };
         
         s.triangles = tObjects;
