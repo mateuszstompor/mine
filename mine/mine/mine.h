@@ -5,6 +5,8 @@
 //  Created by Motion VFX on 21/12/2024.
 //
 
+#include "config.h"
+
 #include "scene/triangle.h"
 #include "scene/sphere.h"
 #include "scene/scene.h"

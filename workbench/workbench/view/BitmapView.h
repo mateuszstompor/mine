@@ -12,7 +12,7 @@
 
 @interface BitmapView : NSView
 {
-    RTWriter * writer;
+    mine::RTWriter * writer;
     Scene scene;
 }
 @end
@@ -22,7 +22,14 @@
 - (instancetype)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        writer = new RTWriter(1000, 1000);
+        mine::Config c(1000,
+                       1000,
+                       100,
+                       2,
+                       2,
+                       100,
+                       1);
+        writer = new mine::RTWriter(c);
         scene = SceneBuilder::cornellBox();
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             writer->capture(scene);

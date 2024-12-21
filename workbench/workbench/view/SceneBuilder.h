@@ -180,6 +180,11 @@ public:
                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
                                               Bitmap::defaultNormalMap());
         
+        auto mirror = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.1, 0.1, 1.0)),
+                                                 Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                 Bitmap::defaultNormalMap());
+        
         auto metal = std::make_shared<Material>(*BitmapLoader::load("Metal055A_2K-JPG_Color.jpg"),
                                                 *BitmapLoader::load("Metal055A_2K-JPG_Roughness.jpg"),
                                                 *BitmapLoader::load("Metal055A_2K-JPG_Metalness.jpg"),
@@ -196,7 +201,8 @@ public:
         
         std::vector<SphereObject> spheres = {
             SphereObject(Sphere({50, -60, 160}, 40), metal),
-            SphereObject(Sphere({-50, -60, 120}, 40), white)
+            SphereObject(Sphere({-50, -60, 120}, 40), white),
+            SphereObject(Sphere({0, -60, 70}, 20), mirror)
         };
         
         s.triangles = tObjects;
