@@ -9,7 +9,7 @@
 
 #include <optional>
 
-#include "../../bitmap.h"
+#include "../../texture/bitmap.h"
 
 class BitmapLoader {
 public:

@@ -11,13 +11,13 @@
 
 #include <simd/simd.h>
 
-#include "scene/ray.h"
-#include "scene/scene.h"
-#include "intersector/intersector.h"
-#include "scene/rayintersection.h"
-#include "linearsampler.h"
-#include "hemisphere.h"
-#include "rng/rngstd.h"
+#include "../scene/ray.h"
+#include "../scene/scene.h"
+#include "../intersector/intersector.h"
+#include "../scene/rayintersection.h"
+#include "../samplers/linearsampler.h"
+#include "../sampling/hemisphere.h"
+#include "../rng/rngstd.h"
 
 struct Metadata {
     int x;

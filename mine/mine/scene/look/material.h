@@ -9,7 +9,7 @@
 
 #include <simd/simd.h>
 
-#include "../../bitmap.h"
+#include "../../texture/bitmap.h"
 
 struct Material {
     Bitmap albedo;

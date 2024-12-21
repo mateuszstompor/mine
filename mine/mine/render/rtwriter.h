@@ -14,7 +14,7 @@
 #include <algorithm>
 #include <random>
 
-#import "cgbitmap.h"
+#import "../texture/cgbitmap.h"
 #import "raytracer.h"
 
 template <typename T>

@@ -8,7 +8,7 @@
 #include "scene/triangle.h"
 #include "scene/sphere.h"
 #include "scene/scene.h"
-#include "rtwriter.h"
+#include "render/rtwriter.h"
 
 #include "scene/light/omnilight.h"
 #include "scene/look/bitmaploader.h"
