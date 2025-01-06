@@ -9,7 +9,7 @@
 #include "bitmap.h"
 
 struct CGBitmap {
-    Bitmap bitmap;
+    mine::Bitmap bitmap;
     CGColorSpaceRef colorSpace;
     CGContextRef bitmapContext;
     CGBitmap(uint16_t width, uint16_t height, uint8_t bytesPerPixel)

@@ -19,6 +19,6 @@ struct RayIntersection {
     simd_float3 N;
     simd_float3 point;
     simd_float2 uv;
-    std::shared_ptr<Material> material;
+    std::shared_ptr<mine::Material> material;
     float t;
 };

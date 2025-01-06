@@ -7,13 +7,13 @@
 
 #pragma once
 
-#include <simd/simd.h>
-
 #include "../../texture/bitmap.h"
 
-struct Material {
-    Bitmap albedo;
-    Bitmap roughness;
-    Bitmap metalness;
-    Bitmap normal;
-};
+namespace mine {
+    struct Material {
+        Bitmap albedo;
+        Bitmap roughness;
+        Bitmap metalness;
+        Bitmap normal;
+    };
+}

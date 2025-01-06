@@ -14,5 +14,5 @@
 
 struct TriangleObject {
     Triangle triangle;
-    std::shared_ptr<Material> material;
+    std::shared_ptr<mine::Material> material;
 };
