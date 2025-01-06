@@ -15,22 +15,9 @@
 #include <random>
 
 #include "../config.h"
-#import "../texture/cgbitmap.h"
-#import "raytracer.h"
-
-
-template <typename T>
-struct ClosedRange {
-    T lowerBound;
-    T higherBound;
-};
-
-template <typename T>
-struct Region {
-    ClosedRange<T> x;
-    ClosedRange<T> y;
-};
-
+#include "../utilities/region.h"
+#include "../texture/cgbitmap.h"
+#include "raytracer.h"
 
 namespace mine {
     struct RTWriter {
