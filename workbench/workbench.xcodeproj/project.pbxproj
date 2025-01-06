@@ -16,7 +16,25 @@
 		05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC002D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg */; };
 		05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC072D1717C2001DEC8B /* Main.storyboard */; };
 		05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC052D1717C2001DEC8B /* Assets.xcassets */; };
+		05B050692D2C64750016D827 /* libmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B050672D2C64710016D827 /* libmine.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		05B050632D2C64710016D827 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05A2DC192D1717CD001DEC8B /* mine.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 05617B342D17173400260E40;
+			remoteInfo = mine;
+		};
+		05B050662D2C64710016D827 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 05A2DC192D1717CD001DEC8B /* mine.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 05617B352D17173400260E40;
+			remoteInfo = mine;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05B050692D2C64750016D827 /* libmine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -53,6 +72,7 @@
 			children = (
 				05A2DC192D1717CD001DEC8B /* mine.xcodeproj */,
 				05A2DC0F2D1717C2001DEC8B /* workbench */,
+				05B050682D2C64750016D827 /* Frameworks */,
 				053D4D092D12E08800D1876F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -129,8 +149,16 @@
 		05A2DC512D1717CD001DEC8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				05B050672D2C64710016D827 /* libmine.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		05B050682D2C64750016D827 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +175,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				05B050642D2C64710016D827 /* PBXTargetDependency */,
 			);
 			name = workbench;
 			packageProductDependencies = (
@@ -194,6 +223,16 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		05B050672D2C64710016D827 /* libmine.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libmine.a;
+			remoteRef = 05B050662D2C64710016D827 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		053D4D062D12E08800D1876F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -222,6 +261,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		05B050642D2C64710016D827 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mine;
+			targetProxy = 05B050632D2C64710016D827 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		05A2DC072D1717C2001DEC8B /* Main.storyboard */ = {
