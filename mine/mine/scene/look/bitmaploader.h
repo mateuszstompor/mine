@@ -11,6 +11,8 @@
 
 #include "../../texture/bitmap.h"
 
+using namespace mine;
+
 class BitmapLoader {
 public:
     static std::optional<Bitmap> load(const std::string &name) {

@@ -14,5 +14,5 @@
 
 struct SphereObject {
     Sphere sphere;
-    std::shared_ptr<Material> material;
+    std::shared_ptr<mine::Material> material;
 };

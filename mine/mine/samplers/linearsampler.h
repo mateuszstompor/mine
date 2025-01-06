@@ -13,7 +13,7 @@
 
 class LinearSampler {
 public:
-    simd::float4 sample(double u, double v, const Bitmap& texture) {
+    simd::float4 sample(double u, double v, const mine::Bitmap& texture) {
         float x = u * (texture.width - 1);
         float y = v * (texture.height - 1);
 

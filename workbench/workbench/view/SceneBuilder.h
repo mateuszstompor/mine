@@ -10,6 +10,8 @@
 
 #include <vector>
 
+using namespace mine;
+
 class SceneBuilder {
 public:
     static constexpr double mainScale = 100.0;
