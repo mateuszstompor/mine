@@ -29,13 +29,13 @@
                        // rays per pixel
                        100,
                        // shadow samples
-                       2,
-                       // indirect light sampling
-                       2,
-                       // tile size
-                       100,
-                       // depth
                        1,
+                       // indirect light sampling
+                       1,
+                       // tile size
+                       50,
+                       // depth
+                       2,
                        // threads
                        8);
         writer = new mine::RTWriter(c);

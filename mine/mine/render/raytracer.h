@@ -17,6 +17,7 @@
 #include "../scene/rayintersection.h"
 #include "../samplers/linearsampler.h"
 #include "../sampling/hemisphere.h"
+#include "../coordinates/diskcoordinates.h"
 #include "../rng/rngstd.h"
 #include "../config.h"
 
@@ -143,12 +144,12 @@ namespace mine {
                                         
                         Disk d(lightCenter, -toCenter, light.representation.radius);
                         
-                        DiskIntersector di;
                         float radius = rng.random() * light.representation.radius;
                         float theta = rng.random() * 2 * M_PI;
                         
+                        DiskCoordinates dc;
                         
-                        simd::float3 randomCartesian =  di.polarToCartesian(radius, theta, d);
+                        simd::float3 randomCartesian =  dc.polarToCartesian(radius, theta, d);
                         assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
 
                         simd::float3 newdir = simd::normalize(randomCartesian - closest->point);
