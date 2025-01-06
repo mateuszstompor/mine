@@ -12,7 +12,7 @@
 
 class DiskIntersector {
 public:
-    std::optional<float> intersect(const Ray& ray, const Disk& disk) {
+    std::optional<float> intersect(const mine::Ray& ray, const Disk& disk) {
         assert(std::abs(simd::length(disk.normal) - 1) < 0.001);
         assert(std::abs(simd::length(ray.direction) - 1) < 0.001);
 

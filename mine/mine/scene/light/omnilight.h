@@ -11,8 +11,10 @@
 
 #include "../sphere.h"
 
-struct OmniLight {
-    Sphere representation;
-    float intensity;
-    simd_float3 color;
-};
+namespace mine {
+    struct OmniLight {
+        Sphere representation;
+        float intensity;
+        simd_float3 color;
+    };
+}

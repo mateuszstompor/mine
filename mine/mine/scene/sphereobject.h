@@ -12,7 +12,9 @@
 #include "look/material.h"
 #include "sphere.h"
 
-struct SphereObject {
-    Sphere sphere;
-    std::shared_ptr<mine::Material> material;
-};
+namespace mine {
+    struct SphereObject {
+        Sphere sphere;
+        std::shared_ptr<mine::Material> material;
+    };
+}
