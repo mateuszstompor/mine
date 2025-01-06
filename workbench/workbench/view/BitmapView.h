@@ -35,7 +35,7 @@
                        // tile size
                        50,
                        // depth
-                       2,
+                       3,
                        // threads
                        8);
         writer = new mine::RTWriter(c);

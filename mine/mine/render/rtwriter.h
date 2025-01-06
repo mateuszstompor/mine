@@ -28,7 +28,9 @@ namespace mine {
     private:
         std::vector<Region<uint16_t>> randomizedRegions();
         std::vector<Region<uint16_t>> divideIntoRegions();
-        
+        void captureRegion(Region<uint16_t> const & region,
+                           Scene const & scene,
+                           uint16_t iteration);
         RayTracer rt;
         Config config;
         NSOperationQueue * queue;
