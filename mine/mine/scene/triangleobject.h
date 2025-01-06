@@ -12,7 +12,9 @@
 #include "look/material.h"
 #include "triangle.h"
 
-struct TriangleObject {
-    Triangle triangle;
-    std::shared_ptr<mine::Material> material;
-};
+namespace mine {
+    struct TriangleObject {
+        Triangle triangle;
+        std::shared_ptr<Material> material;
+    };
+}

@@ -9,18 +9,20 @@
 
 #include <simd/simd.h>
 
-#include "ray.h"
+#include "ray/ray.h"
 
-struct Camera {
-    Ray ray(int x, int y, int width, int height) const {
-        float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
-        float aspect = static_cast<float>(width) / height;
-        float newY = (static_cast<float>(y) / (height - 1)) / aspect * 2 - 1;
+namespace mine {
+    struct Camera {
+        Ray ray(int x, int y, int width, int height) const {
+            float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
+            float aspect = static_cast<float>(width) / height;
+            float newY = (static_cast<float>(y) / (height - 1)) / aspect * 2 - 1;
 
-        simd_float3 origin = simd_make_float3(0, 0, 0);
-        simd_float3 newP = simd_make_float3(newX, newY, 1.0);
-        simd_float3 direction = simd_normalize(newP - origin);
+            simd_float3 origin = simd_make_float3(0, 0, 0);
+            simd_float3 newP = simd_make_float3(newX, newY, 1.0);
+            simd_float3 direction = simd_normalize(newP - origin);
 
-        return Ray{origin, direction};
-    }
-};
+            return Ray{origin, direction};
+        }
+    };
+}

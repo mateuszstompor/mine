@@ -14,9 +14,11 @@
 #include "camera.h"
 #include "triangleobject.h"
 
-struct Scene {
-    Camera camera;
-    std::vector<OmniLight> omnilights;
-    std::vector<SphereObject> spheres;
-    std::vector<TriangleObject> triangles;
-};
+namespace mine {
+    struct Scene {
+        Camera camera;
+        std::vector<OmniLight> omnilights;
+        std::vector<SphereObject> spheres;
+        std::vector<TriangleObject> triangles;
+    };
+}
