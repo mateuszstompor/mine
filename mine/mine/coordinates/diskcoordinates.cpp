@@ -8,6 +8,7 @@
 #include "diskcoordinates.h"
 
 #include "../assertion/equal.h"
+#include "../assertion/range.h"
 
 simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point, const Disk& disk) {
     float angle = std::atan2(point.y, point.x);
@@ -16,8 +17,8 @@ simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point,
 }
 
 simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk const & disk) {
-    assert(theta >= 0 && theta <= 2 * M_PI + 1e-4);
-    assert(r >= 0 && r <= disk.radius);
+    assertInClosedRange(theta, 0.0f, 2.0f * static_cast<float>(M_PI));
+    assertInClosedRange(r, 0.0f, disk.radius);
     assert(disk.normal.z != 0 && "disk.normal.z must not be zero to avoid division by zero");
 
     
@@ -38,7 +39,6 @@ simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk c
     
     return tbn * simd::make_float3(x, y, z) + disk.origin;
 }
-
 
 simd_float2 mine::DiskCoordinates::getTextureCoordinates(const simd_float2& polarCoordinates, const Disk& disk) {
     float v = polarCoordinates[1] / disk.radius;
