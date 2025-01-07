@@ -1,5 +1,5 @@
 //
-//  equal.h
+//  range.h
 //
 //  Created on 06/01/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
@@ -16,6 +16,6 @@ namespace mine {
                                     T higherBounad,
                                     T epsilon = 1e-6) {
         assert(actual >= lowerBound - epsilon &&
-               actual <= higherBounad + epsilon)
+               actual <= higherBounad + epsilon);
     }
 }
