@@ -93,15 +93,6 @@ namespace mine {
                           mine::Config const & config,
                           int currentDepth,
                           Metadata const & metadata) {
-            // DEBUG
-    //        int range = 10;
-    //        int minx = 500;
-    //        int miy = 300;
-    //        if (metadata.x > minx && metadata.x < minx + range &&
-    //            metadata.y > miy && metadata.y < miy + range) {
-    //            return simd_make_float4(1, 1, 0, 1);
-    //        }
-            
             if (currentDepth < 0) {
                 return simd_make_float4(simd::float3(0), 1.0f);
             }
@@ -150,7 +141,9 @@ namespace mine {
                         DiskCoordinates dc;
                         
                         simd::float3 randomCartesian =  dc.polarToCartesian(radius, theta, d);
-                        assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
+                        
+                        // TODO: Check it
+                        // assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
 
                         simd::float3 newdir = simd::normalize(randomCartesian - closest->point);
                         

@@ -11,6 +11,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <simd/simd.h>
 
 #include "../config.h"
 #include "../utilities/region.h"
@@ -23,6 +24,8 @@ namespace mine {
         ~RTWriter();
             
         void capture(Scene const & scene);
+        void capturePixel(Scene const & scene,
+                          simd::float2 const & coordinate);
         CGBitmap cgbitmap;
         
     private:

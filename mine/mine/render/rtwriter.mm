@@ -57,6 +57,20 @@ void mine::RTWriter::capture(Scene const & scene) {
     }
 }
 
+void mine::RTWriter::capturePixel(Scene const & scene,
+                                  simd::float2 const & coordinate) {
+    assert(coordinate.x >= 0 && coordinate.x <= 1 && "Must be in [0, 1]");
+    assert(coordinate.y >= 0 && coordinate.y <= 1 && "Must be in [0, 1]");
+    uint16_t x = coordinate.x * cgbitmap.bitmap.width;
+    uint16_t y = coordinate.y * cgbitmap.bitmap.height;
+    Region<uint16_t> region {ClosedRange<uint16_t>{x, x},
+                             ClosedRange<uint16_t>{y, y}};
+    [queue addOperationWithBlock:^{
+        captureRegion(region, scene, 1);
+    }];
+    [queue waitUntilAllOperationsAreFinished];
+}
+
 std::vector<mine::Region<uint16_t>> mine::RTWriter::randomizedRegions() {
     std::vector<Region<uint16_t>> regions = divideIntoRegions();
     std::random_device rd;
