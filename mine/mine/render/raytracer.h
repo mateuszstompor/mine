@@ -167,10 +167,8 @@ namespace mine {
                 
                 float li = light.intensity * 1.0f/l2;
                 
-                simd_float3 v = simd::normalize(r.origin - closest->point);
-                simd_float3 h = simd::normalize(l + v);
-                
-                
+                simd_float3 v = -r.direction;
+                simd_float3 h = simd::normalize(ln + v);
                 
                 accumulatedColor += (1.0f - shadowInfluence ) * cookTorrance(v, normal,
                                                                     h, ln,
