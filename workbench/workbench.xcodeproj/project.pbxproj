@@ -17,6 +17,14 @@
 		05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC072D1717C2001DEC8B /* Main.storyboard */; };
 		05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC052D1717C2001DEC8B /* Assets.xcassets */; };
 		05B050692D2C64750016D827 /* libmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B050672D2C64710016D827 /* libmine.a */; };
+		05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */; };
+		05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */; };
+		05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A20A2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg */; };
+		05E1A20F2DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2092DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg */; };
+		05E1A2152DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2122DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg */; };
+		05E1A2162DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2112DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg */; };
+		05E1A2172DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */; };
+		05E1A2182DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2102DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,14 @@
 		05A2DC0C2D1717C2001DEC8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		05A2DC0D2D1717C2001DEC8B /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		05A2DC192D1717CD001DEC8B /* mine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mine.xcodeproj; path = ../mine/mine.xcodeproj; sourceTree = SOURCE_ROOT; };
+		05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
+		05E1A2092DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		05E1A20A2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
+		05E1A2102DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		05E1A2112DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
+		05E1A2122DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +125,8 @@
 		05A2DC042D1717C2001DEC8B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				05E1A2142DA8556B00F18592 /* Metal048C_2K-JPG */,
+				05E1A20B2DA854F400F18592 /* Onyx011_2K-JPG */,
 				05A2DC032D1717C2001DEC8B /* Metal055A_2K-JPG */,
 			);
 			path = Textures;
@@ -159,6 +177,28 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		05E1A20B2DA854F400F18592 /* Onyx011_2K-JPG */ = {
+			isa = PBXGroup;
+			children = (
+				05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */,
+				05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */,
+				05E1A2092DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg */,
+				05E1A20A2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg */,
+			);
+			path = "Onyx011_2K-JPG";
+			sourceTree = "<group>";
+		};
+		05E1A2142DA8556B00F18592 /* Metal048C_2K-JPG */ = {
+			isa = PBXGroup;
+			children = (
+				05E1A2102DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg */,
+				05E1A2112DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg */,
+				05E1A2122DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg */,
+				05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */,
+			);
+			path = "Metal048C_2K-JPG";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +279,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				05A2DC132D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg in Resources */,
+				05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */,
+				05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */,
+				05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */,
+				05E1A20F2DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg in Resources */,
+				05E1A2152DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg in Resources */,
+				05E1A2162DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg in Resources */,
+				05E1A2172DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg in Resources */,
+				05E1A2182DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg in Resources */,
 				05A2DC142D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg in Resources */,
 				05A2DC152D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg in Resources */,
 				05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */,

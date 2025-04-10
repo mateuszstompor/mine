@@ -192,6 +192,16 @@ public:
                                                 *BitmapLoader::load("Metal055A_2K-JPG_Metalness.jpg"),
                                                 *BitmapLoader::load("Metal055A_2K-JPG_NormalGL.jpg"));
         
+        auto metal2 = std::make_shared<Material>(*BitmapLoader::load("Metal048C_2K-JPG_Color.jpg"),
+                                                 *BitmapLoader::load("Metal048C_2K-JPG_Roughness.jpg"),
+                                                 *BitmapLoader::load("Metal048C_2K-JPG_Metalness.jpg"),
+                                                 *BitmapLoader::load("Metal048C_2K-JPG_NormalGL.jpg"));
+        
+        auto onyx = std::make_shared<Material>(*BitmapLoader::load("Onyx011_2K-JPG_Color.jpg"),
+                                               *BitmapLoader::load("Onyx011_2K-JPG_Roughness.jpg"),
+                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                               *BitmapLoader::load("Onyx011_2K-JPG_NormalGL.jpg"));
+        
         for (auto const & triangle : triangles) {
             tObjects.push_back(TriangleObject(triangle, white));
         }
@@ -202,9 +212,12 @@ public:
         tObjects[5].material = blue;
         
         std::vector<SphereObject> spheres = {
-            SphereObject(Sphere({50, -60, 160}, 40), metal),
-            SphereObject(Sphere({-50, -60, 120}, 40), white),
-            SphereObject(Sphere({0, -80, 170}, 20), mirror)
+            SphereObject(Sphere({60, -60, 160}, 30), metal),
+            SphereObject(Sphere({0, -60, 160}, 30), onyx),
+            SphereObject(Sphere({-60, -60, 160}, 30), metal2),
+            SphereObject(Sphere({60, 20, 160}, 30), white),
+            SphereObject(Sphere({0, 20, 160}, 30), mirror),
+            SphereObject(Sphere({-60, 20, 160}, 30), metal2)
         };
         
         s.triangles = tObjects;
