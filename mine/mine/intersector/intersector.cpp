@@ -15,14 +15,15 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
     std::optional<RayIntersection> closest = std::nullopt;
     for (OmniLight const & sObject : s.omnilights) {
         auto const & sphere = sObject.representation;
-        std::vector<float> allIntersections = sIntersector.intersect(r, sphere);
-        if (allIntersections.empty()) {
+        std::optional<float> intersection = sIntersector.closestIntersection(r, sphere);
+        if (!intersection) {
             continue;
         }
-        float t = allIntersections[0];
+        float t = *intersection;
         simd_float3 point = r.origin + r.direction * t;
         simd_float3 normal = simd_normalize(point - sphere.center);
-        //            simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
+        // TODO: Figure out
+        // simd::float2 uv = sIntersector.getTextureCoordinates(point, sphere);
         simd::float2 uv = simd_float2(0);
         simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
         simd::float3 tmp = simd::cross(A, normal);
@@ -32,11 +33,11 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
     }
     for (SphereObject const & sObject : s.spheres) {
         auto const & sphere = sObject.sphere;
-        std::vector<float> allIntersections = sIntersector.intersect(r, sphere);
-        if (allIntersections.empty()) {
+        std::optional<float> intersection = sIntersector.closestIntersection(r, sphere);
+        if (!intersection) {
             continue;
         }
-        float t = allIntersections[0];
+        float t = *intersection;
         simd_float3 point = r.origin + r.direction * t;
         simd_float3 normal = simd_normalize(point - sphere.center);
         SphereCoordinates sc;
@@ -66,6 +67,9 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                                 t));
     }
     
+    if (closest != std::nullopt) {
+        assert(closest->t >= 0);
+    }
     return closest;
 }
 

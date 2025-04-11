@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <vector>
+#include <optional>
 
 #include "../scene/ray/ray.h"
 #include "../scene/sphere.h"
@@ -15,8 +15,8 @@
 namespace mine {
     class SphereIntersector {
     public:
-        std::vector<float> intersect(const Ray& ray,
-                                     const Sphere& sphere,
-                                     float epsilon = 1e-6) const;
+        std::optional<float> closestIntersection(const Ray& ray,
+                                                 const Sphere& sphere,
+                                                 float epsilon = 1e-6) const;
     };
 }
