@@ -5,7 +5,9 @@
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
+#include <chrono>
 #include <algorithm>
+#include <spdlog/spdlog.h>
 
 #include "rtwriter.h"
 
@@ -47,13 +49,16 @@ void mine::RTWriter::capture(Scene const & scene) {
     std::vector<Region<uint16_t>> regions = randomizedRegions();
     
     for (uint16_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
+        std::chrono::time_point start = std::chrono::high_resolution_clock::now();
         for (Region<uint16_t> const & region : regions) {
             [queue addOperationWithBlock:^{
                 captureRegion(region, scene, iteration);
-                
             }];
         }
         [queue waitUntilAllOperationsAreFinished];
+        std::chrono::time_point end = std::chrono::high_resolution_clock::now();
+        auto duration = duration_cast<std::chrono::milliseconds>(end - start);
+        spdlog::info("Time taken for an iteration {0} ms", duration.count());
     }
 }
 
