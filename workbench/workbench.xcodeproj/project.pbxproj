@@ -25,6 +25,10 @@
 		05E1A2162DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2112DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg */; };
 		05E1A2172DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */; };
 		05E1A2182DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2102DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg */; };
+		05E1A28F2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28C2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg */; };
+		05E1A2902DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28B2DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg */; };
+		05E1A2912DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28A2DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg */; };
+		05E1A2922DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28D2DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +73,10 @@
 		05E1A2112DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
 		05E1A2122DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
 		05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048C_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
+		05E1A28A2DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		05E1A28B2DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
+		05E1A28C2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		05E1A28D2DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +133,7 @@
 		05A2DC042D1717C2001DEC8B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				05E1A28E2DA8E95400F18592 /* Tiles074_2K-JPG */,
 				05E1A2142DA8556B00F18592 /* Metal048C_2K-JPG */,
 				05E1A20B2DA854F400F18592 /* Onyx011_2K-JPG */,
 				05A2DC032D1717C2001DEC8B /* Metal055A_2K-JPG */,
@@ -199,6 +208,17 @@
 				05E1A2132DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg */,
 			);
 			path = "Metal048C_2K-JPG";
+			sourceTree = "<group>";
+		};
+		05E1A28E2DA8E95400F18592 /* Tiles074_2K-JPG */ = {
+			isa = PBXGroup;
+			children = (
+				05E1A28A2DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg */,
+				05E1A28B2DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg */,
+				05E1A28C2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg */,
+				05E1A28D2DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg */,
+			);
+			path = "Tiles074_2K-JPG";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +302,10 @@
 				05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */,
 				05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */,
 				05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */,
+				05E1A28F2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg in Resources */,
+				05E1A2902DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg in Resources */,
+				05E1A2912DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg in Resources */,
+				05E1A2922DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg in Resources */,
 				05E1A20F2DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg in Resources */,
 				05E1A2152DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg in Resources */,
 				05E1A2162DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg in Resources */,
