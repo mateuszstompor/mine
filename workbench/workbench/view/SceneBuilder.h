@@ -202,6 +202,11 @@ public:
                                                Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
                                                *BitmapLoader::load("Onyx011_2K-JPG_NormalGL.jpg"));
         
+        auto tile = std::make_shared<Material>(*BitmapLoader::load("Tiles074_2K-JPG_Color.jpg"),
+                                               *BitmapLoader::load("Tiles074_2K-JPG_Roughness.jpg"),
+                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                               *BitmapLoader::load("Tiles074_2K-JPG_NormalGL.jpg"));
+        
         for (auto const & triangle : triangles) {
             tObjects.push_back(TriangleObject(triangle, white));
         }
@@ -217,7 +222,7 @@ public:
             SphereObject(Sphere({-60, -60, 160}, 30), metal2),
             SphereObject(Sphere({60, 20, 160}, 30), white),
             SphereObject(Sphere({0, 20, 160}, 30), mirror),
-            SphereObject(Sphere({-60, 20, 160}, 30), metal2)
+            SphereObject(Sphere({-60, 20, 160}, 30), tile)
         };
         
         s.triangles = tObjects;
