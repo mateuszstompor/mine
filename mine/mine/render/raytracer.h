@@ -145,9 +145,9 @@ namespace mine {
                         // TODO: Check it
                         // assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
 
-                        simd::float3 newdir = simd::normalize(randomCartesian - closest->point);
+                        simd::float3 newDirection = simd::normalize(randomCartesian - closest->point);
                         
-                        Ray newray(closest->point + newdir, newdir);
+                        Ray newray(closest->point + newDirection * 1e-4f, newDirection);
                         std::optional<RayIntersection> inttt = intersector.closestIntersection(scene, newray);
                         
                         assert(inttt != std::nullopt);
@@ -178,14 +178,13 @@ namespace mine {
                                                                     li);
             }
             
-            
             simd::float3 totalIndirect(0);
             if (config.indirectLightSamples > 0) {
                 for (int i = 0; i < config.indirectLightSamples; ++i) {
                     simd::float3 newDirection = sampleHemisphere(normal,
                                                                  rng.random(),
                                                                  rng.random());
-                    Ray newRay(closest->point + newDirection * 1e-5, newDirection);
+                    Ray newRay(closest->point + newDirection * 1e-4, newDirection);
                     float affect = std::max(simd::dot(normal, newDirection), 0.0f);
                     totalIndirect += trace(newRay,
                                            scene,
@@ -193,10 +192,34 @@ namespace mine {
                                            currentDepth - 1,
                                            metadata).xyz * affect;
                 }
-                totalIndirect /= static_cast<float>(config.indirectLightSamples);
+                totalIndirect /= static_cast<float>(config.indirectLightSamples) ;
+                totalIndirect /= M_PI;
             }
-                    
-            return simd_make_float4(simd::clamp(accumulatedColor + totalIndirect,
+            
+            simd_float3 reflectDir(0);
+            if (roughness > 0) {
+                reflectDir = sampleHemisphereGGXVNDF(-r.direction,
+                                                     normal,
+                                                     roughness,
+                                                     rng.random(),
+                                                     rng.random());
+            } else {
+                reflectDir = simd::reflect(r.direction, normal);
+            }
+            Ray newRay(point + reflectDir * 1e-4f, reflectDir);
+            simd::float3 reflectedColor = trace(newRay,
+                                                scene,
+                                                config,
+                                                currentDepth - 1,
+                                                metadata).xyz;
+            
+            simd::float3 f0 = simd::lerp(simd::float3(0.04f),
+                                         albedo,
+                                         simd::float3(metalness));
+            
+            reflectedColor *= fresnelSchlick(f0, -r.direction, normal);
+            
+            return simd_make_float4(simd::clamp(accumulatedColor + totalIndirect + reflectedColor,
                                                 simd::float3(0.0f),
                                                 simd::float3(1.0f)), 1.0f);
         }
