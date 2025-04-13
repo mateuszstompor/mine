@@ -17,13 +17,16 @@
 
 namespace mine {
     class Intersector {
+        enum class IntersectionKind {
+            sphere,
+            sphereLight,
+            triangle,
+            invalid
+        };
     public:
         std::optional<RayIntersection> closestIntersection(Scene const & s,
                                                            Ray const & r);
     private:
-        void assignIfCloser(std::optional<RayIntersection> & currentBest,
-                            RayIntersection const & newIntersection);
-        
         SphereIntersector sIntersector;
         TriangleIntersector tIntersector;
     };
