@@ -102,7 +102,7 @@ namespace mine {
                 return simd_make_float4(0, 0, 0, 1);
             }
             
-            if (closest->material == nil) {
+            if (closest->material == nullptr) {
                 return simd_make_float4(1, 1, 1, 1);
             }
             
