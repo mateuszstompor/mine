@@ -157,12 +157,12 @@ public:
         std::vector<TriangleObject> tObjects;
         
         std::vector<OmniLight> lights = {
-            OmniLight(Sphere({80, 99, 100}, 10), 15000.0),
-            OmniLight(Sphere({0, 99, 100}, 10), 15000.0),
-            OmniLight(Sphere({-80, 99, 100}, 10), 15000.0),
-            OmniLight(Sphere({80, 99, 140}, 10), 15000.0),
-            OmniLight(Sphere({0, 99, 140}, 10), 15000.0),
-            OmniLight(Sphere({-80, 99, 140}, 10), 15000.0)
+            OmniLight(Sphere({80, -80, 100}, 10), 1500),
+            OmniLight(Sphere({0, -80, 100}, 10), 1500),
+            OmniLight(Sphere({-80, -80, 100}, 10), 1500),
+            OmniLight(Sphere({80, 80, 140}, 10), 1500),
+            OmniLight(Sphere({0, 80, 140}, 10), 1500),
+            OmniLight(Sphere({-80, 80, 140}, 10), 1500)
         };
         
         Scene s{};
