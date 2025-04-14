@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */; };
+		0580A4DA2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */; };
+		0580A4DB2DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D62DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg */; };
+		0580A4DC2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D72DAD8AE600B2F0EB /* Metal048A_2K-JPG_Roughness.jpg */; };
+		0580A4DD2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */; };
+		0580A4EC2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4E92DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg */; };
+		0580A4ED2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4E72DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg */; };
+		0580A4EE2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4E82DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg */; };
+		0580A4EF2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4EA2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg */; };
 		05A2DC102D1717C2001DEC8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DBFC2D1717C2001DEC8B /* AppDelegate.m */; };
 		05A2DC112D1717C2001DEC8B /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DC0D2D1717C2001DEC8B /* ViewController.mm */; };
 		05A2DC122D1717C2001DEC8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05A2DBFD2D1717C2001DEC8B /* main.m */; };
@@ -50,6 +59,15 @@
 
 /* Begin PBXFileReference section */
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
+		0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
+		0580A4D62DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		0580A4D72DAD8AE600B2F0EB /* Metal048A_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
+		0580A4E72DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles129B_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
+		0580A4E82DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles129B_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
+		0580A4E92DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles129B_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
+		0580A4EA2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles129B_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
 		05A2DBFB2D1717C2001DEC8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		05A2DBFC2D1717C2001DEC8B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		05A2DBFD2D1717C2001DEC8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -109,6 +127,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0580A4D82DAD8AE600B2F0EB /* Metal048A_2K-JPG */ = {
+			isa = PBXGroup;
+			children = (
+				0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */,
+				0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */,
+				0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */,
+				0580A4D62DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg */,
+				0580A4D72DAD8AE600B2F0EB /* Metal048A_2K-JPG_Roughness.jpg */,
+			);
+			path = "Metal048A_2K-JPG";
+			sourceTree = "<group>";
+		};
+		0580A4EB2DAD8D0800B2F0EB /* Tiles129B_2K-JPG */ = {
+			isa = PBXGroup;
+			children = (
+				0580A4E72DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg */,
+				0580A4E82DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg */,
+				0580A4E92DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg */,
+				0580A4EA2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg */,
+			);
+			path = "Tiles129B_2K-JPG";
+			sourceTree = "<group>";
+		};
 		05A2DBFE2D1717C2001DEC8B /* app */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +174,8 @@
 		05A2DC042D1717C2001DEC8B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				0580A4EB2DAD8D0800B2F0EB /* Tiles129B_2K-JPG */,
+				0580A4D82DAD8AE600B2F0EB /* Metal048A_2K-JPG */,
 				05E1A28E2DA8E95400F18592 /* Tiles074_2K-JPG */,
 				05E1A2142DA8556B00F18592 /* Metal048C_2K-JPG */,
 				05E1A20B2DA854F400F18592 /* Onyx011_2K-JPG */,
@@ -304,6 +347,10 @@
 				05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */,
 				05E1A28F2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg in Resources */,
 				05E1A2902DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg in Resources */,
+				0580A4EC2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg in Resources */,
+				0580A4ED2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg in Resources */,
+				0580A4EE2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg in Resources */,
+				0580A4EF2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg in Resources */,
 				05E1A2912DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg in Resources */,
 				05E1A2922DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg in Resources */,
 				05E1A20F2DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg in Resources */,
@@ -316,6 +363,11 @@
 				05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */,
 				05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */,
 				05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */,
+				0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */,
+				0580A4DA2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg in Resources */,
+				0580A4DB2DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg in Resources */,
+				0580A4DC2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Roughness.jpg in Resources */,
+				0580A4DD2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
