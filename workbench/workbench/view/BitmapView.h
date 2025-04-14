@@ -34,6 +34,8 @@
                        1,
                        // indirect light sampling
                        1,
+                       // reflections
+                       true,
                        // tile size
                        50,
                        // depth

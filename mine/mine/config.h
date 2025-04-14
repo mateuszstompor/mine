@@ -18,6 +18,8 @@ namespace mine {
         uint16_t shadowSamples;
         // Per Intersections
         uint16_t indirectLightSamples;
+        // Cast reflection ray
+        bool reflections;
         uint16_t regionSide;
         uint8_t depth;
         uint8_t threads;

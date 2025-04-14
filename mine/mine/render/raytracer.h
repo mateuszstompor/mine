@@ -160,10 +160,9 @@ namespace mine {
                     assert(shadowInfluence <= 1.0);
                 }
                 
-                
                 simd_float3 l = light.representation.center - point;
                 simd_float3 ln = simd::normalize(l);
-                float l2 = simd::dot(l, l);
+                float l2 = fmax(simd::dot(l, l), 1e-5);
                 
                 float li = light.intensity * 1.0f/l2;
                 
@@ -171,11 +170,11 @@ namespace mine {
                 simd_float3 h = simd::normalize(ln + v);
                 
                 accumulatedColor += (1.0f - shadowInfluence ) * cookTorrance(v, normal,
-                                                                    h, ln,
-                                                                    albedo,
-                                                                    metalness,
-                                                                    roughness,
-                                                                    li);
+                                                                             h, ln,
+                                                                             albedo,
+                                                                             metalness,
+                                                                             roughness,
+                                                                             li);
             }
             
             simd::float3 totalIndirect(0);
@@ -196,32 +195,37 @@ namespace mine {
                 totalIndirect /= M_PI;
             }
             
-            simd_float3 reflectDir(0);
-            if (roughness > 0) {
-                reflectDir = sampleHemisphereGGXVNDF(-r.direction,
-                                                     normal,
-                                                     roughness,
-                                                     rng.random(),
-                                                     rng.random());
-            } else {
-                reflectDir = simd::reflect(r.direction, normal);
+            simd::float3 reflectedColor(0);
+            if (config.reflections) {
+                simd_float3 reflectDir(0);
+                if (roughness > 0) {
+                    reflectDir = sampleHemisphereGGXVNDF(-r.direction,
+                                                         normal,
+                                                         roughness,
+                                                         rng.random(),
+                                                         rng.random());
+                } else {
+                    reflectDir = simd::reflect(r.direction, normal);
+                }
+                Ray newRay(point + normal * 1e-4f, reflectDir);
+                reflectedColor = trace(newRay,
+                                       scene,
+                                       config,
+                                       currentDepth - 1,
+                                       metadata).xyz;
+                
+                simd::float3 f0 = simd::lerp(simd::float3(0.04f),
+                                             albedo,
+                                             simd::float3(metalness));
+                
+                reflectedColor *= fresnelSchlick(f0, -r.direction, normal);
             }
-            Ray newRay(point + normal * 1e-4f, reflectDir);
-            simd::float3 reflectedColor = trace(newRay,
-                                                scene,
-                                                config,
-                                                currentDepth - 1,
-                                                metadata).xyz;
             
-            simd::float3 f0 = simd::lerp(simd::float3(0.04f),
-                                         albedo,
-                                         simd::float3(metalness));
-            
-            reflectedColor *= fresnelSchlick(f0, -r.direction, normal);
-            
-            return simd_make_float4(simd::clamp(accumulatedColor + totalIndirect + reflectedColor,
-                                                simd::float3(0.0f),
-                                                simd::float3(1.0f)), 1.0f);
+            return simd_make_float4(simd::clamp(accumulatedColor +
+                                                totalIndirect +
+                                                reflectedColor,
+                                                simd_make_float3(0.0f, 0.0f, 0.0f),
+                                                simd_make_float3(1.0f, 1.0f, 1.0f)), 1.0f);
         }
     private:
         RNGSTD rng;
