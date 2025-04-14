@@ -103,7 +103,7 @@ namespace mine {
             }
             
             if (closest->material == nullptr) {
-                return simd_make_float4(1, 1, 1, 1);
+                return simd_make_float4(*(closest->lightColor), 1);
             }
             
             simd_float3 point = closest->point;
@@ -169,12 +169,12 @@ namespace mine {
                 simd_float3 v = -r.direction;
                 simd_float3 h = simd::normalize(ln + v);
                 
-                accumulatedColor += (1.0f - shadowInfluence ) * cookTorrance(v, normal,
-                                                                             h, ln,
-                                                                             albedo,
-                                                                             metalness,
-                                                                             roughness,
-                                                                             li);
+                accumulatedColor += (1.0f - shadowInfluence ) * light.color * cookTorrance(v, normal,
+                                                                                           h, ln,
+                                                                                           albedo,
+                                                                                           metalness,
+                                                                                           roughness,
+                                                                                           li);
             }
             
             simd::float3 totalIndirect(0);
@@ -201,7 +201,7 @@ namespace mine {
                 if (roughness > 0) {
                     reflectDir = sampleHemisphereGGXVNDF(-r.direction,
                                                          normal,
-                                                         roughness,
+                                                         roughness * roughness,
                                                          rng.random(),
                                                          rng.random());
                 } else {
