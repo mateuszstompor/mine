@@ -157,12 +157,12 @@ public:
         std::vector<TriangleObject> tObjects;
         
         std::vector<OmniLight> lights = {
-            OmniLight(Sphere({80, -80, 100}, 10), 1500),
-            OmniLight(Sphere({0, -80, 100}, 10), 1500),
-            OmniLight(Sphere({-80, -80, 100}, 10), 1500),
-            OmniLight(Sphere({80, 80, 140}, 10), 1500),
-            OmniLight(Sphere({0, 80, 140}, 10), 1500),
-            OmniLight(Sphere({-80, 80, 140}, 10), 1500)
+            OmniLight(Sphere({80, -80, 100}, 10), 1500, {1, 0, 0}),
+            OmniLight(Sphere({0, -80, 100}, 10), 5000, {0, 1, 0}),
+            OmniLight(Sphere({-80, -80, 100}, 10), 1500, {0, 0, 1}),
+            OmniLight(Sphere({80, 80, 140}, 10), 15000, {1, 1, 1}),
+            OmniLight(Sphere({0, 80, 140}, 10), 15000, {1, 1, 1}),
+            OmniLight(Sphere({-80, 80, 140}, 10), 15000, {1, 1, 1})
         };
         
         Scene s{};
@@ -227,12 +227,12 @@ public:
         tObjects[5].material = blue;
         
         std::vector<SphereObject> spheres = {
-            SphereObject(Sphere({60, -60, 160}, 30), metal),
-            SphereObject(Sphere({0, -60, 160}, 30), onyx),
-            SphereObject(Sphere({-60, -60, 160}, 30), metal2),
-            SphereObject(Sphere({60, 20, 160}, 30), gold),
-            SphereObject(Sphere({0, 20, 160}, 30), mirror),
-            SphereObject(Sphere({-60, 20, 160}, 30), tile)
+            SphereObject(Sphere({60, -60, 160}, 25), metal),
+            SphereObject(Sphere({0, -60, 160}, 25), onyx),
+            SphereObject(Sphere({-60, -60, 160}, 25), metal2),
+            SphereObject(Sphere({60, 20, 160}, 25), gold),
+            SphereObject(Sphere({0, 20, 160}, 25), mirror),
+            SphereObject(Sphere({-60, 20, 160}, 25), tile)
         };
         
         s.triangles = tObjects;

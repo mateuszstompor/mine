@@ -58,7 +58,8 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
     }
     assert(std::get<0>(closest) >= 0);
     if (std::get<2>(closest) == IntersectionKind::sphereLight) {
-        Sphere & sphere = *(Sphere *)std::get<1>(closest);
+        OmniLight & sObject = *(OmniLight *)std::get<1>(closest);
+        Sphere & sphere = sObject.representation;
         float t = std::get<0>(closest);
         simd_float3 point = r.origin + r.direction * t;
         simd_float3 normal = simd_normalize(point - sphere.center);
@@ -67,7 +68,14 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
         simd::float3 tmp = simd::cross(A, normal);
         simd::float3 tangent = tmp / simd::length(tmp);
         simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
-        return RayIntersection(tangent, bitangent, normal, point, uv, nullptr, t);
+        return RayIntersection(tangent,
+                               bitangent,
+                               normal,
+                               point,
+                               uv,
+                               nullptr,
+                               std::make_shared<simd::float3>(sObject.color),
+                               t);
     } else if (std::get<2>(closest) == IntersectionKind::sphere) {
         float t = std::get<0>(closest);
         SphereObject & sObject = *(SphereObject *)std::get<1>(closest);
@@ -80,7 +88,7 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
         simd::float3 tmp = simd::cross(A, normal);
         simd::float3 tangent = tmp / simd::length(tmp);
         simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
-        return RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, t);
+        return RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, nullptr, t);
     } else {
         float t = std::get<0>(closest);
         TriangleObject & tObject = *(TriangleObject *)std::get<1>(closest);
@@ -93,6 +101,7 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                point,
                                uv,
                                tObject.material,
+                               nullptr,
                                t);
     }
 }

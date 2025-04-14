@@ -20,7 +20,8 @@ namespace mine {
         simd_float3 N;
         simd_float3 point;
         simd_float2 uv;
-        std::shared_ptr<Material> material;
+        std::shared_ptr<Material> material = nullptr;
+        std::shared_ptr<simd::float3> lightColor = nullptr;
         float t;
     };
 }
