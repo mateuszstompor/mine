@@ -26,6 +26,7 @@
 		05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC072D1717C2001DEC8B /* Main.storyboard */; };
 		05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC052D1717C2001DEC8B /* Assets.xcassets */; };
 		05B050692D2C64750016D827 /* libmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B050672D2C64710016D827 /* libmine.a */; };
+		05B225E82DAFCAE9001F21F2 /* autumn_field_puresky.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05B225E72DAFCAE9001F21F2 /* autumn_field_puresky.jpg */; };
 		05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */; };
 		05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */; };
 		05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A20A2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg */; };
@@ -38,6 +39,8 @@
 		05E1A2902DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28B2DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg */; };
 		05E1A2912DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28A2DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg */; };
 		05E1A2922DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A28D2DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg */; };
+		05F5727B2DAFF32E00BEF593 /* kiara_1_dawn.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05F5727A2DAFF32E00BEF593 /* kiara_1_dawn.jpg */; };
+		05F5727D2DAFF8F700BEF593 /* rogland_clear_night.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05F5727C2DAFF8F700BEF593 /* rogland_clear_night.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,12 +80,13 @@
 		05A2DC022D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal055A_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
 		05A2DC052D1717C2001DEC8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		05A2DC062D1717C2001DEC8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		05A2DC082D1717C2001DEC8B /* rt2.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rt2.entitlements; sourceTree = "<group>"; };
 		05A2DC0A2D1717C2001DEC8B /* BitmapView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BitmapView.h; sourceTree = "<group>"; };
 		05A2DC0B2D1717C2001DEC8B /* SceneBuilder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneBuilder.h; sourceTree = "<group>"; };
 		05A2DC0C2D1717C2001DEC8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		05A2DC0D2D1717C2001DEC8B /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		05A2DC192D1717CD001DEC8B /* mine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mine.xcodeproj; path = ../mine/mine.xcodeproj; sourceTree = SOURCE_ROOT; };
+		05B225E72DAFCAE9001F21F2 /* autumn_field_puresky.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = autumn_field_puresky.jpg; sourceTree = "<group>"; };
+		05B225F82DAFCE87001F21F2 /* workbench.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = workbench.entitlements; sourceTree = "<group>"; };
 		05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
 		05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
 		05E1A2092DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
@@ -95,6 +99,8 @@
 		05E1A28B2DA8E95400F18592 /* Tiles074_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
 		05E1A28C2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_NormalGL.jpg"; sourceTree = "<group>"; };
 		05E1A28D2DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Tiles074_2K-JPG_Roughness.jpg"; sourceTree = "<group>"; };
+		05F5727A2DAFF32E00BEF593 /* kiara_1_dawn.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kiara_1_dawn.jpg; sourceTree = "<group>"; };
+		05F5727C2DAFF8F700BEF593 /* rogland_clear_night.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rogland_clear_night.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,9 @@
 		05A2DC042D1717C2001DEC8B /* Textures */ = {
 			isa = PBXGroup;
 			children = (
+				05F5727C2DAFF8F700BEF593 /* rogland_clear_night.jpg */,
+				05F5727A2DAFF32E00BEF593 /* kiara_1_dawn.jpg */,
+				05B225E72DAFCAE9001F21F2 /* autumn_field_puresky.jpg */,
 				0580A4EB2DAD8D0800B2F0EB /* Tiles129B_2K-JPG */,
 				0580A4D82DAD8AE600B2F0EB /* Metal048A_2K-JPG */,
 				05E1A28E2DA8E95400F18592 /* Tiles074_2K-JPG */,
@@ -187,10 +196,10 @@
 		05A2DC092D1717C2001DEC8B /* supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				05B225F82DAFCE87001F21F2 /* workbench.entitlements */,
 				05A2DC042D1717C2001DEC8B /* Textures */,
 				05A2DC052D1717C2001DEC8B /* Assets.xcassets */,
 				05A2DC072D1717C2001DEC8B /* Main.storyboard */,
-				05A2DC082D1717C2001DEC8B /* rt2.entitlements */,
 			);
 			path = "supporting files";
 			sourceTree = "<group>";
@@ -343,6 +352,7 @@
 			files = (
 				05A2DC132D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg in Resources */,
 				05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */,
+				05F5727B2DAFF32E00BEF593 /* kiara_1_dawn.jpg in Resources */,
 				05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */,
 				05E1A20E2DA854F400F18592 /* Onyx011_2K-JPG_Roughness.jpg in Resources */,
 				05E1A28F2DA8E95400F18592 /* Tiles074_2K-JPG_NormalGL.jpg in Resources */,
@@ -350,11 +360,13 @@
 				0580A4EC2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_NormalGL.jpg in Resources */,
 				0580A4ED2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Color.jpg in Resources */,
 				0580A4EE2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Displacement.jpg in Resources */,
+				05F5727D2DAFF8F700BEF593 /* rogland_clear_night.jpg in Resources */,
 				0580A4EF2DAD8D0800B2F0EB /* Tiles129B_2K-JPG_Roughness.jpg in Resources */,
 				05E1A2912DA8E95400F18592 /* Tiles074_2K-JPG_Color.jpg in Resources */,
 				05E1A2922DA8E95400F18592 /* Tiles074_2K-JPG_Roughness.jpg in Resources */,
 				05E1A20F2DA854F400F18592 /* Onyx011_2K-JPG_NormalGL.jpg in Resources */,
 				05E1A2152DA8556B00F18592 /* Metal048C_2K-JPG_NormalGL.jpg in Resources */,
+				05B225E82DAFCAE9001F21F2 /* autumn_field_puresky.jpg in Resources */,
 				05E1A2162DA8556B00F18592 /* Metal048C_2K-JPG_Metalness.jpg in Resources */,
 				05E1A2172DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg in Resources */,
 				05E1A2182DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg in Resources */,
@@ -540,7 +552,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.rt2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.workbench;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
@@ -568,7 +580,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.rt2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.workbench;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
