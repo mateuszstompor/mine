@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <optional>
 #include <vector>
 
 #include "light/omnilight.h"
@@ -20,5 +21,6 @@ namespace mine {
         std::vector<OmniLight> omnilights;
         std::vector<SphereObject> spheres;
         std::vector<TriangleObject> triangles;
+        std::optional<Bitmap> environmentMap = std::nullopt;
     };
 }

@@ -15,12 +15,16 @@
 
 namespace mine {
     struct Bitmap {
-        const uint16_t width;
-        const uint16_t height;
-        const uint8_t bytesPerPixel;
+        uint16_t width;
+        uint16_t height;
+        uint8_t bytesPerPixel;
         std::vector<uint8_t> data;
         
         Bitmap(simd_float4 color);
+        
+        Bitmap(const Bitmap & other) = default;
+        
+        Bitmap & operator=(const Bitmap & other) = default;
         
         Bitmap(uint16_t width,
                uint16_t height,
