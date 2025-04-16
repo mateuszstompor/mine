@@ -7,7 +7,7 @@ This project focuses on learning and implementing ray tracing using a CPU-based 
 
 #### Just a beginning
 <p align="center">
-    <img src="./devlog/2024-12-09.jpg" width="100%">
+    <img src="./devlog/2025-04-16.jpg" width="100%">
 </p>
 
 ### Technology stack
