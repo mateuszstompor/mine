@@ -99,7 +99,14 @@ namespace mine {
             
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
-                return simd_make_float4(0, 0, 0, 1);
+                if (scene.environmentMap) {
+                    float u = (atan2(r.direction.z, r.direction.x) / (2.0f * M_PI)) + 0.5f;
+                    float v = acos(simd::clamp(r.direction.y, -1.0f, 1.0f)) / M_PI;
+                    simd::float3 environment = sampler.sample(u, v, *scene.environmentMap).xyz;
+                    return simd_make_float4(environment, 1);
+                } else {
+                    return simd_make_float4(0, 0, 0, 1);
+                }
             }
             
             if (closest->material == nullptr) {
