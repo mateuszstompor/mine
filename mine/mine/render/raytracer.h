@@ -192,14 +192,18 @@ namespace mine {
                                                                  rng.random());
                     Ray newRay(closest->point + normal * 1e-4, newDirection);
                     float affect = std::max(simd::dot(normal, newDirection), 0.0f);
-                    totalIndirect += trace(newRay,
-                                           scene,
-                                           config,
-                                           currentDepth - 1,
-                                           metadata).xyz * affect;
+                    
+                    simd::float3 incoming = trace(newRay, scene, config, currentDepth - 1, metadata).xyz;
+                    totalIndirect += incoming * affect * (2.0f * M_PI);  // Correct for PDF
                 }
-                totalIndirect /= static_cast<float>(config.indirectLightSamples) ;
-                totalIndirect /= M_PI;
+                totalIndirect /= static_cast<float>(config.indirectLightSamples);
+                totalIndirect *= albedo / M_PI; // Lambertian BRDF
+                
+                simd::float3 f0 = simd::lerp(simd::float3(0.04f),
+                                             albedo,
+                                             simd::float3(metalness));
+                
+                totalIndirect *=  (1 - fresnelSchlick(f0, -r.direction, normal));
             }
             
             simd::float3 reflectedColor(0);
