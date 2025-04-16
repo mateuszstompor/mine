@@ -234,7 +234,9 @@ public:
             SphereObject(Sphere({0, 20, 160}, 25), mirror),
             SphereObject(Sphere({-60, 20, 160}, 25), tile)
         };
-        
+//        s.environmentMap = std::make_optional(*BitmapLoader::load("Tiles129B_2K-JPG_NormalGL.jpg"));
+//        s.environmentMap = std::make_optional(*BitmapLoader::load("autumn_field_puresky.jpg"));
+//        s.environmentMap = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));
         s.triangles = tObjects;
         s.omnilights = lights;
         s.spheres = spheres;
