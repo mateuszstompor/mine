@@ -226,6 +226,8 @@ public:
         tObjects[4].material = blue;
         tObjects[5].material = blue;
         
+        mirror->ior = 1.5f;
+        
         std::vector<SphereObject> spheres = {
             SphereObject(Sphere({60, -60, 160}, 25), metal),
             SphereObject(Sphere({0, -60, 160}, 25), onyx),
