@@ -23,7 +23,7 @@ mine::RTWriter::~RTWriter() {
 }
 
 void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
-                                   Scene const & scene,
+                                   Scene & scene,
                                    uint16_t iteration) {
     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
@@ -45,7 +45,7 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
     }
 }
 
-void mine::RTWriter::capture(Scene const & scene) {
+void mine::RTWriter::capture(Scene & scene) {
     std::vector<Region<uint16_t>> regions = randomizedRegions();
     
     for (uint16_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
@@ -62,7 +62,7 @@ void mine::RTWriter::capture(Scene const & scene) {
     }
 }
 
-void mine::RTWriter::capturePixel(Scene const & scene,
+void mine::RTWriter::capturePixel(Scene & scene,
                                   simd::float2 const & coordinate) {
     assert(coordinate.x >= 0 && coordinate.x <= 1 && "Must be in [0, 1]");
     assert(coordinate.y >= 0 && coordinate.y <= 1 && "Must be in [0, 1]");
