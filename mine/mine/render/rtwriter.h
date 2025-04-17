@@ -23,8 +23,8 @@ namespace mine {
         RTWriter(Config const & config);
         ~RTWriter();
             
-        void capture(Scene const & scene);
-        void capturePixel(Scene const & scene,
+        void capture(Scene & scene);
+        void capturePixel(Scene & scene,
                           simd::float2 const & coordinate);
         CGBitmap cgbitmap;
         
@@ -32,7 +32,7 @@ namespace mine {
         std::vector<Region<uint16_t>> randomizedRegions();
         std::vector<Region<uint16_t>> divideIntoRegions();
         void captureRegion(Region<uint16_t> const & region,
-                           Scene const & scene,
+                           Scene & scene,
                            uint16_t iteration);
         RayTracer rt;
         Config config;
