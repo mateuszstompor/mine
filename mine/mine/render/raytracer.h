@@ -29,6 +29,56 @@ namespace mine {
 
     class RayTracer {
     public:
+        std::pair<bool, bool> refract(const simd::float3& I, const simd::float3& N, float ior, simd::float3& outRefracted) {
+            float cosi = simd::clamp(simd::dot(I, N), -1.0f, 1.0f);
+            float etai = 1.0f, etat = ior;
+            simd::float3 n = N;
+            
+            bool swap = false;
+            if (cosi < 0.0f) {
+                cosi = -cosi;
+            } else {
+                std::swap(etai, etat);
+                n = -N;
+                swap = true;
+            }
+
+            float eta = etai / etat;
+            float k = 1.0f - eta * eta * (1.0f - cosi * cosi);
+
+            if (k < 0) {
+                return std::make_pair(false, false); // Total internal reflection
+            }
+
+            outRefracted = eta * I + (eta * cosi - sqrtf(k)) * n;
+            return std::make_pair(true, swap);
+        }
+        
+        float fresnel(const simd::float3& I, const simd::float3& N, float ior) {
+            float cosi = simd::clamp(simd::dot(I, N), -1.0f, 1.0f);
+            float etai = 1.0f;
+            float etat = ior;
+
+            if (cosi > 0.0f) {
+                std::swap(etai, etat);
+            }
+
+            // Compute sine of transmission angle using Snell’s law
+            float sint = etai / etat * sqrtf(fmaxf(0.0f, 1.0f - cosi * cosi));
+
+            // Total internal reflection
+            if (sint >= 1.0f) {
+                return 1.0f;
+            }
+
+            float cost = sqrtf(fmaxf(0.0f, 1.0f - sint * sint));
+            cosi = fabsf(cosi);
+
+            float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
+            float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
+            return (Rs * Rs + Rp * Rp) * 0.5f;
+        }
+        
         float distributionGGX(float alpha, const simd_float3& n, const simd_float3& h) {
             float nDotH = std::max(simd::dot(n, h), 0.0f);
             float alphaSq = alpha * alpha;
@@ -120,6 +170,7 @@ namespace mine {
             simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
             float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness).x;
             float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness).x;
+            float ior = closest->material->ior;
             
             normal = (normal * 2.0f) - 1.0f;
             
@@ -185,26 +236,19 @@ namespace mine {
             }
             
             simd::float3 totalIndirect(0);
-            if (config.indirectLightSamples > 0) {
-                for (int i = 0; i < config.indirectLightSamples; ++i) {
-                    simd::float3 newDirection = sampleHemisphere(normal,
-                                                                 rng.random(),
-                                                                 rng.random());
-                    Ray newRay(closest->point + normal * 1e-4, newDirection);
-                    float affect = std::max(simd::dot(normal, newDirection), 0.0f);
-                    
-                    simd::float3 incoming = trace(newRay, scene, config, currentDepth - 1, metadata).xyz;
-                    totalIndirect += incoming * affect * (2.0f * M_PI);  // Correct for PDF
-                }
-                totalIndirect /= static_cast<float>(config.indirectLightSamples);
-                totalIndirect *= albedo / M_PI; // Lambertian BRDF
-                
-                simd::float3 f0 = simd::lerp(simd::float3(0.04f),
-                                             albedo,
-                                             simd::float3(metalness));
-                
-                totalIndirect *=  (1 - fresnelSchlick(f0, -r.direction, normal));
+            for (int i = 0; i < config.indirectLightSamples; ++i) {
+                simd::float3 newDirection = sampleHemisphere(normal, rng.random(), rng.random());
+                float cosTheta = std::max(simd::dot(normal, newDirection), 0.0f);
+
+                Ray newRay(closest->point + normal * 1e-4, newDirection);
+                simd::float3 incoming = trace(newRay, scene, config, currentDepth - 1, metadata).xyz;
+
+                totalIndirect += incoming * albedo * 2.0f * cosTheta;
             }
+            totalIndirect /= static_cast<float>(config.indirectLightSamples);
+
+            simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
+            totalIndirect *= (1.0f - fresnelSchlick(f0, -r.direction, normal));
             
             simd::float3 reflectedColor(0);
             if (config.reflections) {
@@ -232,9 +276,39 @@ namespace mine {
                 reflectedColor *= fresnelSchlick(f0, -r.direction, normal);
             }
             
+            simd::float3 refracted = simd_make_float3(0, 0, 0);
+            simd::float3 refractedColor = simd_make_float3(0, 0, 0);
+            simd::float3 perturbedNormal = normal;
+            if (roughness > 0) {
+                perturbedNormal = simd::normalize(normal + roughness * sampleHemisphere(normal,
+                                                                                       rng.random(),
+                                                                                       rng.random()));
+
+            }
+            auto refract_r = refract(simd::normalize(r.direction), simd::normalize(perturbedNormal), ior, refracted);
+            float reflectionFactor = 1.0f;
+            if (ior != 0 && std::get<0>(refract_r)) {
+                reflectedColor = simd_make_float3(0, 0, 0);
+                Ray newRay(closest->point + perturbedNormal * 1e-4 * (((int)std::get<1>(refract_r)) ? 1 : -1), simd::normalize(refracted));
+                refractedColor = simd::clamp(trace(newRay,
+                                  scene,
+                                  config,
+                                  currentDepth - 1,
+                                  metadata).xyz,simd_make_float3(0.0f, 0.0f, 0.0f),
+                                             simd_make_float3(1.0f, 1.0f, 1.0f));
+                refractedColor *= albedo;
+                reflectionFactor = fresnel(r.direction, perturbedNormal, ior);
+                
+            } else if (ior != 0 && !std::get<0>(refract_r)) {
+                
+            }
+            refractedColor = simd::clamp(refractedColor,simd_make_float3(0.0f, 0.0f, 0.0f),
+                                         simd_make_float3(1.0f, 1.0f, 1.0f));
+            
             return simd_make_float4(simd::clamp(accumulatedColor +
-                                                totalIndirect +
-                                                reflectedColor,
+                                                reflectedColor * reflectionFactor +
+                                                refractedColor * (1 - reflectionFactor)+
+                                                totalIndirect,
                                                 simd_make_float3(0.0f, 0.0f, 0.0f),
                                                 simd_make_float3(1.0f, 1.0f, 1.0f)), 1.0f);
         }
