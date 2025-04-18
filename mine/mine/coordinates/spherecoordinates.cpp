@@ -35,7 +35,8 @@ simd::float2 mine::SphereCoordinates::getSphericalCoordinates(const simd::float3
     
     simd::float3 point = nonCenteredPoint - sphere.center;
     double phi = std::atan2(point.z, point.x);
-    double theta = std::acos(point.y / sphere.radius);
+    double thetaInput = simd::clamp(point.y / sphere.radius, -1.0f, 1.0f);
+    double theta = std::acos(thetaInput);
     
     assert(std::isfinite(theta));
     assert(std::isfinite(phi));
