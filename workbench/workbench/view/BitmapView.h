@@ -15,6 +15,7 @@
 {
     mine::RTWriter * writer;
     NSTextField * mousePositionView;
+    NSTimer * timer;
     Scene scene;
 }
 @end
@@ -47,9 +48,9 @@
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             writer->capture(scene);
         });
-        [NSTimer scheduledTimerWithTimeInterval:0.1
-                                        repeats:YES
-                                          block:^(NSTimer * _Nonnull timer) {
+        timer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                repeats:YES
+                                                  block:^(NSTimer * _Nonnull timer) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self setNeedsDisplay:YES];
             });
@@ -119,6 +120,7 @@
 - (void)dealloc
 {
     delete writer;
+    [timer invalidate];
     [super dealloc];
 }
 

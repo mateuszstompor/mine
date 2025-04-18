@@ -48,7 +48,7 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
 void mine::RTWriter::capture(Scene & scene) {
     std::vector<Region<uint16_t>> regions = randomizedRegions();
     
-    for (uint16_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
+    for (uint32_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
         std::chrono::time_point start = std::chrono::high_resolution_clock::now();
         for (Region<uint16_t> const & region : regions) {
             [queue addOperationWithBlock:^{

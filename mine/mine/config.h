@@ -13,7 +13,7 @@ namespace mine {
     struct Config {
         uint16_t width;
         uint16_t height;
-        uint16_t raysPerPixel;
+        uint32_t raysPerPixel;
         // Per Light
         uint16_t shadowSamples;
         // Per Intersections
