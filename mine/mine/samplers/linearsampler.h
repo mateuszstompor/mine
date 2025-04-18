@@ -13,7 +13,10 @@
 
 class LinearSampler {
 public:
-    simd::float4 sample(double u, double v, const mine::Bitmap& texture) {
+    simd::float4 sample(float u, float v, mine::Bitmap const & texture) {
+        u = simd::clamp(u, 0.0, 1.0);
+        v = simd::clamp(v, 0.0, 1.0);
+        
         float x = u * (texture.width - 1);
         float y = v * (texture.height - 1);
 
@@ -22,11 +25,11 @@ public:
         float fY = std::floor(y);
         float cY = std::ceil(y);
         
-        auto p1 = texture.colorAt(fX, fY);
-        auto p2 = texture.colorAt(cX, fY);
+        simd::float4 p1 = texture.colorAt(fX, fY);
+        simd::float4 p2 = texture.colorAt(cX, fY);
         
-        auto p3 = texture.colorAt(fX, cY);
-        auto p4 = texture.colorAt(cX, cY);
+        simd::float4 p3 = texture.colorAt(fX, cY);
+        simd::float4 p4 = texture.colorAt(cX, cY);
         
         float xFrac = x - fX;
         float yFrac = y - fY;

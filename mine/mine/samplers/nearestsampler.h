@@ -14,8 +14,8 @@
 class NearestSampler {
 public:
     simd::float4 sample(float u, float v, const Bitmap & texture) {
-//        assert(u <= 1 && u >= 0);
-//        assert(v <= 1 && v >= 0);
+        u = simd::clamp(u, 0.0f, 1.0f);
+        v = simd::clamp(v, 0.0f, 1.0f);
         
         float normalizedU = simd::clamp(u, 0.0f, 1.0f);
         float normalizedV = simd::clamp(v, 0.0f, 1.0f);
