@@ -37,6 +37,10 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
                                          config,
                                          config.depth,
                                          meta);
+            assert(color.r >= 0);
+            assert(color.g >= 0);
+            assert(color.b >= 0);
+            assert(color.a >= 0);
             uint16_t flippedY = cgbitmap.bitmap.height - y - 1;
             simd_float4 currentColor = cgbitmap.bitmap.colorAt(x, flippedY);
             simd_float4 newColor = (currentColor * iteration + color) / float(iteration + 1);
