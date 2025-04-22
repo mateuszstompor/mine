@@ -5,6 +5,8 @@
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
+#include <assert.h>
+
 #include "bitmap.h"
 
 mine::Bitmap::Bitmap(simd_float4 color)
@@ -46,6 +48,10 @@ uint8_t& mine::Bitmap::at(uint16_t x,
 }
 
 simd::float4 mine::Bitmap::colorAt(uint16_t x, uint16_t y) const {
+    assert(x >= 0);
+    assert(x < width);
+    assert(y >= 0);
+    assert(y < height);
     return simd::make_float4(
      data[(y * width + x) * bytesPerPixel] / 255.0,
      data[(y * width + x) * bytesPerPixel + 1] / 255.0,
