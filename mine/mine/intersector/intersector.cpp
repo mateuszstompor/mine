@@ -9,8 +9,8 @@
 
 #include "intersector.h"
 
-#include "../coordinates/spherecoordinates.h"
-#include "../coordinates/trianglecoordinates.h"
+#include "../general/normal.h"
+
 
 std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine::Scene const & s,
                                                                             Ray const & r) {
@@ -64,10 +64,8 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
         Sphere & sphere = sObject.representation;
         simd_float3 normal = simd_normalize(point - sphere.center);
         simd::float2 uv = simd_float2(0);
-        simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
-        simd::float3 tmp = simd::cross(A, normal);
-        simd::float3 tangent = tmp / simd::length(tmp);
-        simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
+        simd::float3 tangent, bitangent;
+        mine::generateTBForNormal(tangent, bitangent, normal);
         return RayIntersection(tangent,
                                bitangent,
                                normal,
@@ -80,17 +78,13 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
         SphereObject & sObject = *(SphereObject *)std::get<1>(closest);
         Sphere & sphere = sObject.sphere;
         simd_float3 normal = simd_normalize(point - sphere.center);
-        SphereCoordinates sc;
-        simd::float2 uv = sc.getTextureCoordinates(point, sphere);
-        simd::float3 A = simd::make_float3(0, 0, 1) != normal ? simd::make_float3(0, 0, 1) : simd::make_float3(1, 0, 0);
-        simd::float3 tmp = simd::cross(A, normal);
-        simd::float3 tangent = tmp / simd::length(tmp);
-        simd::float3 bitangent = simd::normalize(simd::cross(normal, tangent));
+        simd::float2 uv = sCoordinates.getTextureCoordinates(point, sphere);
+        simd::float3 tangent, bitangent;
+        mine::generateTBForNormal(tangent, bitangent, normal);
         return RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, nullptr, t);
     } else {
         TriangleObject & tObject = *(TriangleObject *)std::get<1>(closest);
-        TriangleCoordinates tc;
-        simd::float2 uv = tc.getTextureCoordinates(point, tObject.triangle);
+        simd::float2 uv = tCoordinates.getTextureCoordinates(point, tObject.triangle);
         return RayIntersection(tObject.triangle.tangent,
                                tObject.triangle.bitangent,
                                tObject.triangle.normal,

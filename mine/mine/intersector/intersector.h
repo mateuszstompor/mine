@@ -12,6 +12,9 @@
 #include "sphereintersector.h"
 #include "triangleintersector.h"
 
+#include "../coordinates/spherecoordinates.h"
+#include "../coordinates/trianglecoordinates.h"
+
 #include "../scene/rayintersection.h"
 #include "../scene/scene.h"
 
@@ -28,6 +31,8 @@ namespace mine {
                                                            Ray const & r);
     private:
         SphereIntersector sIntersector;
+        SphereCoordinates sCoordinates;
         TriangleIntersector tIntersector;
+        TriangleCoordinates tCoordinates;
     };
 }
