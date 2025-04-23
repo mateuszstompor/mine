@@ -73,3 +73,9 @@ simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float3& 
     simd::float2 coordinates = getSphericalCoordinates(point, sphere);
     return getTextureCoordinates(coordinates);
 }
+
+simd::float2 mine::SphereCoordinates::getEquirectangularCoordinates(const simd::float3& direction) const {
+    float u = (atan2(direction.z, direction.x) / (2.0f * M_PI)) + 0.5f;
+    float v = acos(simd::clamp(direction.y, -1.0f, 1.0f)) / M_PI;
+    return simd_make_float2(u, v);
+}

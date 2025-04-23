@@ -18,6 +18,7 @@
 #include "../samplers/linearsampler.h"
 #include "../sampling/hemisphere.h"
 #include "../coordinates/diskcoordinates.h"
+#include "../coordinates/spherecoordinates.h"
 #include "../rng/rngstd.h"
 #include "../config.h"
 
@@ -150,9 +151,10 @@ namespace mine {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 if (scene.environmentMap) {
-                    float u = (atan2(r.direction.z, r.direction.x) / (2.0f * M_PI)) + 0.5f;
-                    float v = acos(simd::clamp(r.direction.y, -1.0f, 1.0f)) / M_PI;
-                    simd::float3 environment = sampler.sample(u, v, *scene.environmentMap).xyz;
+                    SphereCoordinates sc;
+                    simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
+                    simd::float3 environment = sampler.sample(uv.x, uv.y,
+                                                              *scene.environmentMap).xyz;
                     return simd_make_float4(environment, 1);
                 } else {
                     return simd_make_float4(0, 0, 0, 1);

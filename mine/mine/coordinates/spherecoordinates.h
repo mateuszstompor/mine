@@ -30,5 +30,7 @@ namespace mine {
         simd::float2 getTextureCoordinates(const simd::float2& sphericalCoordinates);
         
         simd::float2 getTextureCoordinates(const simd::float3& point, const Sphere& sphere);
+        
+        simd::float2 getEquirectangularCoordinates(const simd::float3& direction) const;
     };
 }
