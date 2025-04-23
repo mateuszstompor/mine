@@ -5,6 +5,8 @@
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
+#include <cassert>
+
 #include "camera.h"
 
 mine::Camera::Camera(int antialiasRange)
@@ -13,6 +15,8 @@ mine::Camera::Camera(int antialiasRange)
 }
 
 mine::Ray mine::Camera::ray(int x, int y, int width, int height) {
+    assert(x >= 0 && x < width);
+    assert(y >= 0 && y < height);
     float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
     float newXPlusOne = (static_cast<float>(x + 1) / (width - 1)) * 2 - 1;
     float aspect = static_cast<float>(width) / height;
