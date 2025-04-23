@@ -237,7 +237,8 @@ namespace mine {
             
             simd::float3 totalIndirect(0);
             for (int i = 0; i < config.indirectLightSamples; ++i) {
-                simd::float3 newDirection = sampleHemisphere(normal, rng.random(), rng.random());
+                simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
+                simd::float3 newDirection = simd::normalize(tbn * sample);
                 float cosTheta = std::max(simd::dot(normal, newDirection), 0.0f);
 
                 Ray newRay(closest->point + normal * 1e-4, newDirection);
@@ -280,10 +281,9 @@ namespace mine {
             simd::float3 refractedColor = simd_make_float3(0, 0, 0);
             simd::float3 perturbedNormal = normal;
             if (roughness > 0) {
-                perturbedNormal = simd::normalize(normal + roughness * sampleHemisphere(normal,
-                                                                                       rng.random(),
-                                                                                       rng.random()));
-
+                simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
+                simd::float3 newDirection = simd::normalize(tbn * sample);
+                perturbedNormal = simd::normalize(normal + roughness * newDirection);
             }
             auto refract_r = refract(simd::normalize(r.direction), simd::normalize(perturbedNormal), ior, refracted);
             float reflectionFactor = 1.0f;

@@ -18,22 +18,11 @@ inline simd::float3 sampleHemisphere(const simd::float3& normal,
     
     // Local sample direction
     simd::float3 sample = simd_make_float3(x, y, z);
-    
-    // Align the sample to the hemisphere normal
-    simd::float3 tangent, bitangent;
-    if (std::abs(normal.x) > std::abs(normal.z)) {
-        tangent = simd::normalize(simd_make_float3(-normal.y, normal.x, 0.0f));
-    } else {
-        tangent = simd::normalize(simd_make_float3(0.0f, -normal.z, normal.y));
-    }
-    bitangent = simd::cross(normal, tangent);
-    
-    // Transform the sample to align with the hemisphere's normal
-    simd::float3 result = sample.x * tangent + sample.y * bitangent + sample.z * normal;
-    assert(!simd::isnan(result.x));
-    assert(!simd::isnan(result.y));
-    assert(!simd::isnan(result.z));
-    return result;
+        
+    assert(simd::isfinite(sample.x));
+    assert(simd::isfinite(sample.y));
+    assert(simd::isfinite(sample.z));
+    return sample;
 }
 
 inline simd_float3 sampleHemisphereGGXVNDF(const simd_float3& v,
