@@ -107,15 +107,13 @@ namespace mine {
 
         simd_float3 cookTorrance(const simd_float3& v,
                                  const simd_float3& n,
-                                 const simd_float3& h,
                                  const simd_float3& l,
                                  const simd_float3& albedo,
                                  float metalness,
-                                 float roughness,
-                                 float li) {
+                                 float roughness) {
             simd_float3 diffuse = albedo / M_PI;
-            float lamberts = simd::max(simd::dot(l, n), 0.0f);
             float alpha = std::pow(roughness, 2.0f);
+            simd_float3 h = simd::normalize(l + v);
             float d = distributionGGX(alpha, n, h);
             
             simd_float3 f0 = simd::lerp(simd_float3(0.04f),
@@ -135,9 +133,7 @@ namespace mine {
             float denominator = std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
             simd_float3 specular = (f * g * d) / denominator;
 
-            simd_float3 direct = kD * diffuse + kS * specular;
-
-            return direct * lamberts * li;
+            return kD * diffuse + kS * specular;
         }
         simd_float4 trace(Ray const & r,
                           mine::Scene const & scene,
@@ -227,14 +223,14 @@ namespace mine {
                 float li = light.intensity * 1.0f/l2;
                 
                 simd_float3 v = -r.direction;
-                simd_float3 h = simd::normalize(ln + v);
-                
-                accumulatedColor += (1.0f - shadowInfluence ) * light.color * cookTorrance(v, normal,
-                                                                                           h, ln,
-                                                                                           albedo,
-                                                                                           metalness,
-                                                                                           roughness,
-                                                                                           li);
+                float lamberts = simd::max(simd::dot(ln, normal), 0.0f);
+                auto brdf = cookTorrance(v,
+                                         normal,
+                                         ln,
+                                         albedo,
+                                         metalness,
+                                         roughness);
+                accumulatedColor += (1.0f - shadowInfluence) * light.color * brdf * li * lamberts;
             }
             
             simd::float3 totalIndirect(0);
