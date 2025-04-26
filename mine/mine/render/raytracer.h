@@ -178,6 +178,11 @@ namespace mine {
             
             normal = simd::normalize(tbn * normal);
             
+            simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
+            simd_float3 kS = fresnelSchlick(f0, -r.direction, normal);
+            simd_float3 kD = simd::float3(1.0) - kS;
+            kD *= 1.0 - metalness;
+            
             simd::float3 accumulatedColor = simd::float3(0);
             
             for (auto const & light: scene.omnilights) {
