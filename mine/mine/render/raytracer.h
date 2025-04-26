@@ -250,9 +250,7 @@ namespace mine {
                 totalIndirect += incoming * albedo * 2.0f * cosTheta;
             }
             totalIndirect /= static_cast<float>(config.indirectLightSamples);
-
-            simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
-            totalIndirect *= (1.0f - fresnelSchlick(f0, -r.direction, normal));
+            totalIndirect *= kD; // Only apply indirect to diffuse component
             
             simd::float3 reflectedColor(0);
             if (config.reflections) {
@@ -273,11 +271,7 @@ namespace mine {
                                        currentDepth - 1,
                                        metadata).xyz;
                 
-                simd::float3 f0 = simd::lerp(simd::float3(0.04f),
-                                             albedo,
-                                             simd::float3(metalness));
-                
-                reflectedColor *= fresnelSchlick(f0, -r.direction, normal);
+                reflectedColor *= kS;
             }
             
             simd::float3 refracted = simd_make_float3(0, 0, 0);
@@ -293,27 +287,20 @@ namespace mine {
             if (ior != 0 && std::get<0>(refract_r)) {
                 reflectedColor = simd_make_float3(0, 0, 0);
                 Ray newRay(closest->point + perturbedNormal * 1e-4 * (((int)std::get<1>(refract_r)) ? 1 : -1), simd::normalize(refracted));
-                refractedColor = simd::clamp(trace(newRay,
-                                  scene,
-                                  config,
-                                  currentDepth - 1,
-                                  metadata).xyz,simd_make_float3(0.0f, 0.0f, 0.0f),
-                                             simd_make_float3(1.0f, 1.0f, 1.0f));
+                refractedColor = trace(newRay,
+                                       scene,
+                                       config,
+                                       currentDepth - 1,
+                                       metadata).xyz;
                 refractedColor *= albedo;
                 reflectionFactor = fresnel(r.direction, perturbedNormal, ior);
-                
-            } else if (ior != 0 && !std::get<0>(refract_r)) {
-                
             }
-            refractedColor = simd::clamp(refractedColor,simd_make_float3(0.0f, 0.0f, 0.0f),
-                                         simd_make_float3(1.0f, 1.0f, 1.0f));
             
-            return simd_make_float4(simd::clamp(accumulatedColor +
-                                                reflectedColor * reflectionFactor +
-                                                refractedColor * (1 - reflectionFactor)+
-                                                totalIndirect,
-                                                simd_make_float3(0.0f, 0.0f, 0.0f),
-                                                simd_make_float3(1.0f, 1.0f, 1.0f)), 1.0f);
+            simd_float3 totalColor = accumulatedColor +
+            reflectedColor * reflectionFactor +
+            refractedColor * (1 - reflectionFactor) +
+            totalIndirect;
+            return simd_make_float4(totalColor, 1.0f);
         }
     private:
         RNGSTD rng;
