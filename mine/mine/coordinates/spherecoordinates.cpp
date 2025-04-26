@@ -7,6 +7,8 @@
 
 #include "spherecoordinates.h"
 
+#include "../assertion/equal.h"
+
 #include <cassert>
 
 bool mine::SphereCoordinates::isOnSphere(const simd::float3& point, const Sphere& sphere, float epsilon) {
@@ -75,6 +77,7 @@ simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float3& 
 }
 
 simd::float2 mine::SphereCoordinates::getEquirectangularCoordinates(const simd::float3& direction) const {
+    assertEqual(simd::length(direction), 1.0f, 1e-4f);
     float u = (atan2(direction.z, direction.x) / (2.0f * M_PI)) + 0.5f;
     float v = acos(simd::clamp(direction.y, -1.0f, 1.0f)) / M_PI;
     return simd_make_float2(u, v);

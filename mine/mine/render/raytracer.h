@@ -147,7 +147,6 @@ namespace mine {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 if (scene.environmentMap) {
-                    SphereCoordinates sc;
                     simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
                     simd::float3 environment = sampler.sample(uv.x, uv.y,
                                                               *scene.environmentMap).xyz;
@@ -306,5 +305,6 @@ namespace mine {
         RNGSTD rng;
         Intersector intersector;
         LinearSampler sampler;
+        SphereCoordinates sc;
     };
 }
