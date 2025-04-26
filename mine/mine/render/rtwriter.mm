@@ -24,7 +24,7 @@ mine::RTWriter::~RTWriter() {
 
 void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
                                    Scene & scene,
-                                   uint16_t iteration) {
+                                   uint32_t iteration) {
     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
             Metadata meta(x, y);

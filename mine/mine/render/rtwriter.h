@@ -33,7 +33,7 @@ namespace mine {
         std::vector<Region<uint16_t>> divideIntoRegions();
         void captureRegion(Region<uint16_t> const & region,
                            Scene & scene,
-                           uint16_t iteration);
+                           uint32_t iteration);
         RayTracer rt;
         Config config;
         NSOperationQueue * queue;
