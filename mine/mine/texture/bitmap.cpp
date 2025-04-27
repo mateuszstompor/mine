@@ -1,7 +1,4 @@
 //
-//  bitmap.h
-//
-//  Created on 06/01/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
@@ -52,11 +49,12 @@ simd::float4 mine::Bitmap::colorAt(uint16_t x, uint16_t y) const {
     assert(x < width);
     assert(y >= 0);
     assert(y < height);
+    uint32_t offset = (y * width + x) * bytesPerPixel;
     return simd::make_float4(
-     data[(y * width + x) * bytesPerPixel] / 255.0,
-     data[(y * width + x) * bytesPerPixel + 1] / 255.0,
-     data[(y * width + x) * bytesPerPixel + 2] / 255.0,
-     data[(y * width + x) * bytesPerPixel + 3] / 255.0
+     data[offset] / 255.0f,
+     data[offset + 1] / 255.0f,
+     data[offset + 2] / 255.0f,
+     data[offset + 3] / 255.0f
     );
 }
 

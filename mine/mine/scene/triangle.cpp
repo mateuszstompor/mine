@@ -1,8 +1,5 @@
 //
-//  triangle.cpp
-//  mine
-//
-//  Created by Motion VFX on 06/01/2025.
+//  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
 #include "triangle.h"

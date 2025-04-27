@@ -1,8 +1,5 @@
 //
-//  config.h
-//  mine
-//
-//  Created by Motion VFX on 21/12/2024.
+//  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
 #pragma once

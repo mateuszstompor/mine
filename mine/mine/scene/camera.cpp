@@ -1,7 +1,4 @@
 //
-//  camera.cpp
-//
-//  Created on 17/04/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 

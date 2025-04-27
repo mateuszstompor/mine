@@ -1,7 +1,4 @@
 //
-//  rtwriter.cpp
-//
-//  Created on 06/01/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
@@ -65,7 +62,7 @@ void mine::RTWriter::capture(Scene & scene) {
         [queue waitUntilAllOperationsAreFinished];
         std::chrono::time_point end = std::chrono::high_resolution_clock::now();
         auto duration = duration_cast<std::chrono::milliseconds>(end - start);
-        spdlog::info("Time taken for an iteration {0} ms", duration.count());
+        spdlog::info("Time taken for an iteration {0} ms, iteration: {1}", duration.count(), iteration);
     }
 }
 

@@ -1,7 +1,4 @@
 //
-//  spherecoordinates.h
-//
-//  Created on 07/01/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 

@@ -1,7 +1,4 @@
 //
-//  cgbitmap.mm
-//
-//  Created on 06/01/2025.
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
