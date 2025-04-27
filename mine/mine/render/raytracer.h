@@ -132,29 +132,27 @@ namespace mine {
 
             return kD * diffuse + kS * specular;
         }
-        simd_float4 trace(Ray const & r,
+        simd_float3 trace(Ray const & r,
                           mine::Scene const & scene,
                           mine::Config const & config,
                           int currentDepth,
                           Metadata const & metadata) {
             if (currentDepth < 0) {
-                return simd_make_float4(simd::float3(0), 1.0f);
+                return simd_make_float3(0.0f, 0.0f, 0.0f);
             }
             
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 if (scene.environmentMap) {
                     simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
-                    simd::float3 environment = sampler.sample(uv.x, uv.y,
-                                                              *scene.environmentMap).xyz;
-                    return simd_make_float4(environment, 1);
+                    return sampler.sample(uv.x, uv.y, *scene.environmentMap).xyz;
                 } else {
-                    return simd_make_float4(0, 0, 0, 1);
+                    return simd_make_float3(0.0f, 0.0f, 0.0f);
                 }
             }
             
             if (closest->material == nullptr) {
-                return simd_make_float4(*(closest->lightColor), 1);
+                return *(closest->lightColor);
             }
             
             simd_float3 point = closest->point;
@@ -294,11 +292,10 @@ namespace mine {
                 reflectionFactor = fresnel(r.direction, perturbedNormal, ior);
             }
             
-            simd_float3 totalColor = accumulatedColor +
+            return accumulatedColor +
             reflectedColor * reflectionFactor +
             refractedColor * (1 - reflectionFactor) +
             totalIndirect;
-            return simd_make_float4(totalColor, 1.0f);
         }
     private:
         RNGSTD rng;
