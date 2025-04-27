@@ -59,14 +59,15 @@ simd::float4 mine::Bitmap::colorAt(uint16_t x, uint16_t y) const {
 }
 
 mine::Bitmap mine::Bitmap::defaultNormalMap() {
-    return Bitmap(simd_make_float4((simd_make_float3(0, 0, 1) + 1) / 2.0, 1));
+    return Bitmap(simd_make_float4((simd_make_float3(0.0f, 0.0f, 1.0f) + 1.0f) / 2.0f, 1.0f));
 }
 
 void mine::Bitmap::setNormalizedRGBA(uint16_t x,
                                      uint16_t y,
                                      simd_float4 const & normalized) {
-    data[(y * width + x) * bytesPerPixel] = normalized.x * 255;
-    data[(y * width + x) * bytesPerPixel + 1] = normalized.y * 255;
-    data[(y * width + x) * bytesPerPixel + 2] = normalized.z * 255;
-    data[(y * width + x) * bytesPerPixel + 3] = normalized.w * 255;
+    uint32_t offset = (y * width + x) * bytesPerPixel;
+    data[offset] = normalized.x * 255;
+    data[offset + 1] = normalized.y * 255;
+    data[offset + 2] = normalized.z * 255;
+    data[offset + 3] = normalized.w * 255;
 }
