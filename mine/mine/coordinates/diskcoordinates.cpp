@@ -8,9 +8,12 @@
 #include "../assertion/range.h"
 
 simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point, const Disk& disk) {
-    float angle = std::atan2(point.y, point.x);
-    float radius = simd::length(point - disk.origin);
-    return { angle, radius };
+    return simd::float2 {
+        // Angle
+        std::atan2(point.y, point.x),
+        // Radius
+        simd::length(point - disk.origin)
+    };
 }
 
 simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk const & disk) {
@@ -29,15 +32,17 @@ simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk c
 
 simd_float2 mine::DiskCoordinates::getTextureCoordinates(const simd_float2& polarCoordinates, const Disk& disk) {
     assert(disk.radius > 0.0f);
-    float v = polarCoordinates[1] / disk.radius;
-    float u = (polarCoordinates[0] + M_PI) / (2.0f * M_PI);
-    return { u, v };
+    simd_float2 uvCoordinates = {
+        (polarCoordinates.x + static_cast<float>(M_PI)) / (2.0f * static_cast<float>(M_PI)),
+        polarCoordinates.y / disk.radius
+    };
+    assertEachInClosedRange(uvCoordinates, simd_make_float2(0.0f, 1.0f));
+    return uvCoordinates;
 }
 
 simd_float2 mine::DiskCoordinates::getTextureCoordinates(const simd_float3& point, const Disk& disk) {
     simd_float2 polar = getPolarCoordinates(point, disk);
     simd_float2 uvCoordinates = getTextureCoordinates(polar, disk);
-    assert(uvCoordinates[0] >= 0 && uvCoordinates[0] <= 1);
-    assert(uvCoordinates[1] >= 0 && uvCoordinates[1] <= 1);
+    assertEachInClosedRange(uvCoordinates, simd_make_float2(0.0f, 1.0f));
     return uvCoordinates;
 }
