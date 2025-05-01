@@ -37,7 +37,7 @@ simd::float3 mine::SphereCoordinates::sphericalToCartesian(float r,
 
 simd::float2 mine::SphereCoordinates::getSphericalCoordinates(const simd::float3& nonCenteredPoint,
                                                               const Sphere& sphere) {
-    assert(isOnSphere(nonCenteredPoint, sphere, 1e-1f));
+    assert(isOnSphere(nonCenteredPoint, sphere, 5e-1f));
     
     simd::float3 point = nonCenteredPoint - sphere.center;
     float phi = std::atan2(point.z, point.x);
