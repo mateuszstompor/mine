@@ -19,7 +19,6 @@ simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point,
 simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk const & disk) {
     assertInClosedRange(theta, 0.0f, 2.0f * static_cast<float>(M_PI));
     assertInClosedRange(r, 0.0f, disk.radius);
-    assert(disk.normal.z != 0 && "disk.normal.z must not be zero to avoid division by zero");
     
     float x = r * cos(theta);
     float y = r * sin(theta);
