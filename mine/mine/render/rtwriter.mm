@@ -6,6 +6,8 @@
 #include <algorithm>
 #include <spdlog/spdlog.h>
 
+#include "../assertion/finite.h"
+
 #include "rtwriter.h"
 
 mine::RTWriter::RTWriter(Config const & config)
@@ -34,9 +36,7 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
                                          config,
                                          config.depth,
                                          meta);
-            assert(color.r >= 0);
-            assert(color.g >= 0);
-            assert(color.b >= 0);
+            assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
                                                     simd_make_float3(0, 0, 0),
                                                     simd_make_float3(1, 1, 1));
