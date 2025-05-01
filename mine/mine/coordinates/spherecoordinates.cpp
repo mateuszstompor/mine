@@ -4,6 +4,7 @@
 
 #include "spherecoordinates.h"
 
+#include "../general/angle.h"
 #include "../assertion/equal.h"
 
 #include <cassert>
@@ -11,34 +12,37 @@
 bool mine::SphereCoordinates::isOnSphere(const simd::float3& point,
                                          const Sphere& sphere,
                                          float epsilon) {
-    double a = std::pow(point.x - sphere.center.x, 2);
-    double b = std::pow(point.y - sphere.center.y, 2);
-    double c = std::pow(point.z - sphere.center.z, 2);
-    double d = std::pow(sphere.radius, 2);
-    double e = a + b + c;
-    return std::abs(d - e) < epsilon;
+    simd::float3 diff = point - sphere.center;
+    float distSquared = simd::dot(diff, diff);
+    float radiusSquared = sphere.radius * sphere.radius;
+    return std::abs(distSquared - radiusSquared) < epsilon;
 }
+
 simd::float3 mine::SphereCoordinates::sphericalToCartesian(float r,
-                                                           float theta,
-                                                           float phi) {
+                                                           float thetaDegrees,
+                                                           float phiDegrees) {
     // Convert angles from degrees to radians if necessary
     // Comment this out if theta and phi are already in radians
-    theta = theta * M_PI / 180.0;
-    phi = phi * M_PI / 180.0;
+    assert(r > 0.0f);
+    float theta = degreesToRadians(thetaDegrees);
+    float phi = degreesToRadians(phiDegrees);
+
+    float sinPhi = std::sin(phi);
+    float sinPhiR = r * sinPhi;
     
-    return simd::make_float3(r * std::sin(phi) * std::cos(theta),
-                             r * std::sin(phi) * std::sin(theta),
+    return simd::make_float3(sinPhiR * std::cos(theta),
+                             sinPhiR * std::sin(theta),
                              r * std::cos(phi));
 }
 
 simd::float2 mine::SphereCoordinates::getSphericalCoordinates(const simd::float3& nonCenteredPoint,
                                                               const Sphere& sphere) {
-    assert(isOnSphere(nonCenteredPoint, sphere, 1e-1));
+    assert(isOnSphere(nonCenteredPoint, sphere, 1e-1f));
     
     simd::float3 point = nonCenteredPoint - sphere.center;
-    double phi = std::atan2(point.z, point.x);
-    double thetaInput = simd::clamp(point.y / sphere.radius, -1.0f, 1.0f);
-    double theta = std::acos(thetaInput);
+    float phi = std::atan2(point.z, point.x);
+    float thetaInput = simd::clamp(point.y / sphere.radius, -1.0f, 1.0f);
+    float theta = std::acos(thetaInput);
     
     assert(std::isfinite(theta));
     assert(std::isfinite(phi));
@@ -51,17 +55,16 @@ bool mine::SphereCoordinates::isInsideSphere(simd::float3 const & point,
     float a = point.x - sphere.center.x;
     float b = point.y - sphere.center.y;
     float c = point.z - sphere.center.z;
-    float sum = pow(a, 2) + pow(b, 2) + pow(c, 2);
-    float radiusSquared = pow(sphere.radius, 2);
-    bool inside = sum <= radiusSquared;
-    return inside;
+    float sum = pow(a, 2.0f) + pow(b, 2.0f) + pow(c, 2.0f);
+    float radiusSquared = pow(sphere.radius, 2.0f);
+    return sum <= radiusSquared;
 }
 
 simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float2& sphericalCoordinates) {
-    double phi = sphericalCoordinates.x;
-    double theta = sphericalCoordinates.y;
-    double u = phi / (2 * M_PI) + 0.5;
-    double v = 1.0 - theta / M_PI;
+    float phi = sphericalCoordinates.x;
+    float theta = sphericalCoordinates.y;
+    float u = phi / (2.0f * M_PI) + 0.5f;
+    float v = 1.0f - theta / M_PI;
     
     assert(std::isfinite(u));
     assert(std::isfinite(v));
