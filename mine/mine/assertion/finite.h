@@ -17,4 +17,7 @@ namespace mine {
         assert(simd::isfinite(value.x));
         assert(simd::isfinite(value.y));
     }
+    inline void assertFinite(float value) {
+        assert(simd::isfinite(value));
+    }
 }
