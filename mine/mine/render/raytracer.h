@@ -78,12 +78,16 @@ namespace mine {
         }
         
         float distributionGGX(float alpha, const simd_float3& n, const simd_float3& h) {
+            alpha = std::max(alpha, 1e-3f);
             float nDotH = std::max(simd::dot(n, h), 0.0f);
             float alphaSq = alpha * alpha;
-            float denom = (nDotH * nDotH * (alphaSq - 1.0f) + 1.0f);
-            return alphaSq / (M_PI * denom * denom);
+            float nDotH2 = nDotH * nDotH;
+            float denom = nDotH2 * (alphaSq - 1.0f) + 1.0f;
+            float result = alphaSq / (M_PI * denom * denom);
+            assertFinite(result); // still valid here
+            return result;
         }
-
+        
         simd_float3 fresnelSchlick(const simd_float3& f0,
                                    const simd_float3& v,
                                    const simd_float3& h) {
@@ -129,8 +133,11 @@ namespace mine {
 
             float denominator = std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
             simd_float3 specular = (f * g * d) / denominator;
-
-            return kD * diffuse + kS * specular;
+            simd::float3 diffuseComponent = kD * diffuse;
+            simd::float3 specularComponent = kS * specular;
+            assertFinite(diffuseComponent);
+            assertFinite(specularComponent);
+            return diffuseComponent + specularComponent;
         }
         simd_float3 trace(Ray const & r,
                           mine::Scene const & scene,
@@ -223,13 +230,14 @@ namespace mine {
                 
                 simd_float3 v = -r.direction;
                 float lamberts = simd::max(simd::dot(ln, normal), 0.0f);
-                auto brdf = cookTorrance(v,
-                                         normal,
-                                         ln,
-                                         albedo,
-                                         metalness,
-                                         roughness);
+                simd::float3 brdf = cookTorrance(v,
+                                                 normal,
+                                                 ln,
+                                                 albedo,
+                                                 metalness,
+                                                 roughness);
                 accumulatedColor += (1.0f - shadowInfluence) * light.color * brdf * li * lamberts;
+                assertFinite(accumulatedColor);
             }
             
             simd::float3 totalIndirect(0);
@@ -292,10 +300,17 @@ namespace mine {
                 reflectionFactor = fresnel(r.direction, perturbedNormal, ior);
             }
             
-            return accumulatedColor +
-            reflectedColor * reflectionFactor +
-            refractedColor * (1 - reflectionFactor) +
-            totalIndirect;
+            {
+                simd::float3 aC = accumulatedColor;
+                simd::float3 rfC = reflectedColor * reflectionFactor;
+                simd::float3 rrC = refractedColor * (1 - reflectionFactor);
+                simd::float3 iC = totalIndirect;
+                assertFinite(aC);
+                assertFinite(rfC);
+                assertFinite(rrC);
+                assertFinite(iC);
+                return aC + rfC + rrC + iC;
+            }
         }
     private:
         RNGSTD rng;
