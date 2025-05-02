@@ -306,9 +306,13 @@ namespace mine {
                 simd::float3 rrC = refractedColor * (1 - reflectionFactor);
                 simd::float3 iC = totalIndirect;
                 assertFinite(aC);
+                greaterEqualZero(aC);
                 assertFinite(rfC);
+                greaterEqualZero(rfC);
                 assertFinite(rrC);
+                greaterEqualZero(rrC);
                 assertFinite(iC);
+                greaterEqualZero(iC);
                 return aC + rfC + rrC + iC;
             }
         }
