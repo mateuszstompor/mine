@@ -12,8 +12,7 @@
 #include "../scene/scene.h"
 #include "../intersector/intersector.h"
 #include "../scene/rayintersection.h"
-#include "../samplers/linearsampler.h"
-#include "../samplers/nearestsampler.h"
+#include "../samplers/texturesampler.h"
 #include "../sampling/hemisphere.h"
 #include "../coordinates/diskcoordinates.h"
 #include "../coordinates/spherecoordinates.h"
@@ -320,7 +319,7 @@ namespace mine {
     private:
         RNGSTD rng;
         Intersector intersector;
-        LinearSampler sampler;
+        TextureSampler sampler{Filter::Nearest};
         SphereCoordinates sc;
     };
 }
