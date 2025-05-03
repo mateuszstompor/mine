@@ -319,7 +319,7 @@ namespace mine {
     private:
         RNGSTD rng;
         Intersector intersector;
-        TextureSampler sampler{Filter::Nearest};
+        TextureSampler sampler{Filter::Linear, Edge::ClampToEdge};
         SphereCoordinates sc;
     };
 }

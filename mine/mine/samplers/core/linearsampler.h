@@ -6,15 +6,15 @@
 
 #include <simd/simd.h>
 
-#include "../texture/bitmap.h"
+#include "../../texture/bitmap.h"
+#include "../../assertion/range.h"
 
 namespace mine {
-    class LinearSampler {
+    class LinearSampler: public Sampler {
     public:
-        simd::float4 sample(float u, float v, mine::Bitmap const & texture) {
-            u = simd::clamp(u, 0.0f, 1.0f);
-            v = simd::clamp(v, 0.0f, 1.0f);
-            
+        simd::float4 sample(float u, float v, mine::Bitmap const & texture) override {
+            assertInClosedRange(u, 0.0f, 1.0f);
+            assertInClosedRange(v, 0.0f, 1.0f);
             float x = u * (texture.width - 1);
             float y = v * (texture.height - 1);
 
