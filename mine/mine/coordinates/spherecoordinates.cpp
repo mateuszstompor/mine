@@ -4,10 +4,12 @@
 
 #include "spherecoordinates.h"
 
+#include <cassert>
+
 #include "../general/angle.h"
 #include "../assertion/equal.h"
-
-#include <cassert>
+#include "../assertion/range.h"
+#include "../math/constants.h"
 
 bool mine::SphereCoordinates::isOnSphere(const simd::float3& point,
                                          const Sphere& sphere,
@@ -61,10 +63,8 @@ bool mine::SphereCoordinates::isInsideSphere(simd::float3 const & point,
 }
 
 simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float2& sphericalCoordinates) {
-    float phi = sphericalCoordinates.x;
-    float theta = sphericalCoordinates.y;
-    float u = phi / (2.0f * M_PI) + 0.5f;
-    float v = 1.0f - theta / M_PI;
+    float u = sphericalCoordinates.x * INV_TWO_PI + 0.5f;
+    float v = 1.0f - sphericalCoordinates.y * INV_PI;
     
     assert(std::isfinite(u));
     assert(std::isfinite(v));
@@ -80,7 +80,8 @@ simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float3& 
 
 simd::float2 mine::SphereCoordinates::getEquirectangularCoordinates(const simd::float3& direction) const {
     assertEqual(simd::length(direction), 1.0f, 1e-4f);
-    float u = (atan2(direction.z, direction.x) / (2.0f * M_PI)) + 0.5f;
-    float v = acos(simd::clamp(direction.y, -1.0f, 1.0f)) / M_PI;
+    assertInClosedRange(direction.y, -1.0f, 1.0f);
+    float u = atan2(direction.z, direction.x) * INV_TWO_PI + 0.5f;
+    float v = acos(direction.y) * INV_PI;
     return simd_make_float2(u, v);
 }
