@@ -6,11 +6,11 @@
 
 #include <simd/simd.h>
 
-#include "bitmap.h"
+#include "../texture/bitmap.h"
 
 class NearestSampler {
 public:
-    simd::float4 sample(float u, float v, const Bitmap & texture) {
+    simd::float4 sample(float u, float v, const mine::Bitmap & texture) {
         u = simd::clamp(u, 0.0f, 1.0f);
         v = simd::clamp(v, 0.0f, 1.0f);
         
