@@ -14,6 +14,31 @@ public:
     static constexpr double mainScale = 100.0;
     static constexpr double backScale = 200.0;
     
+    static std::vector<Triangle> backBoard() {
+        // Back
+        Triangle back1({
+            simd::make_float3(-1.0 * mainScale, -1.0 * mainScale, 1.0 * backScale),
+            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, 1.0 * backScale),
+            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, 1.0 * backScale)
+        }, {
+            simd::make_float2(-5, 5),
+            simd::make_float2(-5, -5),
+            simd::make_float2(5, 5)
+        });
+        
+        Triangle back2({
+            simd::make_float3(-1.0 * mainScale,  1.0 * mainScale, 1.0 * backScale),
+            simd::make_float3( 1.0 * mainScale,  1.0 * mainScale, 1.0 * backScale),
+            simd::make_float3( 1.0 * mainScale, -1.0 * mainScale, 1.0 * backScale)
+        }, {
+            simd::make_float2(-5, -5),
+            simd::make_float2(5, -5),
+            simd::make_float2(5, 5)
+        });
+        
+        return {back1, back2};
+    }
+    
     static std::vector<Triangle> openCornellBox() {
         // Back
         Triangle back1({
