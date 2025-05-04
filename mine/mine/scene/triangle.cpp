@@ -4,8 +4,12 @@
 
 #include "triangle.h"
 #include "../assertion/finite.h"
+#include "../assertion/perpendicular.h"
+#include "../assertion/normalized.h"
 
-Triangle::Triangle(mine::Vertex const & inV0, mine::Vertex const & inV1, mine::Vertex const & inV2) {
+mine::Triangle::Triangle(mine::Vertex const & inV0,
+                         mine::Vertex const & inV1,
+                         mine::Vertex const & inV2) {
     v0 = inV0.position;
     v1 = inV1.position;
     v2 = inV2.position;
@@ -18,22 +22,29 @@ Triangle::Triangle(mine::Vertex const & inV0, mine::Vertex const & inV1, mine::V
     tangent = simd::normalize(inV0.tangent + inV1.tangent + inV2.tangent);
     bitangent = simd::normalize(inV0.bitangent + inV1.bitangent + inV2.bitangent);
 
-    mine::assertFinite(v0);
-    mine::assertFinite(v1);
-    mine::assertFinite(v2);
+    assertFinite(v0);
+    assertFinite(v1);
+    assertFinite(v2);
 
-    mine::assertFinite(uv0);
-    mine::assertFinite(uv1);
-    mine::assertFinite(uv2);
+    assertFinite(uv0);
+    assertFinite(uv1);
+    assertFinite(uv2);
 
-    mine::assertFinite(tangent);
-    mine::assertFinite(bitangent);
-    mine::assertFinite(normal);
+    assertFinite(tangent);
+    assertFinite(bitangent);
+    assertFinite(normal);
+    
+    assertNormalized(tangent);
+    assertNormalized(bitangent);
+    assertNormalized(normal);
+    
+    assertPerpendicular(normal, tangent);
+    assertPerpendicular(normal, bitangent);
+    assertPerpendicular(tangent, bitangent);
 }
 
-
-Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
-                   const std::array<simd::float2, 3>& uvsInput) {
+mine::Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
+                         const std::array<simd::float2, 3>& uvsInput) {
     v0 = vertices[0];
     v1 = vertices[1];
     v2 = vertices[2];
@@ -42,47 +53,47 @@ Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
     uv1 = uvsInput[1];
     uv2 = uvsInput[2];
     
-    auto v0v1 = v1 - v0;
-    auto v0v2 = v2 - v0;
-    auto crossed = simd::cross(v0v1, v0v2);
+    const auto edge1 = v1 - v0;
+    const auto edge2 = v2 - v0;
+    const auto deltaUV1 = uv1 - uv0;
+    const auto deltaUV2 = uv2 - uv0;
+
+    const float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
+
+    simd::float3 rawTangent = f * (deltaUV2.y * edge1 - deltaUV1.y * edge2);
+    simd::float3 rawBitangent = f * (-deltaUV2.x * edge1 + deltaUV1.x * edge2);
     
-    auto edge1 = vertices[1] - vertices[0];
-    auto edge2 = vertices[2] - vertices[0];
-    auto deltaUV1 = uv1 - uv0;
-    auto deltaUV2 = uv2 - uv0;
+    normal = simd::normalize(simd::cross(edge1, edge2));
+
+    // Orthonormalize tangent against normal
+    tangent = simd::normalize(rawTangent - normal * simd::dot(normal, rawTangent));
     
-    float f = 1.0 / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
-    
-    simd::float3 tangent1;
-    tangent1.x = f * (deltaUV2.y * edge1.x - deltaUV1.y * edge2.x);
-    tangent1.y = f * (deltaUV2.y * edge1.y - deltaUV1.y * edge2.y);
-    tangent1.z = f * (deltaUV2.y * edge1.z - deltaUV1.y * edge2.z);
-    
-    simd::float3 bitangent1;
-    bitangent1.x = f * (-deltaUV2.x * edge1.x + deltaUV1.x * edge2.x);
-    bitangent1.y = f * (-deltaUV2.x * edge1.y + deltaUV1.x * edge2.y);
-    bitangent1.z = f * (-deltaUV2.x * edge1.z + deltaUV1.x * edge2.z);
-    
-    tangent = simd::normalize(tangent1);
-    bitangent1 = simd::normalize(bitangent1);
-    
-    normal = simd::normalize(crossed);
-    auto Bprim = simd::cross(normal, tangent);
-    if (simd::dot(Bprim, bitangent1) < 0) {
-        bitangent = -bitangent1;
-    } else {
-        bitangent = bitangent1;
+    // Recompute bitangent to guarantee orthogonality and correct handedness
+    bitangent = simd::cross(normal, tangent);
+
+    // Fix handedness if needed (preserve original bitangent direction)
+    if (simd::dot(bitangent, rawBitangent) < 0.0f) {
+        bitangent = -bitangent;
     }
-    
-    mine::assertFinite(v0);
-    mine::assertFinite(v1);
-    mine::assertFinite(v2);
-    
-    mine::assertFinite(uv0);
-    mine::assertFinite(uv1);
-    mine::assertFinite(uv2);
-    
-    mine::assertFinite(tangent);
-    mine::assertFinite(bitangent);
-    mine::assertFinite(normal);
+
+    // Sanity checks
+    assertFinite(v0);
+    assertFinite(v1);
+    assertFinite(v2);
+
+    assertFinite(uv0);
+    assertFinite(uv1);
+    assertFinite(uv2);
+
+    assertFinite(tangent);
+    assertFinite(bitangent);
+    assertFinite(normal);
+
+    assertNormalized(tangent);
+    assertNormalized(bitangent);
+    assertNormalized(normal);
+
+    assertPerpendicular(normal, tangent);
+    assertPerpendicular(normal, bitangent);
+    assertPerpendicular(tangent, bitangent);
 }
