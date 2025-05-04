@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562DE5A2DC748580026D141 /* ModelIO.framework */; };
 		0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */; };
 		0580A4DA2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */; };
 		0580A4DB2DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D62DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0562DE5A2DC748580026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
 		0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
 		0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */,
 				05B050692D2C64750016D827 /* libmine.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,6 +239,7 @@
 		05B050682D2C64750016D827 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0562DE5A2DC748580026D141 /* ModelIO.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
