@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0562DE592DC748450026D141 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562DE582DC748450026D141 /* ModelIO.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		05617B352D17173400260E40 /* libmine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmine.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		0562DE582DC748450026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0562DE592DC748450026D141 /* ModelIO.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +39,7 @@
 			isa = PBXGroup;
 			children = (
 				05A2DB892D171765001DEC8B /* mine */,
+				0562DE572DC748450026D141 /* Frameworks */,
 				05617B362D17173400260E40 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +50,14 @@
 				05617B352D17173400260E40 /* libmine.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0562DE572DC748450026D141 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0562DE582DC748450026D141 /* ModelIO.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
