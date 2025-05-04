@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05447A112DC7529000A88437 /* 3D_Design_Mini_House.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */; };
+		05447A122DC7529000A88437 /* Cinque_Terre.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0C2DC7529000A88437 /* Cinque_Terre.usdz */; };
+		05447A132DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */; };
+		05447A142DC7529000A88437 /* FREE_GMC_Motorhome_reimagined_low_poly.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0E2DC7529000A88437 /* FREE_GMC_Motorhome_reimagined_low_poly.usdz */; };
+		05447A152DC7529000A88437 /* Small_Japanese_House.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0F2DC7529000A88437 /* Small_Japanese_House.usdz */; };
+		05447A162DC7529000A88437 /* Ford_GT40_1964.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0D2DC7529000A88437 /* Ford_GT40_1964.usdz */; };
+		05447A172DC7529000A88437 /* 2018_BMW_M5.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0A2DC7529000A88437 /* 2018_BMW_M5.usdz */; };
+		05447A182DC7529000A88437 /* Camera_Lens.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0B2DC7529000A88437 /* Camera_Lens.usdz */; };
 		0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562DE5A2DC748580026D141 /* ModelIO.framework */; };
 		0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */; };
 		0580A4DA2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */; };
@@ -63,6 +71,14 @@
 
 /* Begin PBXFileReference section */
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3D_Design_Mini_House.usdz; sourceTree = "<group>"; };
+		05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2017_Ford_Mustang_GT.usdz; sourceTree = "<group>"; };
+		05447A0A2DC7529000A88437 /* 2018_BMW_M5.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2018_BMW_M5.usdz; sourceTree = "<group>"; };
+		05447A0B2DC7529000A88437 /* Camera_Lens.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Camera_Lens.usdz; sourceTree = "<group>"; };
+		05447A0C2DC7529000A88437 /* Cinque_Terre.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cinque_Terre.usdz; sourceTree = "<group>"; };
+		05447A0D2DC7529000A88437 /* Ford_GT40_1964.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ford_GT40_1964.usdz; sourceTree = "<group>"; };
+		05447A0E2DC7529000A88437 /* FREE_GMC_Motorhome_reimagined_low_poly.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = FREE_GMC_Motorhome_reimagined_low_poly.usdz; sourceTree = "<group>"; };
+		05447A0F2DC7529000A88437 /* Small_Japanese_House.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Small_Japanese_House.usdz; sourceTree = "<group>"; };
 		0562DE5A2DC748580026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
 		0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
@@ -136,6 +152,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		05447A102DC7529000A88437 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */,
+				05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */,
+				05447A0A2DC7529000A88437 /* 2018_BMW_M5.usdz */,
+				05447A0B2DC7529000A88437 /* Camera_Lens.usdz */,
+				05447A0C2DC7529000A88437 /* Cinque_Terre.usdz */,
+				05447A0D2DC7529000A88437 /* Ford_GT40_1964.usdz */,
+				05447A0E2DC7529000A88437 /* FREE_GMC_Motorhome_reimagined_low_poly.usdz */,
+				05447A0F2DC7529000A88437 /* Small_Japanese_House.usdz */,
+			);
+			name = models;
+			path = ../models;
+			sourceTree = SOURCE_ROOT;
+		};
 		0580A4D82DAD8AE600B2F0EB /* Metal048A_2K-JPG */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +231,7 @@
 		05A2DC092D1717C2001DEC8B /* supporting files */ = {
 			isa = PBXGroup;
 			children = (
+				05447A102DC7529000A88437 /* models */,
 				05B225F82DAFCE87001F21F2 /* workbench.entitlements */,
 				05A2DC042D1717C2001DEC8B /* Textures */,
 				05A2DC052D1717C2001DEC8B /* Assets.xcassets */,
@@ -375,6 +408,14 @@
 				05E1A2172DA8556B00F18592 /* Metal048C_2K-JPG_Roughness.jpg in Resources */,
 				05E1A2182DA8556B00F18592 /* Metal048C_2K-JPG_Color.jpg in Resources */,
 				05A2DC142D1717C2001DEC8B /* Metal055A_2K-JPG_Roughness.jpg in Resources */,
+				05447A112DC7529000A88437 /* 3D_Design_Mini_House.usdz in Resources */,
+				05447A122DC7529000A88437 /* Cinque_Terre.usdz in Resources */,
+				05447A132DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz in Resources */,
+				05447A142DC7529000A88437 /* FREE_GMC_Motorhome_reimagined_low_poly.usdz in Resources */,
+				05447A152DC7529000A88437 /* Small_Japanese_House.usdz in Resources */,
+				05447A162DC7529000A88437 /* Ford_GT40_1964.usdz in Resources */,
+				05447A172DC7529000A88437 /* 2018_BMW_M5.usdz in Resources */,
+				05447A182DC7529000A88437 /* Camera_Lens.usdz in Resources */,
 				05A2DC152D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg in Resources */,
 				05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */,
 				05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */,
