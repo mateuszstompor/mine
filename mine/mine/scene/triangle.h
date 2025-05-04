@@ -27,10 +27,10 @@ namespace mine {
         simd::float2 uv1;
         simd::float2 uv2;
 
-        Triangle(const std::array<simd::float3, 3>& vertices,
-                 const std::array<simd::float2, 3>& uvsInput);
-        Triangle(mine::Vertex const & inV0,
-                 mine::Vertex const & inV1,
-                 mine::Vertex const & inV2);
+        Triangle(std::array<simd::float3, 3> const & vertices,
+                 std::array<simd::float2, 3> const & uvsInput);
+        Triangle(Vertex const & inV0,
+                 Vertex const & inV1,
+                 Vertex const & inV2);
     };
 }

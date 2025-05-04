@@ -7,9 +7,9 @@
 #include "../assertion/perpendicular.h"
 #include "../assertion/normalized.h"
 
-mine::Triangle::Triangle(mine::Vertex const & inV0,
-                         mine::Vertex const & inV1,
-                         mine::Vertex const & inV2) {
+mine::Triangle::Triangle(Vertex const & inV0,
+                         Vertex const & inV1,
+                         Vertex const & inV2) {
     v0 = inV0.position;
     v1 = inV1.position;
     v2 = inV2.position;
@@ -43,8 +43,8 @@ mine::Triangle::Triangle(mine::Vertex const & inV0,
     assertPerpendicular(tangent, bitangent);
 }
 
-mine::Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
-                         const std::array<simd::float2, 3>& uvsInput) {
+mine::Triangle::Triangle(std::array<simd::float3, 3> const & vertices,
+                         std::array<simd::float2, 3> const & uvsInput) {
     v0 = vertices[0];
     v1 = vertices[1];
     v2 = vertices[2];
@@ -53,10 +53,10 @@ mine::Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
     uv1 = uvsInput[1];
     uv2 = uvsInput[2];
     
-    const auto edge1 = v1 - v0;
-    const auto edge2 = v2 - v0;
-    const auto deltaUV1 = uv1 - uv0;
-    const auto deltaUV2 = uv2 - uv0;
+    const simd::float3 edge1 = v1 - v0;
+    const simd::float3 edge2 = v2 - v0;
+    const simd::float2 deltaUV1 = uv1 - uv0;
+    const simd::float2 deltaUV2 = uv2 - uv0;
 
     const float f = 1.0f / (deltaUV1.x * deltaUV2.y - deltaUV2.x * deltaUV1.y);
 
