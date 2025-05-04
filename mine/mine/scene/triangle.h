@@ -8,6 +8,8 @@
 #include <cmath>
 #include <simd/simd.h>
 
+#include "./primitive/vertex.h"
+
 // Assumption
 //      v2
 // v0       v1
@@ -26,6 +28,7 @@ struct Triangle {
 
     Triangle(const std::array<simd::float3, 3>& vertices,
              const std::array<simd::float2, 3>& uvsInput);
-    
-    
+    Triangle(mine::Vertex const & inV0,
+             mine::Vertex const & inV1,
+             mine::Vertex const & inV2);
 };

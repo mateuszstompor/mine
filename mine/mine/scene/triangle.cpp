@@ -3,6 +3,34 @@
 //
 
 #include "triangle.h"
+#include "../assertion/finite.h"
+
+Triangle::Triangle(mine::Vertex const & inV0, mine::Vertex const & inV1, mine::Vertex const & inV2) {
+    v0 = inV0.position;
+    v1 = inV1.position;
+    v2 = inV2.position;
+    
+    uv0 = inV0.uv;
+    uv1 = inV1.uv;
+    uv2 = inV2.uv;
+
+    normal = simd::normalize(inV0.normal + inV1.normal + inV2.normal);
+    tangent = simd::normalize(inV0.tangent + inV1.tangent + inV2.tangent);
+    bitangent = simd::normalize(inV0.bitangent + inV1.bitangent + inV2.bitangent);
+
+    mine::assertFinite(v0);
+    mine::assertFinite(v1);
+    mine::assertFinite(v2);
+
+    mine::assertFinite(uv0);
+    mine::assertFinite(uv1);
+    mine::assertFinite(uv2);
+
+    mine::assertFinite(tangent);
+    mine::assertFinite(bitangent);
+    mine::assertFinite(normal);
+}
+
 
 Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
                    const std::array<simd::float2, 3>& uvsInput) {
@@ -45,4 +73,16 @@ Triangle::Triangle(const std::array<simd::float3, 3>& vertices,
     } else {
         bitangent = bitangent1;
     }
+    
+    mine::assertFinite(v0);
+    mine::assertFinite(v1);
+    mine::assertFinite(v2);
+    
+    mine::assertFinite(uv0);
+    mine::assertFinite(uv1);
+    mine::assertFinite(uv2);
+    
+    mine::assertFinite(tangent);
+    mine::assertFinite(bitangent);
+    mine::assertFinite(normal);
 }
