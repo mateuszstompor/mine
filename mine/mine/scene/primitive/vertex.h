@@ -7,6 +7,7 @@
 #include <simd/simd.h>
 
 #include "../../assertion/finite.h"
+#include "../../assertion/perpendicular.h"
 
 namespace mine {
     struct Vertex {
@@ -18,18 +19,22 @@ namespace mine {
         
         Vertex(simd::float3 newPosition,
                simd::float3 newTangent,
+               simd::float3 newBitangent,
                simd::float3 newNormal,
                simd::float2 newUV)
         : position{newPosition}
         , tangent{newTangent}
         , normal{newNormal}
-        , bitangent{simd::normalize(simd::cross(newNormal, newTangent))}
+        , bitangent{newBitangent}
         , uv{newUV} {
             assertFinite(position);
             assertFinite(tangent);
             assertFinite(normal);
             assertFinite(bitangent);
             assertFinite(uv);
+            assertPerpendicular(normal, tangent);
+            assertPerpendicular(normal, bitangent);
+            assertPerpendicular(tangent, bitangent);
         }
     };
 }
