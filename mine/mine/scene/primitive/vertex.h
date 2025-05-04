@@ -7,6 +7,7 @@
 #include <simd/simd.h>
 
 #include "../../assertion/finite.h"
+#include "../../assertion/normalized.h"
 #include "../../assertion/perpendicular.h"
 
 namespace mine {
@@ -32,6 +33,9 @@ namespace mine {
             assertFinite(normal);
             assertFinite(bitangent);
             assertFinite(uv);
+            assertNormalized(tangent);
+            assertNormalized(bitangent);
+            assertNormalized(normal);
             assertPerpendicular(normal, tangent);
             assertPerpendicular(normal, bitangent);
             assertPerpendicular(tangent, bitangent);
