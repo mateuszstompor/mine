@@ -4,6 +4,11 @@
 
 #include "normal.h"
 
+#include "../assertion/equal.h"
+#include "../assertion/finite.h"
+#include "../assertion/perpendicular.h"
+#include "../assertion/normalized.h"
+
 void mine::generateTBForNormal(simd::float3 & tangent,
                                simd::float3 & bitangent,
                                simd::float3 const & normal) {
@@ -18,4 +23,12 @@ void mine::generateTBForNormal(simd::float3 & tangent,
     assertFinite(normal);
     assertFinite(tangent);
     assertFinite(bitangent);
+    
+    assertNormalized(bitangent);
+    assertNormalized(tangent);
+    assertNormalized(normal);
+    
+    assertPerpendicular(bitangent, tangent);
+    assertPerpendicular(bitangent, normal);
+    assertPerpendicular(tangent, normal);
 }

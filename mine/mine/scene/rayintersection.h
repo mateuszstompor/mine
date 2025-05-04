@@ -9,6 +9,8 @@
 #include <simd/simd.h>
 
 #include "../assertion/finite.h"
+#include "../assertion/perpendicular.h"
+#include "../assertion/normalized.h"
 #include "look/material.h"
 
 namespace mine {
@@ -43,7 +45,15 @@ namespace mine {
             assertFinite(proposedN);
             assertFinite(proposedPoint);
             assertFinite(proposedUV);
-            assert(simd::isfinite(proposedTValue));
+            assertFinite(proposedTValue);
+            
+            assertPerpendicular(T, B);
+            assertPerpendicular(T, N);
+            assertPerpendicular(B, N);
+            
+            assertNormalized(T);
+            assertNormalized(B);
+            assertNormalized(N);
         }
     };
 }
