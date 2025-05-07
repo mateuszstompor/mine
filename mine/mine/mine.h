@@ -7,7 +7,13 @@
 #include "scene/triangle.h"
 #include "scene/sphere.h"
 #include "scene/scene.h"
+
 #include "render/rtwriter.h"
+
+#include "model/modelloader.h"
 
 #include "scene/light/omnilight.h"
 #include "scene/look/bitmaploader.h"
+
+#include "scene/graph/scenegraph.h"
+#include "scene/graph/sceneflattener.h"

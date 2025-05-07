@@ -258,13 +258,28 @@ public:
             SphereObject(Sphere({0, 20, 160}, 25), mirror),
             SphereObject(Sphere({-60, 20, 160}, 25), tile)
         };
-//        s.environmentMap = std::make_optional(*BitmapLoader::load("Tiles129B_2K-JPG_NormalGL.jpg"));
-//        s.environmentMap = std::make_optional(*BitmapLoader::load("autumn_field_puresky.jpg"));
-//        s.environmentMap = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));
+        s.environmentMap = std::make_optional(*BitmapLoader::load("autumn_field_puresky.jpg"));
         s.triangles = tObjects;
         s.omnilights = lights;
         s.spheres = spheres;
         return s;
+    }
+    
+    static Scene buildGraph() {
+        SceneGraph g;
+        auto gold = std::make_shared<Material>(*BitmapLoader::load("Metal048A_2K-JPG_Color.jpg"),
+                                               *BitmapLoader::load("Metal048A_2K-JPG_Roughness.jpg"),
+                                               *BitmapLoader::load("Metal048A_2K-JPG_Metalness.jpg"),
+                                               *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"));
+        SphereObject sphere(Sphere({60, 20, 160}, 25), gold);
+        SphereNodeContents sphereContents;
+        sphereContents.sphereObject = sphere;
+        
+        g.root = std::make_unique<Node<TransformNodeContents>>();
+        g.root->addChild(std::make_unique<Node<TransformNodeContents>>());
+        g.root->addChild(std::make_unique<Node<SphereNodeContents>>(sphereContents));
+        g.environment = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));
+        return SceneFlattener().flatten(g);
     }
 };
 
