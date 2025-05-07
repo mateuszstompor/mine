@@ -271,15 +271,19 @@ public:
                                                *BitmapLoader::load("Metal048A_2K-JPG_Roughness.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_Metalness.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"));
-        SphereObject sphere(Sphere({60, 20, 160}, 25), gold);
+        SphereObject sphere(Sphere({0, 0, 0}, 25), gold);
         SphereNodeContents sphereContents;
         sphereContents.sphereObject = sphere;
         
         auto rootNode = std::make_unique<Node<TransformNodeContents>>();
-        rootNode->data.transform = translation(simd_make_float3(0, 0, 200));
+        rootNode->data.transform = translation(simd_make_float3(0, 0, 0));
         g.root = std::move(rootNode);
-        g.root->addChild(std::make_unique<Node<TransformNodeContents>>());
-        g.root->addChild(std::make_unique<Node<SphereNodeContents>>(sphereContents));
+        
+        auto sphereTransform = std::make_unique<Node<TransformNodeContents>>();
+        sphereTransform->data.transform = translation(simd_make_float3(60, 20, 160));
+        sphereTransform->addChild(std::make_unique<Node<SphereNodeContents>>(sphereContents));
+        g.root->addChild(std::move(sphereTransform));
+        
         g.environment = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));
         return SceneFlattener().flatten(g);
     }
