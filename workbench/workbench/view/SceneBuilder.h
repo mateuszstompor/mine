@@ -275,7 +275,9 @@ public:
         SphereNodeContents sphereContents;
         sphereContents.sphereObject = sphere;
         
-        g.root = std::make_unique<Node<TransformNodeContents>>();
+        auto rootNode = std::make_unique<Node<TransformNodeContents>>();
+        rootNode->data.transform = translation(simd_make_float3(0, 0, 200));
+        g.root = std::move(rootNode);
         g.root->addChild(std::make_unique<Node<TransformNodeContents>>());
         g.root->addChild(std::make_unique<Node<SphereNodeContents>>(sphereContents));
         g.environment = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));

@@ -17,3 +17,6 @@
 
 #include "scene/graph/scenegraph.h"
 #include "scene/graph/sceneflattener.h"
+
+#include "math/constants.h"
+#include "math/transform.h"
