@@ -4,4 +4,4 @@
 
 #include "transformnodecontents.h"
 #include "spherenodecontents.h"
-#include "trianglenodecontents.h"
+#include "meshnodecontents.h"
