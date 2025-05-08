@@ -2,5 +2,6 @@
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
-#include "spherenodecontents.h"
 #include "transformnodecontents.h"
+#include "spherenodecontents.h"
+#include "trianglenodecontents.h"
