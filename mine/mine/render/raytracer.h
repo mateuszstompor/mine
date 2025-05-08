@@ -241,20 +241,22 @@ namespace mine {
             }
             
             simd::float3 totalIndirect(0);
-            for (int i = 0; i < config.indirectLightSamples; ++i) {
-                simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
-                simd::float3 newDirection = simd::normalize(tbn * sample);
-                Ray newRay(closest->point + normal * 1e-4, newDirection);
-                simd::float3 incoming = trace(newRay,
-                                              scene,
-                                              config,
-                                              currentDepth - 1,
-                                              metadata).xyz;
-                totalIndirect += incoming;
+            if (config.indirectLightSamples > 0) {
+                for (int i = 0; i < config.indirectLightSamples; ++i) {
+                    simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
+                    simd::float3 newDirection = simd::normalize(tbn * sample);
+                    Ray newRay(closest->point + normal * 1e-4, newDirection);
+                    simd::float3 incoming = trace(newRay,
+                                                  scene,
+                                                  config,
+                                                  currentDepth - 1,
+                                                  metadata).xyz;
+                    totalIndirect += incoming;
+                }
+                totalIndirect /= static_cast<float>(config.indirectLightSamples);
+                totalIndirect *= M_PI;
+                totalIndirect *= kD * albedo;
             }
-            totalIndirect /= static_cast<float>(config.indirectLightSamples);
-            totalIndirect *= M_PI;
-            totalIndirect *= kD * albedo;
             
             simd::float3 reflectedColor(0);
             if (config.reflections) {
