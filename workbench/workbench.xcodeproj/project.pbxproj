@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0504CEC62DCCB996001DD791 /* King.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0504CEC52DCCB996001DD791 /* King.obj */; };
+		0504CEC82DCCC470001DD791 /* Cube.obj in Resources */ = {isa = PBXBuildFile; fileRef = 0504CEC72DCCC470001DD791 /* Cube.obj */; };
 		05447A112DC7529000A88437 /* 3D_Design_Mini_House.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */; };
 		05447A122DC7529000A88437 /* Cinque_Terre.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A0C2DC7529000A88437 /* Cinque_Terre.usdz */; };
 		05447A132DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */; };
@@ -70,6 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0504CEC52DCCB996001DD791 /* King.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = King.obj; sourceTree = "<group>"; };
+		0504CEC72DCCC470001DD791 /* Cube.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cube.obj; sourceTree = "<group>"; };
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = 3D_Design_Mini_House.usdz; sourceTree = "<group>"; };
 		05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = 2017_Ford_Mustang_GT.usdz; sourceTree = "<group>"; };
@@ -155,6 +159,8 @@
 		05447A102DC7529000A88437 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				0504CEC72DCCC470001DD791 /* Cube.obj */,
+				0504CEC52DCCB996001DD791 /* King.obj */,
 				05447A082DC7529000A88437 /* 3D_Design_Mini_House.usdz */,
 				05447A092DC7529000A88437 /* 2017_Ford_Mustang_GT.usdz */,
 				05447A0A2DC7529000A88437 /* 2018_BMW_M5.usdz */,
@@ -388,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				05A2DC132D1717C2001DEC8B /* Metal055A_2K-JPG_Color.jpg in Resources */,
+				0504CEC62DCCB996001DD791 /* King.obj in Resources */,
 				05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */,
 				05F5727B2DAFF32E00BEF593 /* kiara_1_dawn.jpg in Resources */,
 				05E1A20D2DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg in Resources */,
@@ -418,6 +425,7 @@
 				05447A182DC7529000A88437 /* Camera_Lens.usdz in Resources */,
 				05A2DC152D1717C2001DEC8B /* Metal055A_2K-JPG_NormalGL.jpg in Resources */,
 				05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */,
+				0504CEC82DCCC470001DD791 /* Cube.obj in Resources */,
 				05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */,
 				05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */,
 				0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */,
