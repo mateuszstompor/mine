@@ -265,6 +265,28 @@ public:
         return s;
     }
     
+    static Scene buildHouseGraph() {
+        NSBundle * bundle = [NSBundle mainBundle];
+        NSString * path = [bundle pathForResource:@"3D_Design_Mini_House" ofType:@"usdz"];
+        ModelLoader loader;
+        SceneGraph loadedGraph = loader.load([path UTF8String]);
+        std::unique_ptr<BaseNode> & root = loadedGraph.root;
+        Node<TransformNodeContents> * transformNode = (Node<TransformNodeContents> *)(root.get());
+        simd::float4x4 s = scale(simd_make_float3(10, 10, 10));
+        float angle = M_PI + M_PI/4.0f;
+        simd_quatf q = simd_quaternion(angle, simd_make_float3(0, 1, 0));
+        simd_float3x3 rotMatrix = simd_matrix3x3(q);
+        simd_float4x4 M = simd_matrix(
+            simd_make_float4(rotMatrix.columns[0], 0.0f),
+            simd_make_float4(rotMatrix.columns[1], 0.0f),
+            simd_make_float4(rotMatrix.columns[2], 0.0f),
+            simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f)
+        );
+        transformNode->data.transform = translation(simd_make_float3(0, -20, 70)) * s * M;
+        loadedGraph.environment = std::make_optional(*BitmapLoader::load("kiara_1_dawn.jpg"));
+        return SceneFlattener().flatten(loadedGraph);
+    }
+    
     static Scene buildGraph() {
         SceneGraph g;
         auto gold = std::make_shared<Material>(*BitmapLoader::load("Metal048A_2K-JPG_Color.jpg"),
