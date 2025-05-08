@@ -4,7 +4,7 @@
 </p>
 
 ### About
-This project focuses on learning and implementing ray tracing using a CPU-based approach. Ray tracing is a rendering technique that generates realistic images by simulating the way light interacts with objects in a virtual environment. This project explores the computational aspects of ray tracing on a CPU.
+This project focuses on learning and implementing ray tracing using a CPU-based approach. In short, it is a rendering technique that generates realistic images by simulating the way light interacts with objects in a virtual environment. This project explores the computational aspects of ray tracing on a CPU.
 
 ### Preview
 
