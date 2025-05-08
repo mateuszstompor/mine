@@ -35,6 +35,7 @@ std::unique_ptr<mine::BaseNode> mine::ModelLoader::loadTransformNode(MDLObject *
     simd::float4x4 nodeTransform = matrix_identity_float4x4;
     if ([object transform]) {
         id<MDLTransformComponent> transform = [object transform];
+        assert(![transform resetsTransform]);
         nodeTransform = [transform matrix];
     }
     std::unique_ptr<Node<TransformNodeContents>> tn = std::make_unique<Node<TransformNodeContents>>();
@@ -48,6 +49,7 @@ std::unique_ptr<mine::BaseNode> mine::ModelLoader::loadMeshNode(MDLMesh * object
     simd::float4x4 nodeTransform = matrix_identity_float4x4;
     if ([object transform]) {
         id<MDLTransformComponent> transform = [object transform];
+        assert(![transform resetsTransform]);
         nodeTransform = [transform matrix];
     }
     MDLMesh *mesh = (MDLMesh *)object;
@@ -116,10 +118,11 @@ std::unique_ptr<mine::BaseNode> mine::ModelLoader::loadMeshNode(MDLMesh * object
     for (MDLSubmesh *submesh in mesh.submeshes) {
         assert(submesh.indexBuffer.length / 4 == submesh.indexCount);
         assert(submesh.indexType == MDLIndexBitDepthUInt32);
+        assert(submesh.geometryType == MDLGeometryTypeTriangles);
+        
         Submesh sm;
         sm.indices.resize(submesh.indexCount);
         void * destination = sm.indices.data();
-        assert(submesh.geometryType == MDLGeometryTypeTriangles);
         
         void const * source = submesh.indexBuffer.map.bytes;
         NSUInteger length = submesh.indexBuffer.length;

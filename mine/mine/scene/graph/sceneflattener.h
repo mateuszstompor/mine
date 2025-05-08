@@ -39,7 +39,7 @@ namespace mine {
                 parentTransform = parentTransform * contents.transform;
                 Mesh const & mesh = contents.mesh;
                 for (Submesh const & submesh : mesh.submeshes) {
-                    for (std::size_t vertexIndex = 0; vertexIndex < submesh.indices.size() - 3; vertexIndex += 3) {
+                    for (std::size_t vertexIndex = 0; vertexIndex < submesh.indices.size(); vertexIndex += 3) {
                         uint32_t id1 = submesh.indices[vertexIndex];
                         uint32_t id2 = submesh.indices[vertexIndex + 1];
                         uint32_t id3 = submesh.indices[vertexIndex + 2];
@@ -55,6 +55,8 @@ namespace mine {
                         output.triangles.push_back(to);
                     }
                 }
+            } else {
+                assert(false);
             }
             for (std::unique_ptr<BaseNode> const & child : node->getChildren()) {
                 process(child, parentTransform, output);
