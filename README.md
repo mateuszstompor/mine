@@ -9,6 +9,9 @@ This project focuses on learning and implementing ray tracing using a CPU-based 
 <p align="center">
     <img src="./devlog/2025-04-16.jpg" width="100%">
 </p>
+<p align="center">
+    <img src="./devlog/2025-05-09.jpg" width="100%">
+</p>
 
 ### Technology stack
 - C++
@@ -31,6 +34,13 @@ This project focuses on learning and implementing ray tracing using a CPU-based 
     * Reflection
     * Soft-Shadows
 * Multithreading
+* Loaders
+    * Models
+        * USDZ
+    * Bitmaps
+        * png
+        * jpeg
+
 
 ### Contributing
 Contributions are welcome! Please fork the repository and submit a pull request. For major changes, please open an issue first to discuss what you would like to change.
