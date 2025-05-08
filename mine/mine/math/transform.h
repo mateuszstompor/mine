@@ -12,4 +12,12 @@ namespace mine {
         matrix.columns[3].xyz = translation;
         return matrix;
     }
+
+    inline simd::float3x3 float4x4_to_float3x3(const simd::float4x4& mat4x4) {
+        return simd::float3x3(
+            simd::float3(mat4x4.columns[0].xyz),
+            simd::float3(mat4x4.columns[1].xyz),
+            simd::float3(mat4x4.columns[2].xyz)
+        );
+    }
 }
