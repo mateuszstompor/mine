@@ -7,7 +7,7 @@
 #include <spdlog/spdlog.h>
 
 #include "../assertion/finite.h"
-
+#include "../scene/look/bitmaploader.h"
 #include "rtwriter.h"
 
 mine::RTWriter::RTWriter(Config const & config)
@@ -63,6 +63,7 @@ void mine::RTWriter::capture(Scene & scene) {
         std::chrono::time_point end = std::chrono::high_resolution_clock::now();
         auto duration = duration_cast<std::chrono::milliseconds>(end - start);
         spdlog::info("Time taken for an iteration {0} ms, iteration: {1}", duration.count(), iteration);
+        BitmapLoader::dumpScreenshot(cgbitmap.bitmap, iteration);
     }
 }
 

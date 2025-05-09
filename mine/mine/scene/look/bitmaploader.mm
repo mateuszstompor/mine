@@ -86,3 +86,21 @@ void mine::BitmapLoader::saveBitmapAsPPM(const Bitmap& bitmap, const std::string
 
     outputStream.close();
 }
+
+void mine::BitmapLoader::dumpScreenshot(Bitmap const & bitmap, uint32_t iteration) {
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * dateString = [formatter stringFromDate:now];
+    NSString * containerFolderName = [NSString stringWithFormat:@"Mine-%@", dateString];
+    NSString * folderPath = [@"/tmp" stringByAppendingPathComponent:containerFolderName];
+    NSFileManager * manager = [NSFileManager defaultManager];
+    NSString * filepath = [NSString stringWithFormat:@"%@/%i.ppm", folderPath, iteration];
+    if (![manager fileExistsAtPath:folderPath]) {
+        [manager createDirectoryAtPath:folderPath
+           withIntermediateDirectories:YES
+                            attributes:nil
+                                 error:nil];
+    }
+    BitmapLoader::saveBitmapAsPPM(bitmap, [filepath UTF8String]);
+}
