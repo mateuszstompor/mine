@@ -14,7 +14,6 @@ namespace mine {
     class TriangleIntersector {
     public:
         std::optional<float> intersect(const Ray& ray,
-                                       const Triangle& triangle,
-                                       float epsilon = 1e-3) const;
+                                       const Triangle& triangle) const;
     };
 }
