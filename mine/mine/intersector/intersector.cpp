@@ -16,35 +16,35 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                                         IntersectionKind::invalid);
     for (OmniLight const & sObject : s.omnilights) {
         auto const & sphere = sObject.representation;
-        std::optional<float> intersection = sIntersector.closestIntersection(r, sphere);
-        if (!intersection) {
+        float intersection = sIntersector.closestIntersection(r, sphere);
+        if (intersection < 0) {
             continue;
         }
-        if (std::get<0>(closest) > *intersection) {
-            closest = std::make_tuple(*intersection,
+        if (std::get<0>(closest) > intersection) {
+            closest = std::make_tuple(intersection,
                                       (void *)&sObject,
                                       IntersectionKind::sphereLight);
         }
     }
     for (SphereObject const & sObject : s.spheres) {
         auto const & sphere = sObject.sphere;
-        std::optional<float> intersection = sIntersector.closestIntersection(r, sphere);
-        if (!intersection) {
+        float intersection = sIntersector.closestIntersection(r, sphere);
+        if (intersection < 0) {
             continue;
         }
-        if (std::get<0>(closest) > *intersection) {
-            closest = std::make_tuple(*intersection,
+        if (std::get<0>(closest) > intersection) {
+            closest = std::make_tuple(intersection,
                                       (void *)&sObject,
                                       IntersectionKind::sphere);
         }
     }
     for (TriangleObject const & tObject : s.triangles) {
-        std::optional<float> intersection = tIntersector.intersect(r, tObject.triangle);
-        if (!intersection) {
+        float intersection = tIntersector.intersect(r, tObject.triangle);
+        if (intersection < 0) {
             continue;
         }
-        if (std::get<0>(closest) > *intersection) {
-            closest = std::make_tuple(*intersection,
+        if (std::get<0>(closest) > intersection) {
+            closest = std::make_tuple(intersection,
                                       (void *)&tObject,
                                       IntersectionKind::triangle);
         }
