@@ -248,8 +248,10 @@ std::optional<mine::Bitmap> mine::ModelLoader::loadBitmap(MDLMaterialProperty * 
                                                          bytesPerRow,
                                                          CGImageGetColorSpace(cgImage),
                                                          kCGImageAlphaPremultipliedLast);
-
+            
             if (context) {
+                CGContextTranslateCTM(context, 0, height);
+                CGContextScaleCTM(context, 1.0, -1.0);
                 CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage);
                 CGContextRelease(context);
                 
