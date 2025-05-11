@@ -192,52 +192,72 @@ public:
         auto white = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.9, 0.9, 1.0)),
                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
                                                 Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                                Bitmap::defaultNormalMap());
+                                                Bitmap::defaultNormalMap(),
+                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto blue = std::make_shared<Material>(Bitmap(simd_make_float4(0.1, 0.1, 0.9, 1.0)),
                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
                                                Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                               Bitmap::defaultNormalMap());
+                                               Bitmap::defaultNormalMap(),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto red = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.1, 0.1, 1.0)),
                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
                                               Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                              Bitmap::defaultNormalMap());
+                                              Bitmap::defaultNormalMap(),
+                                              Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                              Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto mirror = std::make_shared<Material>(Bitmap(simd_make_float4(0.9, 0.1, 0.1, 1.0)),
                                                  Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
                                                  Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
-                                                 Bitmap::defaultNormalMap());
+                                                 Bitmap::defaultNormalMap(),
+                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto metal = std::make_shared<Material>(*BitmapLoader::load("Metal055A_2K-JPG_Color.jpg"),
                                                 *BitmapLoader::load("Metal055A_2K-JPG_Roughness.jpg"),
                                                 *BitmapLoader::load("Metal055A_2K-JPG_Metalness.jpg"),
-                                                *BitmapLoader::load("Metal055A_2K-JPG_NormalGL.jpg"));
+                                                *BitmapLoader::load("Metal055A_2K-JPG_NormalGL.jpg"),
+                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto metal2 = std::make_shared<Material>(*BitmapLoader::load("Metal048C_2K-JPG_Color.jpg"),
                                                  *BitmapLoader::load("Metal048C_2K-JPG_Roughness.jpg"),
                                                  *BitmapLoader::load("Metal048C_2K-JPG_Metalness.jpg"),
-                                                 *BitmapLoader::load("Metal048C_2K-JPG_NormalGL.jpg"));
+                                                 *BitmapLoader::load("Metal048C_2K-JPG_NormalGL.jpg"),
+                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                 Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto onyx = std::make_shared<Material>(*BitmapLoader::load("Onyx011_2K-JPG_Color.jpg"),
                                                *BitmapLoader::load("Onyx011_2K-JPG_Roughness.jpg"),
                                                Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                               *BitmapLoader::load("Onyx011_2K-JPG_NormalGL.jpg"));
+                                               *BitmapLoader::load("Onyx011_2K-JPG_NormalGL.jpg"),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto tile = std::make_shared<Material>(*BitmapLoader::load("Tiles074_2K-JPG_Color.jpg"),
                                                *BitmapLoader::load("Tiles074_2K-JPG_Roughness.jpg"),
                                                Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                               *BitmapLoader::load("Tiles074_2K-JPG_NormalGL.jpg"));
+                                               *BitmapLoader::load("Tiles074_2K-JPG_NormalGL.jpg"),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto gold = std::make_shared<Material>(*BitmapLoader::load("Metal048A_2K-JPG_Color.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_Roughness.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_Metalness.jpg"),
-                                               *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"));
+                                               *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         auto darkTile = std::make_shared<Material>(*BitmapLoader::load("Tiles129B_2K-JPG_Color.jpg"),
                                                    *BitmapLoader::load("Tiles129B_2K-JPG_Roughness.jpg"),
                                                    Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
-                                                   *BitmapLoader::load("Tiles129B_2K-JPG_NormalGL.jpg"));
+                                                   *BitmapLoader::load("Tiles129B_2K-JPG_NormalGL.jpg"),
+                                                   Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                   Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         
         for (auto const & triangle : triangles) {
             tObjects.push_back(TriangleObject(triangle, white));
@@ -292,7 +312,9 @@ public:
         auto gold = std::make_shared<Material>(*BitmapLoader::load("Metal048A_2K-JPG_Color.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_Roughness.jpg"),
                                                *BitmapLoader::load("Metal048A_2K-JPG_Metalness.jpg"),
-                                               *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"));
+                                               *BitmapLoader::load("Metal048A_2K-JPG_NormalGL.jpg"),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                               Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
         SphereObject sphere(Sphere({0, 0, 0}, 25), gold);
         SphereNodeContents sphereContents;
         sphereContents.sphereObject = sphere;

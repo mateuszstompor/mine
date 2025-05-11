@@ -41,7 +41,7 @@
                        // threads
                        8);
         writer = new mine::RTWriter(c);
-        scene = SceneBuilder::buildGraph();
+        scene = SceneBuilder::buildHouseGraph();
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             writer->capture(scene);
         });
