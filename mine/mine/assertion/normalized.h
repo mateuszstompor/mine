@@ -12,5 +12,6 @@ namespace mine {
     inline void assertNormalized(simd::float3 const & v, float epsilon = 1e-1f) {
         float length = simd::length(v);
         assert(1.0f - length < epsilon);
+        (void)length;
     }
 }
