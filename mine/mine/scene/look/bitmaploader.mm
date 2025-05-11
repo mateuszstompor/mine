@@ -4,6 +4,7 @@
 
 #include "bitmaploader.h"
 
+#include <fstream>
 #include <Cocoa/Cocoa.h>
 
 std::optional<mine::Bitmap> mine::BitmapLoader::load(const std::string &name) {
@@ -60,4 +61,46 @@ NSData * mine::BitmapLoader::convertToBitmapData(CGImageRef cgImage) {
     CGContextRelease(context);
 
     return rawData;
+}
+
+void mine::BitmapLoader::saveBitmapAsPPM(const Bitmap& bitmap, const std::string& filePath) {
+    if (bitmap.bytesPerPixel < 3) {
+        throw std::runtime_error("Bitmap must have at least 3 bytes per pixel (RGB)");
+    }
+
+    std::ofstream outputStream(filePath, std::ios::binary);
+    if (!outputStream) {
+        throw std::runtime_error("Failed to open file: " + filePath);
+    }
+
+    // Write PPM header (P6 format)
+    outputStream << "P6\n" << bitmap.width << " " << bitmap.height << "\n255\n";
+
+    for (uint16_t y = 0; y < bitmap.height; ++y) {
+        for (uint16_t x = 0; x < bitmap.width; ++x) {
+            const uint8_t* pixel = &bitmap.data[(y * bitmap.width + x) * bitmap.bytesPerPixel];
+            // write RGB only
+            outputStream.write(reinterpret_cast<const char*>(pixel), 3);
+        }
+    }
+
+    outputStream.close();
+}
+
+void mine::BitmapLoader::dumpScreenshot(Bitmap const & bitmap, uint32_t iteration) {
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * dateString = [formatter stringFromDate:now];
+    NSString * containerFolderName = [NSString stringWithFormat:@"Mine-%@", dateString];
+    NSString * folderPath = [@"/tmp" stringByAppendingPathComponent:containerFolderName];
+    NSFileManager * manager = [NSFileManager defaultManager];
+    NSString * filepath = [NSString stringWithFormat:@"%@/%i.ppm", folderPath, iteration];
+    if (![manager fileExistsAtPath:folderPath]) {
+        [manager createDirectoryAtPath:folderPath
+           withIntermediateDirectories:YES
+                            attributes:nil
+                                 error:nil];
+    }
+    BitmapLoader::saveBitmapAsPPM(bitmap, [filepath UTF8String]);
 }

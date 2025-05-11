@@ -4,47 +4,35 @@
 
 #include "triangleintersector.h"
 
-std::optional<float> mine::TriangleIntersector::intersect(const Ray& ray,
-                                                          const Triangle& triangle,
-                                                          float epsilon) const {
-    simd::float3 origin = (triangle.v0 + triangle.v1 + triangle.v2) / 3.0;
-    float a = simd::dot(origin - ray.origin, triangle.normal);
-    float b = simd::dot(ray.direction, triangle.normal);
-    
-    if (b == 0.0) {
-        return std::nullopt;
+float mine::TriangleIntersector::intersect(Ray const & ray, Triangle const & triangle) const {
+    const simd::float3 edge1 = triangle.v1 - triangle.v0;
+    const simd::float3 edge2 = triangle.v2 - triangle.v0;
+
+    const simd::float3 h = simd::cross(ray.direction, edge2);
+    const float a = simd::dot(edge1, h);
+
+    if (std::abs(a) < 0) {
+        return -1;  // Ray is parallel to triangle.
     }
-    
-    float t = a / b;
-    if (t < 0) {
-        return std::nullopt;
+
+    const float f = 1.0f / a;
+    const simd::float3 s = ray.origin - triangle.v0;
+    const float u = f * simd::dot(s, h);
+    if (u < 0.0f || u > 1.0f) {
+        return -1;
     }
-    
-    simd::float3 point = ray.origin + ray.direction * t;
-    
-    simd::float3 v2v0 = triangle.v2 - triangle.v0;
-    simd::float3 pV0 = point - triangle.v0;
-    simd::float3 c1 = simd::cross(pV0, v2v0);
-    
-    if (simd::dot(c1, triangle.normal) < -epsilon) {
-        return std::nullopt;
+
+    const simd::float3 q = simd::cross(s, edge1);
+    const float v = f * simd::dot(ray.direction, q);
+    if (v < 0.0f || u + v > 1.0f) {
+        return -1;
     }
-    
-    simd::float3 v1v0 = triangle.v1 - triangle.v0;
-    simd::float3 c2 = simd::cross(v1v0, pV0);
-    
-    if (simd::dot(c2, triangle.normal) < -epsilon) {
-        return std::nullopt;
+
+    const float t = f * simd::dot(edge2, q);
+    if (t < 0.0f) {
+        return -1;  // Triangle is behind the ray.
     }
-    
-    simd::float3 v2v1 = triangle.v2 - triangle.v1;
-    simd::float3 pV1 = point - triangle.v1;
-    simd::float3 c3 = simd::cross(v2v1, pV1);
-    
-    if (simd::dot(c3, triangle.normal) < -epsilon) {
-        return std::nullopt;
-    }
-    
+
     assert(std::isfinite(t));
     return t;
 }

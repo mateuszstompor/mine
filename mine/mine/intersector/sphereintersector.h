@@ -12,8 +12,8 @@
 namespace mine {
     class SphereIntersector {
     public:
-        std::optional<float> closestIntersection(const Ray& ray,
-                                                 const Sphere& sphere,
-                                                 float epsilon = 1e-6) const;
+        float closestIntersection(const Ray& ray,
+                                  const Sphere& sphere,
+                                  float epsilon = 1e-6) const;
     };
 }

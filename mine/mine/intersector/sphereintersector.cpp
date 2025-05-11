@@ -8,9 +8,9 @@
 #include "../assertion/equal.h"
 #include "sphereintersector.h"
 
-std::optional<float> mine::SphereIntersector::closestIntersection(const Ray& ray,
-                                                                  const Sphere& sphere,
-                                                                  float epsilon) const {
+float mine::SphereIntersector::closestIntersection(const Ray& ray,
+                                                   const Sphere& sphere,
+                                                   float epsilon) const {
     assertEqual(simd::length(ray.direction), 1.0f, 1e-4f);
     auto oc = ray.origin - sphere.center;
     float k2 = 2 * simd::dot(oc, ray.direction);
@@ -18,17 +18,17 @@ std::optional<float> mine::SphereIntersector::closestIntersection(const Ray& ray
     float discriminant = k2 * k2 - 4 * k3;
     
     if (discriminant < 0) {
-        return std::nullopt;  // No intersection
+        return -1.0f;  // No intersection
     }
     
     if (discriminant < epsilon) {
         float t = -k2 / 2.0f;
-        return t >= 0 ? std::make_optional(t) : std::nullopt;  // One intersection
+        return t >= 0 ? t : -1.0f;  // One intersection
     }
     
     float sqrtDiscriminant = std::sqrt(discriminant);
     float t2 = (-k2 - sqrtDiscriminant) / 2.0f;
-    if (t2 >= 0) return std::make_optional(t2);
+    if (t2 >= 0) return t2;
     float t1 = (-k2 + sqrtDiscriminant) / 2.0f;
-    return t1 >= 0 ? std::make_optional(t1) : std::nullopt;
+    return t1 >= 0 ? t1 : -1.0f;
 }

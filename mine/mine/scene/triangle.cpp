@@ -20,7 +20,8 @@ mine::Triangle::Triangle(Vertex const & inV0,
 
     normal = simd::normalize(inV0.normal + inV1.normal + inV2.normal);
     tangent = simd::normalize(inV0.tangent + inV1.tangent + inV2.tangent);
-    bitangent = simd::normalize(inV0.bitangent + inV1.bitangent + inV2.bitangent);
+    tangent = simd::normalize(tangent - simd::dot(tangent, normal) * normal);
+    bitangent = simd::cross(normal, tangent);
 
     assertFinite(v0);
     assertFinite(v1);

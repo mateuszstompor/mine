@@ -151,7 +151,7 @@ namespace mine {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 if (scene.environmentMap) {
-                    simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
+                    simd::float2 uv = sc.getEquirectangularCoordinates(simd_make_float3(r.direction.x, -r.direction.y, r.direction.z));
                     return sampler.sample(uv.x, uv.y, *scene.environmentMap).xyz;
                 } else {
                     return simd_make_float3(0.0f, 0.0f, 0.0f);
