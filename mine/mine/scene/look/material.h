@@ -12,6 +12,7 @@ namespace mine {
         Bitmap roughness;
         Bitmap metalness;
         Bitmap normal;
-        float ior = 0.0f;
+        Bitmap ior;
+        Bitmap opacity;
     };
 }

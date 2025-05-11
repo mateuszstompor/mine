@@ -182,12 +182,20 @@ std::shared_ptr<mine::Material> mine::ModelLoader::loadMaterial(MDLMaterial * ma
     if (!metalness) {
         metalness = Bitmap(simd_make_float4(0.5f, 0.5f, 0.5f, 1.0f));
     }
-//    Bitmap ior = *loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMaterialIndexOfRefraction]);
+    std::optional<Bitmap> opacity = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticOpacity]);
+    if (!opacity) {
+        opacity = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
+    }
+    std::optional<Bitmap> ior = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMaterialIndexOfRefraction]);
+    if (!ior) {
+        ior = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
+    }
     return std::make_shared<Material>(*albedo,
                                       *roughness,
                                       *metalness,
                                       *normal,
-                                      0.0f);
+                                      *ior,
+                                      *opacity);
 }
 
 std::optional<mine::Bitmap> mine::ModelLoader::loadBitmap(MDLMaterialProperty * property) {

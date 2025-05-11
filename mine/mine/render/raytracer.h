@@ -169,7 +169,8 @@ namespace mine {
             simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
             float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness).x;
             float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness).x;
-            float ior = closest->material->ior;
+            float ior = sampler.sample(uv[0], uv[1], closest->material->ior).x;
+            float opacity = sampler.sample(uv[0], uv[1], closest->material->opacity).x;
             
             normal = (normal * 2.0f) - 1.0f;
             
@@ -290,7 +291,7 @@ namespace mine {
             }
             auto refract_r = refract(simd::normalize(r.direction), simd::normalize(perturbedNormal), ior, refracted);
             float reflectionFactor = 1.0f;
-            if (ior != 0 && std::get<0>(refract_r)) {
+            if (ior != 1.0f && std::get<0>(refract_r)) {
                 reflectedColor = simd_make_float3(0, 0, 0);
                 Ray newRay(closest->point + perturbedNormal * 1e-4 * (((int)std::get<1>(refract_r)) ? 1 : -1), simd::normalize(refracted));
                 refractedColor = trace(newRay,
