@@ -3,12 +3,11 @@
 //
 
 #import <spdlog/spdlog.h>
+#import <ModelIO/ModelIO.h>
+#import <Metal/Metal.h>
 
 #include "modelloader.h"
 #include "../scene/primitive/mesh.h"
-
-#import <ModelIO/ModelIO.h>
-#import <Metal/Metal.h>
 
 mine::SceneGraph mine::ModelLoader::load(std::string const & path) {
     SceneGraph graph;
@@ -130,7 +129,7 @@ std::unique_ptr<mine::BaseNode> mine::ModelLoader::loadMeshNode(MDLMesh * object
         MDLMaterial *material = submesh.material;
         
         spdlog::info("Material, name: {0}", [material.name UTF8String]);
-        sm.material = loadMaterial(material);
+        sm.material = materialLoader.loadMaterial(material);
         m.submeshes.push_back(sm);
     }
     spdlog::info("Mesh: {0}, has {1} vertices and {2} submeshes",
@@ -163,108 +162,4 @@ void mine::ModelLoader::processObject(MDLObject *object, std::unique_ptr<BaseNod
     for (MDLObject *child in object.children.objects) {
         processObject(child, addedChild);
     }
-}
-
-std::shared_ptr<mine::Material> mine::ModelLoader::loadMaterial(MDLMaterial * material) {
-    std::optional<Bitmap> albedo = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticBaseColor]);
-    if (!albedo) {
-        albedo = Bitmap(simd_make_float4(1.0f, 0.0f, 0.0f, 1.0f));
-    }
-    std::optional<Bitmap> normal = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticTangentSpaceNormal]);
-    if (!normal) {
-        normal = Bitmap::defaultNormalMap();
-    }
-    std::optional<Bitmap> roughness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticRoughness]);
-    if (!roughness) {
-        roughness = Bitmap(simd_make_float4(0.2f, 0.2f, 0.2f, 1.0f));
-    }
-    std::optional<Bitmap> metalness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMetallic]);
-    if (!metalness) {
-        metalness = Bitmap(simd_make_float4(0.5f, 0.5f, 0.5f, 1.0f));
-    }
-    std::optional<Bitmap> opacity = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticOpacity]);
-    if (!opacity) {
-        opacity = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
-    }
-    std::optional<Bitmap> ior = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMaterialIndexOfRefraction]);
-    if (!ior) {
-        ior = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
-    }
-    return std::make_shared<Material>(*albedo,
-                                      *roughness,
-                                      *metalness,
-                                      *normal,
-                                      *ior,
-                                      *opacity);
-}
-
-std::optional<mine::Bitmap> mine::ModelLoader::loadBitmap(MDLMaterialProperty * property) {
-    if (property == nil) {
-        return std::nullopt;
-    }
-    if (property.type == MDLMaterialPropertyTypeFloat3) {
-        simd::float3 storedValue = property.float3Value;
-        return Bitmap(simd_make_float4(storedValue, 1.0));
-    } else if (property.type == MDLMaterialPropertyTypeColor) {
-        CGColorRef color = property.color;
-        const CGFloat *components = CGColorGetComponents(color);
-        size_t numberOfComponents = CGColorGetNumberOfComponents(color);
-
-        CGFloat r, g, b;
-
-        // Handle RGB and grayscale color spaces
-        if (numberOfComponents == 2) {
-            // Grayscale + alpha
-            r = g = b = components[0];
-        } else if (numberOfComponents >= 3) {
-            r = components[0];
-            g = components[1];
-            b = components[2];
-        } else {
-            // Fallback or error handling
-            r = g = b = 0.0;
-        }
-        return Bitmap(simd_make_float4(r, g, b, 1.0));
-    } else if (property.type == MDLMaterialPropertyTypeString) {
-        return std::nullopt;
-    } else if (property.type == MDLMaterialPropertyTypeFloat) {
-        float value = [property floatValue];
-        return Bitmap(simd_make_float4(value, value, value, 1.0));
-    } else if (property.type == MDLMaterialPropertyTypeTexture) {
-        MDLTexture *mdlTexture = property.textureSamplerValue.texture;
-        CGImageRef cgImage = [mdlTexture imageFromTexture];
-        if (cgImage) {
-            size_t width = CGImageGetWidth(cgImage);
-            size_t height = CGImageGetHeight(cgImage);
-            
-            size_t bpp = 4; // assuming RGBA
-            size_t bytesPerRow = width * bpp;
-
-            std::vector<uint8_t> pixelData(width * height * bpp);
-            CGContextRef context = CGBitmapContextCreate(pixelData.data(),
-                                                         width,
-                                                         height,
-                                                         8,
-                                                         bytesPerRow,
-                                                         CGImageGetColorSpace(cgImage),
-                                                         kCGImageAlphaPremultipliedLast);
-            
-            if (context) {
-                CGContextTranslateCTM(context, 0, height);
-                CGContextScaleCTM(context, 1.0, -1.0);
-                CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage);
-                CGContextRelease(context);
-                
-                mine::Bitmap bitmap(
-                    pixelData.data(),
-                    (uint16_t)width,
-                    (uint16_t)height,
-                    (uint8_t)bpp
-                );
-                return bitmap;
-            }
-        }
-    }
-    assert(false);
-    return std::nullopt;
 }
