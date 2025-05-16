@@ -66,16 +66,23 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                point,
                                simd_make_float2(0.0f, 0.0f),
                                nullptr,
-                               std::make_shared<simd::float3>(sObject.color),
+                               sObject.color,
                                closestT);
     } else if (closestKind == IntersectionKind::sphere) {
         SphereObject const & sObject = *reinterpret_cast<SphereObject const *>(closestObject);
         Sphere const & sphere = sObject.sphere;
-        simd_float3 normal = simd_normalize(point - sphere.center);
+        simd_float3 normal = simd::normalize(point - sphere.center);
         simd::float2 uv = sCoordinates.getTextureCoordinates(point, sphere);
         simd::float3 tangent, bitangent;
         mine::generateTBForNormal(tangent, bitangent, normal);
-        return RayIntersection(tangent, bitangent, normal, point, uv, sObject.material, nullptr, closestT);
+        return RayIntersection(tangent,
+                               bitangent,
+                               normal,
+                               point,
+                               uv,
+                               sObject.material.get(),
+                               std::nullopt,
+                               closestT);
     } else {
         TriangleObject const & tObject = *reinterpret_cast<TriangleObject const *>(closestObject);
         simd::float2 uv = tCoordinates.getTextureCoordinates(point, tObject.triangle);
@@ -84,8 +91,8 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                tObject.triangle.normal,
                                point,
                                uv,
-                               tObject.material,
-                               nullptr,
+                               tObject.material.get(),
+                               std::nullopt,
                                closestT);
     }
     return std::nullopt;

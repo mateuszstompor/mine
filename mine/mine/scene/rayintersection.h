@@ -20,16 +20,16 @@ namespace mine {
         simd::float3 N;
         simd::float3 point;
         simd::float2 uv;
-        std::shared_ptr<Material> material;
-        std::shared_ptr<simd::float3> lightColor;
+        Material * material;
+        std::optional<simd::float3> lightColor;
         float t;
         RayIntersection(simd::float3 const & proposedT,
                         simd::float3 const & proposedB,
                         simd::float3 const & proposedN,
                         simd::float3 const & proposedPoint,
                         simd::float2 const & proposedUV,
-                        std::shared_ptr<Material> const & proposedMaterial,
-                        std::shared_ptr<simd::float3> const & proposedLightColor,
+                        Material * proposedMaterial,
+                        std::optional<simd::float3> const & proposedLightColor,
                         float const & proposedTValue)
         : T{proposedT}
         , B{proposedB}
