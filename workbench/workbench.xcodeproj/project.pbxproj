@@ -36,7 +36,9 @@
 		05094AED2DCEB111006E9882 /* Advanced_suit.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05094AB82DCEB111006E9882 /* Advanced_suit.usdz */; };
 		05094AEE2DCEB111006E9882 /* King.obj in Resources */ = {isa = PBXBuildFile; fileRef = 05094AC62DCEB111006E9882 /* King.obj */; };
 		05094AEF2DCEB111006E9882 /* Porsche_racing_935_k3_1979.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05094ACB2DCEB111006E9882 /* Porsche_racing_935_k3_1979.usdz */; };
+		050B8CE52DD1C7BD005A53DB /* Shot_Glass.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 050B8CE42DD1C7BD005A53DB /* Shot_Glass.usdz */; };
 		0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562DE5A2DC748580026D141 /* ModelIO.framework */; };
+		0570E38B2DD156AC007995F1 /* Glass_Candle_FREE.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */; };
 		0580A4D92DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */; };
 		0580A4DA2DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */; };
 		0580A4DB2DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0580A4D62DAD8AE600B2F0EB /* Metal048A_2K-JPG_NormalGL.jpg */; };
@@ -120,8 +122,10 @@
 		05094ACF2DCEB111006E9882 /* Small_Japanese_House.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Small_Japanese_House.usdz; sourceTree = "<group>"; };
 		05094AD02DCEB111006E9882 /* Stylized_Houses__Made_with_1_Material_Only.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Stylized_Houses__Made_with_1_Material_Only.usdz; sourceTree = "<group>"; };
 		05094AD12DCEB111006E9882 /* Tracker.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tracker.usdz; sourceTree = "<group>"; };
+		050B8CE42DD1C7BD005A53DB /* Shot_Glass.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Shot_Glass.usdz; sourceTree = "<group>"; };
 		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0562DE5A2DC748580026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
+		0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Glass_Candle_FREE.usdz; sourceTree = "<group>"; };
 		0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
 		0580A4D42DAD8AE600B2F0EB /* Metal048A_2K-JPG_Displacement.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Displacement.jpg"; sourceTree = "<group>"; };
 		0580A4D52DAD8AE600B2F0EB /* Metal048A_2K-JPG_Metalness.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Metalness.jpg"; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 		05094AD22DCEB111006E9882 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				050B8CE42DD1C7BD005A53DB /* Shot_Glass.usdz */,
+				0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */,
 				05094AB52DCEB111006E9882 /* 3D_Design_Mini_House.usdz */,
 				05094AB62DCEB111006E9882 /* 2017_Ford_Mustang_GT.usdz */,
 				05094AB72DCEB111006E9882 /* 2018_BMW_M5.usdz */,
@@ -473,6 +479,7 @@
 				05094AD72DCEB111006E9882 /* Big_bluds.usdz in Resources */,
 				05094AD82DCEB111006E9882 /* Can_Am_Prototype_67_-_Low_Poly_model.usdz in Resources */,
 				05094AD92DCEB111006E9882 /* Mitsubishi_Lancer_Evolution_6___www.vecarz.usdz in Resources */,
+				0570E38B2DD156AC007995F1 /* Glass_Candle_FREE.usdz in Resources */,
 				05094ADA2DCEB111006E9882 /* Tracker.usdz in Resources */,
 				05094ADB2DCEB111006E9882 /* Lifted_50s_Truck_-_Low_Poly_model.usdz in Resources */,
 				05094ADC2DCEB111006E9882 /* Low_poly_castle_in_ruins.usdz in Resources */,
@@ -481,6 +488,7 @@
 				05094ADF2DCEB111006E9882 /* 3D_Design_Mini_House.usdz in Resources */,
 				05094AE02DCEB111006E9882 /* 2018_BMW_M5.usdz in Resources */,
 				05094AE12DCEB111006E9882 /* 2017_Ford_Mustang_GT.usdz in Resources */,
+				050B8CE52DD1C7BD005A53DB /* Shot_Glass.usdz in Resources */,
 				05094AE22DCEB111006E9882 /* Erster_Dreirad-Motorwagen_von_Carl_Benz.usdz in Resources */,
 				05094AE32DCEB111006E9882 /* bull_tank.usdz in Resources */,
 				05094AE42DCEB111006E9882 /* Camera_Lens.usdz in Resources */,
