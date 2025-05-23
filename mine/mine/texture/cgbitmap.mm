@@ -18,6 +18,13 @@ mine::CGBitmap::CGBitmap(uint16_t width,
                                           kCGImageAlphaPremultipliedLast);
 }
 
+mine::CGBitmap::CGBitmap(RGBAUint8Bitmap const & providedBitmap)
+: CGBitmap(providedBitmap.width, providedBitmap.height, 4) {
+    std::memcpy(bitmap.data.data(),
+                providedBitmap.data.data(),
+                providedBitmap.data.size());
+}
+
 mine::CGBitmap::~CGBitmap() {
     CGContextRelease(bitmapContext);
     CGColorSpaceRelease(colorSpace);
