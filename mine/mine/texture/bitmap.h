@@ -77,7 +77,7 @@ namespace mine {
         RGBAFloat32Bitmap convert(RGBAUint8Bitmap const & bitmap) {
             RGBAFloat32Bitmap result(bitmap.width, bitmap.height);
             for (uint16_t x = 0; x < bitmap.width; ++x) {
-                for (uint16_t y = 0; x < bitmap.height; ++y) {
+                for (uint16_t y = 0; y < bitmap.height; ++y) {
                     simd::float4 color = bitmap.get(x, y);
                     result.set(x, y, color);
                 }
@@ -88,7 +88,7 @@ namespace mine {
         RGBAUint8Bitmap convert(RGBAFloat32Bitmap const & bitmap) {
             RGBAUint8Bitmap result(bitmap.width, bitmap.height);
             for (uint16_t x = 0; x < bitmap.width; ++x) {
-                for (uint16_t y = 0; x < bitmap.height; ++y) {
+                for (uint16_t y = 0; y < bitmap.height; ++y) {
                     simd::float4 color = bitmap.get(x, y);
                     result.set(x, y, color);
                 }
