@@ -278,7 +278,7 @@ public:
             SphereObject(Sphere({0, 20, 160}, 25), mirror),
             SphereObject(Sphere({-60, 20, 160}, 25), tile)
         };
-        s.environmentMap = std::make_optional(*BitmapLoader::load("autumn_field_puresky.jpg"));
+        s.environmentMap = std::make_shared<RGBAUint8Bitmap>(*BitmapLoader::load("autumn_field_puresky.jpg"));
         s.triangles = tObjects;
         s.omnilights = lights;
         s.spheres = spheres;
