@@ -12,22 +12,22 @@
 namespace mine {
     class LinearSampler: public Sampler {
     public:
-        simd::float4 sample(float u, float v, mine::Bitmap const & texture) override {
+        simd::float4 sample(float u, float v, mine::Bitmap const * texture) override {
             assertInClosedRange(u, 0.0f, 1.0f);
             assertInClosedRange(v, 0.0f, 1.0f);
-            float x = u * (texture.width - 1);
-            float y = v * (texture.height - 1);
+            float x = u * (texture->width - 1);
+            float y = v * (texture->height - 1);
 
             float fX = std::floor(x);
             float cX = std::ceil(x);
             float fY = std::floor(y);
             float cY = std::ceil(y);
             
-            simd::float4 p1 = texture.colorAt(fX, fY);
-            simd::float4 p2 = texture.colorAt(cX, fY);
+            simd::float4 p1 = texture->get(fX, fY);
+            simd::float4 p2 = texture->get(cX, fY);
             
-            simd::float4 p3 = texture.colorAt(fX, cY);
-            simd::float4 p4 = texture.colorAt(cX, cY);
+            simd::float4 p3 = texture->get(fX, cY);
+            simd::float4 p4 = texture->get(cX, cY);
             
             float xFrac = x - fX;
             float yFrac = y - fY;

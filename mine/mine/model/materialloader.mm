@@ -2,23 +2,25 @@
 //  Copyright © 2025 Mateusz Stompór. All rights reserved.
 //
 
+#include "../texture/color.h"
 #include "materialloader.h"
 
-std::optional<mine::Bitmap> mine::MaterialLoader::loadBitmap(MDLMaterialProperty * property) {
+std::optional<mine::RGBAFloat32Bitmap> mine::MaterialLoader::loadBitmap(MDLMaterialProperty * property) {
     if (property == nil) {
         return std::nullopt;
     } else if (property.type == MDLMaterialPropertyTypeFloat3) {
         simd::float3 storedValue = property.float3Value;
-        return Bitmap(simd_make_float4(storedValue, 1.0));
+        return RGBAFloat32Bitmap(simd_make_float4(storedValue, 1.0));
     } else if (property.type == MDLMaterialPropertyTypeColor) {
         return loadPropertyTypeColor(property);
     } else if (property.type == MDLMaterialPropertyTypeString) {
         return std::nullopt;
     } else if (property.type == MDLMaterialPropertyTypeFloat) {
         float value = [property floatValue];
-        return Bitmap(simd_make_float4(value, value, value, 1.0));
+        return RGBAFloat32Bitmap(simd_make_float4(value, value, value, 1.0));
     } else if (property.type == MDLMaterialPropertyTypeTexture) {
-        return loadPropertyTypeTexture(property);
+        BitmapConverter converter;
+        return converter.convert(loadPropertyTypeTexture(property));
     } else {
         // Not handled
         assert(false);
@@ -26,7 +28,7 @@ std::optional<mine::Bitmap> mine::MaterialLoader::loadBitmap(MDLMaterialProperty
     }
 }
 
-mine::Bitmap mine::MaterialLoader::loadPropertyTypeColor(MDLMaterialProperty * property) {
+mine::RGBAFloat32Bitmap mine::MaterialLoader::loadPropertyTypeColor(MDLMaterialProperty * property) {
     CGColorRef color = property.color;
     const CGFloat *components = CGColorGetComponents(color);
     size_t numberOfComponents = CGColorGetNumberOfComponents(color);
@@ -52,10 +54,10 @@ mine::Bitmap mine::MaterialLoader::loadPropertyTypeColor(MDLMaterialProperty * p
     } else {
         r = g = b = a = 0.0;
     }
-    return Bitmap(simd_make_float4(r, g, b, a));
+    return RGBAFloat32Bitmap(simd_make_float4(r, g, b, a));
 }
 
-mine::Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty * property) {
+mine::RGBAUint8Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty * property) {
     MDLTexture *mdlTexture = property.textureSamplerValue.texture;
     assert([mdlTexture channelEncoding] == MDLTextureChannelEncodingUint8);
     CGImageRef cgImage = [mdlTexture imageFromTexture];
@@ -79,11 +81,10 @@ mine::Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty *
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage);
     CGContextRelease(context);
     
-    mine::Bitmap bitmap(
+    mine::RGBAUint8Bitmap bitmap(
         pixelData.data(),
         (uint16_t)width,
-        (uint16_t)height,
-        (uint8_t)bytesPerPixel
+        (uint16_t)height
     );
     return bitmap;
 }
@@ -93,29 +94,29 @@ std::shared_ptr<mine::Material> mine::MaterialLoader::loadMaterial(MDLMaterial *
     if (cache.contains(materialName)) {
         return cache[materialName];
     }
-    std::optional<Bitmap> albedo = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticBaseColor]);
+    std::optional<RGBAFloat32Bitmap> albedo = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticBaseColor]);
     if (!albedo) {
-        albedo = Bitmap(simd_make_float4(1.0f, 0.0f, 0.0f, 1.0f));
+        albedo = RGBAFloat32Bitmap(simd_make_float4(1.0f, 0.0f, 0.0f, 1.0f));
     }
-    std::optional<Bitmap> normal = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticTangentSpaceNormal]);
+    std::optional<RGBAFloat32Bitmap> normal = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticTangentSpaceNormal]);
     if (!normal) {
-        normal = Bitmap::defaultNormalMap();
+        normal = RGBAFloat32Bitmap(defaultNormalMapColor());
     }
-    std::optional<Bitmap> roughness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticRoughness]);
+    std::optional<RGBAFloat32Bitmap> roughness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticRoughness]);
     if (!roughness) {
-        roughness = Bitmap(simd_make_float4(0.2f, 0.2f, 0.2f, 1.0f));
+        roughness = RGBAFloat32Bitmap(simd_make_float4(0.2f, 0.2f, 0.2f, 1.0f));
     }
-    std::optional<Bitmap> metalness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMetallic]);
+    std::optional<RGBAFloat32Bitmap> metalness = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMetallic]);
     if (!metalness) {
-        metalness = Bitmap(simd_make_float4(0.5f, 0.5f, 0.5f, 1.0f));
+        metalness = RGBAFloat32Bitmap(simd_make_float4(0.5f, 0.5f, 0.5f, 1.0f));
     }
-    std::optional<Bitmap> opacity = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticOpacity]);
+    std::optional<RGBAFloat32Bitmap> opacity = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticOpacity]);
     if (!opacity) {
-        opacity = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
+        opacity = RGBAFloat32Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
     }
-    std::optional<Bitmap> ior = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMaterialIndexOfRefraction]);
+    std::optional<RGBAFloat32Bitmap> ior = loadBitmap([material propertyWithSemantic:MDLMaterialSemanticMaterialIndexOfRefraction]);
     if (!ior) {
-        ior = Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
+        ior = RGBAFloat32Bitmap(simd_make_float4(1.0f, 1.0f, 1.0f, 1.0f));
     }
     std::shared_ptr<mine::Material> createdMaterial = std::make_shared<Material>(*albedo,
                                                                                  *roughness,

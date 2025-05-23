@@ -36,7 +36,7 @@ namespace mine {
             converter = buildConverter(wantedEdge);
             sampler = buildSampler(wantedFilter);
         }
-        simd::float4 sample(float u, float v, mine::Bitmap const & texture) {
+        simd::float4 sample(float u, float v, mine::Bitmap const * texture) {
             if (edge == Edge::ZeroEdge) {
                 if (u > 1.0f || u < 0.0f) {
                     return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);

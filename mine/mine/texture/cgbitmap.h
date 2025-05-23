@@ -8,7 +8,7 @@
 
 namespace mine {
     struct CGBitmap {
-        Bitmap bitmap;
+        RGBAUint8Bitmap bitmap;
         CGColorSpaceRef colorSpace;
         CGContextRef bitmapContext;
         

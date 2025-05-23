@@ -15,10 +15,10 @@
 namespace mine {
     class BitmapLoader {
     public:
-        static std::optional<Bitmap> load(const std::string &name);
+        static std::optional<RGBAUint8Bitmap> load(const std::string &name);
         
-        static void saveBitmapAsPPM(Bitmap const & bitmap, std::string const & filePath);
-        static void dumpScreenshot(Bitmap const & bitmap, uint32_t iteration);
+        static void saveBitmapAsPPM(RGBAUint8Bitmap const & bitmap, std::string const & filePath);
+        static void dumpScreenshot(RGBAUint8Bitmap const & bitmap, uint32_t iteration);
     private:
         static CGImageRef loadTextureAsBitmap(const std::string &imageName);
 

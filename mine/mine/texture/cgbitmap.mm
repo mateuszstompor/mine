@@ -7,7 +7,7 @@
 mine::CGBitmap::CGBitmap(uint16_t width,
                          uint16_t height,
                          uint8_t bytesPerPixel)
-: bitmap(width, height, bytesPerPixel) {
+: bitmap(width, height) {
     colorSpace = CGColorSpaceCreateDeviceRGB();
     bitmapContext = CGBitmapContextCreate(bitmap.data.data(),
                                           bitmap.width,

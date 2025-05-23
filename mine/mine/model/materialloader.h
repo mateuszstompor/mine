@@ -17,9 +17,9 @@ namespace mine {
         MaterialLoader() = default;
         std::shared_ptr<Material> loadMaterial(MDLMaterial * material);
     private:
-        std::optional<Bitmap> loadBitmap(MDLMaterialProperty * property);
+        std::optional<RGBAFloat32Bitmap> loadBitmap(MDLMaterialProperty * property);
         std::map<std::string, std::shared_ptr<Material>> cache;
-        Bitmap loadPropertyTypeTexture(MDLMaterialProperty * property);
-        Bitmap loadPropertyTypeColor(MDLMaterialProperty * property);
+        RGBAUint8Bitmap loadPropertyTypeTexture(MDLMaterialProperty * property);
+        RGBAFloat32Bitmap loadPropertyTypeColor(MDLMaterialProperty * property);
     };
 }
