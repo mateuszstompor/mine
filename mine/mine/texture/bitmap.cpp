@@ -3,15 +3,18 @@
 //
 
 #include <assert.h>
+#include <algorithm>
+#include <cmath>
 
 #include "bitmap.h"
 
+inline static uint8_t floatToByte(float x) {
+    return static_cast<uint8_t>(std::round(std::clamp(x * 255.0f, 0.0f, 255.0f)));
+}
+
 mine::Bitmap::Bitmap(simd_float4 color)
 : Bitmap(1, 1, 4) {
-    *(data.data()) = color.x * 255;
-    *(data.data() + 1) = color.y * 255;
-    *(data.data() + 2) = color.z * 255;
-    *(data.data() + 3) = color.w * 255;
+    setNormalizedRGBA(0, 0, color);
 }
 
 mine::Bitmap::Bitmap(uint16_t width,
@@ -45,9 +48,7 @@ uint8_t& mine::Bitmap::at(uint16_t x,
 }
 
 simd::float4 mine::Bitmap::colorAt(uint16_t x, uint16_t y) const {
-    assert(x >= 0);
     assert(x < width);
-    assert(y >= 0);
     assert(y < height);
     uint32_t offset = (y * width + x) * bytesPerPixel;
     return simd::make_float4(
@@ -59,15 +60,17 @@ simd::float4 mine::Bitmap::colorAt(uint16_t x, uint16_t y) const {
 }
 
 mine::Bitmap mine::Bitmap::defaultNormalMap() {
-    return Bitmap(simd_make_float4((simd_make_float3(0.0f, 0.0f, 1.0f) + 1.0f) / 2.0f, 1.0f));
+    simd::float3 rgb = (simd_make_float3(0.0f, 0.0f, 1.0f) + 1.0f) / 2.0f;
+    simd::float4 rgba = simd_make_float4(rgb, 1.0f);
+    return Bitmap(rgba);
 }
 
 void mine::Bitmap::setNormalizedRGBA(uint16_t x,
                                      uint16_t y,
                                      simd_float4 const & normalized) {
     uint32_t offset = (y * width + x) * bytesPerPixel;
-    data[offset] = normalized.x * 255;
-    data[offset + 1] = normalized.y * 255;
-    data[offset + 2] = normalized.z * 255;
-    data[offset + 3] = normalized.w * 255;
+    data[offset]     = floatToByte(normalized.x);
+    data[offset + 1] = floatToByte(normalized.y);
+    data[offset + 2] = floatToByte(normalized.z);
+    data[offset + 3] = floatToByte(normalized.w);
 }
