@@ -16,6 +16,8 @@ namespace mine {
                  uint16_t height,
                  uint8_t bytesPerPixel);
         
+        CGBitmap(RGBAUint8Bitmap const & bitmap);
+        
         CGBitmap & operator=(CGBitmap const &) = delete;
         ~CGBitmap();
     };

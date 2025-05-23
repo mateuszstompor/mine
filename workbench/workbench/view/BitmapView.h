@@ -99,8 +99,8 @@
 - (void)updateMessageWithPoint: (NSPoint) pointInView {
     simd::float2 normalizedPosition = simd::make_float2((float)pointInView.x / self.bounds.size.width,
                                                         (float)pointInView.y / self.bounds.size.height);
-    simd::float2 texturePosition = simd::make_float2(normalizedPosition.x * writer->cgbitmap.bitmap.width,
-                                                     normalizedPosition.y * writer->cgbitmap.bitmap.height);
+    simd::float2 texturePosition = simd::make_float2(normalizedPosition.x * writer->accumulator.width,
+                                                     normalizedPosition.y * writer->accumulator.height);
     NSString * newMessage = [[[NSString alloc] initWithFormat: @"X: %i, Y: %i Xn: %.2f, Yn: %.2f Xt: %i, Yt: %i",
                               (int)pointInView.x, (int)pointInView.y,
                               normalizedPosition.x, normalizedPosition.y,
@@ -125,7 +125,8 @@
     [super drawRect:dirtyRect];
     
     CGContextRef context = [[NSGraphicsContext currentContext] CGContext];
-    CGImageRef image = CGBitmapContextCreateImage(writer->cgbitmap.bitmapContext);
+    CGBitmap bitmap = writer->getBitmap();
+    CGImageRef image = CGBitmapContextCreateImage(bitmap.bitmapContext);
 
     CGContextSaveGState(context);
     CGContextTranslateCTM(context, 0, self.bounds.size.height);

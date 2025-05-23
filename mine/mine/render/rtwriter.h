@@ -23,7 +23,8 @@ namespace mine {
         void capture(Scene & scene);
         void capturePixel(Scene & scene,
                           simd::float2 const & coordinate);
-        CGBitmap cgbitmap;
+        RGBAFloat32Bitmap accumulator;
+        CGBitmap getBitmap();
         
     private:
         std::vector<Region<uint16_t>> randomizedRegions();
