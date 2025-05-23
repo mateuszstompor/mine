@@ -14,7 +14,7 @@
 
 namespace mine {
     struct SceneGraph {
-        std::optional<Bitmap> environment = std::nullopt;
+        std::shared_ptr<Bitmap> environment = nullptr;
         std::unique_ptr<BaseNode> root;
     };
 }

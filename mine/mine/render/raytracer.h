@@ -150,9 +150,9 @@ namespace mine {
             
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
-                if (scene.environmentMap) {
+                if (scene.environmentMap != nullptr) {
                     simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
-                    return sampler.sample(uv.x, uv.y, *scene.environmentMap).xyz;
+                    return sampler.sample(uv.x, uv.y, scene.environmentMap.get()).xyz;
                 } else {
                     return simd_make_float3(0.0f, 0.0f, 0.0f);
                 }
@@ -165,12 +165,12 @@ namespace mine {
             simd_float3 point = closest->point;
             simd_float2 uv = closest->uv;
             
-            simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo).xyz;
-            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal).xyz;
-            float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness).x;
-            float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness).x;
-            float ior = sampler.sample(uv[0], uv[1], closest->material->ior).x;
-            float opacity = sampler.sample(uv[0], uv[1], closest->material->opacity).x;
+            simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo.get()).xyz;
+            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal.get()).xyz;
+            float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness.get()).x;
+            float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness.get()).x;
+            float ior = sampler.sample(uv[0], uv[1], closest->material->ior.get()).x;
+            float opacity = sampler.sample(uv[0], uv[1], closest->material->opacity.get()).x;
             
             normal = (normal * 2.0f) - 1.0f;
             

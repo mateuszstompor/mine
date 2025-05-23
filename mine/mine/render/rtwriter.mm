@@ -41,9 +41,9 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
                                                     simd_make_float3(0, 0, 0),
                                                     simd_make_float3(1, 1, 1));
             simd::float4 clampedRGBA = simd_make_float4(clampedColor, 1.0f);
-            simd_float4 currentColor = cgbitmap.bitmap.colorAt(x, y);
+            simd_float4 currentColor = cgbitmap.bitmap.get(x, y);
             simd_float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
-            cgbitmap.bitmap.setNormalizedRGBA(x, y, newColor);
+            cgbitmap.bitmap.set(x, y, newColor);
         }
     }
 }

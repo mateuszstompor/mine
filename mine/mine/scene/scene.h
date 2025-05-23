@@ -18,6 +18,6 @@ namespace mine {
         std::vector<OmniLight> omnilights;
         std::vector<SphereObject> spheres;
         std::vector<TriangleObject> triangles;
-        std::optional<Bitmap> environmentMap = std::nullopt;
+        std::shared_ptr<Bitmap> environmentMap = nullptr;
     };
 }

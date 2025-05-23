@@ -20,3 +20,6 @@
 
 #include "math/constants.h"
 #include "math/transform.h"
+
+#include "texture/bitmap.h"
+#include "texture/color.h"
