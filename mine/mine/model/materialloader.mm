@@ -57,6 +57,7 @@ mine::Bitmap mine::MaterialLoader::loadPropertyTypeColor(MDLMaterialProperty * p
 
 mine::Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty * property) {
     MDLTexture *mdlTexture = property.textureSamplerValue.texture;
+    assert([mdlTexture channelEncoding] == MDLTextureChannelEncodingUint8);
     CGImageRef cgImage = [mdlTexture imageFromTexture];
     size_t width = CGImageGetWidth(cgImage);
     size_t height = CGImageGetHeight(cgImage);
