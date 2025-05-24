@@ -66,10 +66,23 @@
     [mousePositionView setSelectable:NO];
     [mousePositionView setBezeled:NO];
     [mousePositionView setBordered:NO];
+    [mousePositionView setHidden:YES];
     mousePositionView.layer.backgroundColor = [[NSColor clearColor] CGColor];
     mousePositionView.attributedStringValue = [[[NSAttributedString alloc] initWithString:@"Waiting for move..."] autorelease];
     [mousePositionView sizeToFit];
     return mousePositionView;
+}
+
+- (void)keyDown:(NSEvent *)event {
+    NSString *characters = [event charactersIgnoringModifiers];
+    if ([characters length] > 0) {
+        unichar keyChar = [characters characterAtIndex:0];
+        if (keyChar == 'h') {
+            [mousePositionView setHidden:![mousePositionView isHidden]];
+            return;
+        }
+    }
+    [super keyDown:event];
 }
 
 - (void)mouseUp:(NSEvent *)event {
