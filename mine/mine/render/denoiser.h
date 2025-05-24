@@ -4,15 +4,26 @@
 
 #pragma once
 
-#include <optional>
-#include <OpenImageDenoise/oidn.hpp>
+#include <functional>
+
 #include "../texture/bitmap.h"
+
+// Forward declaration
+namespace oidn {
+    class FilterRef;
+    class DeviceRef;
+};
 
 namespace mine {
     class Denoiser {
     public:
         Denoiser() = default;
+        bool denoise(RGBFloat32Bitmap & lightenScene) const;
         bool denoise(RGBFloat32Bitmap & lightenScene,
-                     std::optional<std::pair<RGBFloat32Bitmap, RGBFloat32Bitmap>> const & normalsAndAlbedo) const;
+                     RGBFloat32Bitmap const & normals,
+                     RGBFloat32Bitmap const & albedo) const;
+    private:
+        bool denoise(RGBFloat32Bitmap & lightenScene,
+                     std::function<void(oidn::FilterRef &, oidn::DeviceRef &)> filter) const;
     };
 }

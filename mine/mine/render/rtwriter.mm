@@ -158,7 +158,7 @@ void mine::RTWriter::capture(Scene & scene) {
     RGBFloat32Bitmap normalsRGB = converter.dropAlpha(normals);
     RGBFloat32Bitmap albedoRGB = converter.dropAlpha(albedo);
     
-    oidnDenoiser.denoise(accumulatorRGB, std::make_pair(normalsRGB, albedoRGB));
+    oidnDenoiser.denoise(accumulatorRGB, normalsRGB, albedoRGB);
     
     RGBAFloat32Bitmap finalImage = converter.extendAlpha(accumulatorRGB);
     accumulator = finalImage;
