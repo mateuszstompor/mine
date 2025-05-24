@@ -126,23 +126,27 @@ void mine::RTWriter::capture(Scene & scene) {
     }
     
     {
-        spdlog::info("Capturing normals...");
-        for (Region<uint16_t> const & region : regions) {
-            [queue addOperationWithBlock:^{
-                captureRegionNormals(region, scene, 0);
-            }];
+        for (uint32_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
+            spdlog::info("Capturing normals...");
+            for (Region<uint16_t> const & region : regions) {
+                [queue addOperationWithBlock:^{
+                    captureRegionNormals(region, scene, iteration);
+                }];
+            }
+            [queue waitUntilAllOperationsAreFinished];
         }
-        [queue waitUntilAllOperationsAreFinished];
     }
     
     {
-        spdlog::info("Capturing albedo...");
-        for (Region<uint16_t> const & region : regions) {
-            [queue addOperationWithBlock:^{
-                captureRegionAlbedo(region, scene, 0);
-            }];
+        for (uint32_t iteration = 0; iteration < config.raysPerPixel; ++iteration) {
+            spdlog::info("Capturing albedo...");
+            for (Region<uint16_t> const & region : regions) {
+                [queue addOperationWithBlock:^{
+                    captureRegionAlbedo(region, scene, iteration);
+                }];
+            }
+            [queue waitUntilAllOperationsAreFinished];
         }
-        [queue waitUntilAllOperationsAreFinished];
     }
     
     spdlog::info("Denoising...");
