@@ -5,11 +5,12 @@
 #include <chrono>
 #include <algorithm>
 #include <spdlog/spdlog.h>
-#include <OpenImageDenoise/oidn.hpp>
+
 
 #include "../assertion/finite.h"
 #include "../scene/look/bitmaploader.h"
 #include "rtwriter.h"
+#include "denoiser.h"
 
 mine::RTWriter::RTWriter(Config const & config)
 : accumulator(config.width, config.height)
@@ -151,50 +152,14 @@ void mine::RTWriter::capture(Scene & scene) {
     
     spdlog::info("Denoising...");
     BitmapConverter converter;
+    Denoiser oidnDenoiser;
     
     RGBFloat32Bitmap accumulatorRGB = converter.dropAlpha(accumulator);
     RGBFloat32Bitmap normalsRGB = converter.dropAlpha(normals);
     RGBFloat32Bitmap albedoRGB = converter.dropAlpha(albedo);
     
-    oidn::DeviceRef device = oidn::newDevice(oidn::DeviceType::CPU);
-    device.commit();
-
-
-    oidn::BufferRef colorBuf  = device.newBuffer(accumulator.width * accumulator.height * 3 * sizeof(float));
-    oidn::BufferRef normalsBuf  = device.newBuffer(normals.width * normals.height * 3 * sizeof(float));
-    oidn::BufferRef albedoBuf  = device.newBuffer(albedo.width * albedo.height * 3 * sizeof(float));
+    oidnDenoiser.denoise(accumulatorRGB, std::make_pair(normalsRGB, albedoRGB));
     
-    
-    
-    float * colorPtr = (float*)colorBuf.getData();
-    std::memcpy(colorPtr, accumulatorRGB.data.data(), accumulator.width * accumulator.height * 3 * sizeof(float));
-    
-    float * normalPtr = (float*)normalsBuf.getData();
-    std::memcpy(normalPtr, normalsRGB.data.data(), normalsRGB.width * normalsRGB.height * 3 * sizeof(float));
-    
-    float * albedoPtr = (float*)albedoBuf.getData();
-    std::memcpy(albedoPtr, albedoRGB.data.data(), albedoRGB.width * albedoRGB.height * 3 * sizeof(float));
-    
-    
-    oidn::FilterRef filter = device.newFilter("RT"); // generic ray tracing filter
-    filter.setImage("color",  colorBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // beauty
-    filter.setImage("output", colorBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // denoised beauty
-    filter.setImage("normal", normalsBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // denoised beauty
-    filter.setImage("albedo", albedoBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // denoised beauty
-
-    filter.set("hdr", true); // beauty image is HDR
-    filter.commit();
-
-
-    filter.execute();
-
-    const char* errorMessage;
-    if (device.getError(errorMessage) != oidn::Error::None) {
-        std::cout << "Error: " << errorMessage << std::endl;
-    }
-    
-    colorPtr = (float*)colorBuf.getData();
-    std::memcpy(accumulatorRGB.data.data(), colorPtr, accumulator.width * accumulator.height * 3 * sizeof(float));
     RGBAFloat32Bitmap finalImage = converter.extendAlpha(accumulatorRGB);
     accumulator = finalImage;
     RGBAUint8Bitmap saveableImage = converter.convert(finalImage);
