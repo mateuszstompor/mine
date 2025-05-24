@@ -37,12 +37,6 @@
 		05094AEE2DCEB111006E9882 /* King.obj in Resources */ = {isa = PBXBuildFile; fileRef = 05094AC62DCEB111006E9882 /* King.obj */; };
 		05094AEF2DCEB111006E9882 /* Porsche_racing_935_k3_1979.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05094ACB2DCEB111006E9882 /* Porsche_racing_935_k3_1979.usdz */; };
 		050B8CE52DD1C7BD005A53DB /* Shot_Glass.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 050B8CE42DD1C7BD005A53DB /* Shot_Glass.usdz */; };
-		0522221B2DE0F5CD008E2E36 /* libOpenImageDenoise_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 052222172DE0F5CD008E2E36 /* libOpenImageDenoise_core.a */; };
-		0522221C2DE0F5CD008E2E36 /* libOpenImageDenoise_utils.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 052222182DE0F5CD008E2E36 /* libOpenImageDenoise_utils.a */; };
-		0522221D2DE0F5CD008E2E36 /* libOpenImageDenoise_device_cpu.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 052222192DE0F5CD008E2E36 /* libOpenImageDenoise_device_cpu.a */; };
-		0522221E2DE0F5CD008E2E36 /* libOpenImageDenoise.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0522221A2DE0F5CD008E2E36 /* libOpenImageDenoise.a */; };
-		052222212DE0F5D4008E2E36 /* libtbbmalloc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0522221F2DE0F5D4008E2E36 /* libtbbmalloc.a */; };
-		052222222DE0F5D4008E2E36 /* libtbb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 052222202DE0F5D4008E2E36 /* libtbb.a */; };
 		052222242DE0F601008E2E36 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 052222232DE0F601008E2E36 /* Accelerate.framework */; };
 		0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0562DE5A2DC748580026D141 /* ModelIO.framework */; };
 		0570E38B2DD156AC007995F1 /* Glass_Candle_FREE.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */; };
@@ -189,12 +183,6 @@
 				052222242DE0F601008E2E36 /* Accelerate.framework in Frameworks */,
 				0562DE5B2DC748580026D141 /* ModelIO.framework in Frameworks */,
 				05B050692D2C64750016D827 /* libmine.a in Frameworks */,
-				0522221B2DE0F5CD008E2E36 /* libOpenImageDenoise_core.a in Frameworks */,
-				052222212DE0F5D4008E2E36 /* libtbbmalloc.a in Frameworks */,
-				052222222DE0F5D4008E2E36 /* libtbb.a in Frameworks */,
-				0522221C2DE0F5CD008E2E36 /* libOpenImageDenoise_utils.a in Frameworks */,
-				0522221D2DE0F5CD008E2E36 /* libOpenImageDenoise_device_cpu.a in Frameworks */,
-				0522221E2DE0F5CD008E2E36 /* libOpenImageDenoise.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
