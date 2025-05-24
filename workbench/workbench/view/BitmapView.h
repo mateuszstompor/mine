@@ -23,11 +23,11 @@
     self = [super initWithFrame:frame];
     if (self) {
         mine::Config c(// width
-                       1500,
+                       1000,
                        // height
-                       1500,
+                       1000,
                        // rays per pixel
-                       100,
+                       1,
                        // shadow samples
                        1,
                        // indirect light sampling
@@ -35,7 +35,7 @@
                        // reflections
                        true,
                        // tile size
-                       200,
+                       100,
                        // depth
                        3,
                        // threads
