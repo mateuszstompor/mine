@@ -152,7 +152,7 @@ namespace mine {
             if (closest == std::nullopt) {
                 if (scene.environmentMap != nullptr) {
                     simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
-                    return sampler.sample(uv.x, uv.y, scene.environmentMap.get()).xyz;
+                    return sampler.sample(uv, scene.environmentMap.get()).xyz;
                 } else {
                     return simd_make_float3(0.0f, 0.0f, 0.0f);
                 }
@@ -165,14 +165,14 @@ namespace mine {
             simd_float3 point = closest->point;
             simd_float2 uv = closest->uv;
             
-            simd::float4 color = sampler.sample(uv[0], uv[1], closest->material->albedo.get());
+            simd::float4 color = sampler.sample(uv, closest->material->albedo.get());
             simd::float3 albedo = color.xyz;
             float alpha = color.a;
-            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal.get()).xyz;
-            float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness.get()).x;
-            float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness.get()).x;
-            float ior = sampler.sample(uv[0], uv[1], closest->material->ior.get()).x;
-            float opacity = sampler.sample(uv[0], uv[1], closest->material->opacity.get()).x;
+            simd::float3 normal = sampler.sample(uv, closest->material->normal.get()).xyz;
+            float metalness = sampler.sample(uv, closest->material->metalness.get()).x;
+            float roughness = sampler.sample(uv, closest->material->roughness.get()).x;
+            float ior = sampler.sample(uv, closest->material->ior.get()).x;
+            float opacity = sampler.sample(uv, closest->material->opacity.get()).x;
             
             normal = (normal * 2.0f) - 1.0f;
             
@@ -343,7 +343,7 @@ namespace mine {
             if (closest->material == nullptr) {
                 normal = simd_make_float3(0.0f, 0.0f, 1.0f);
             } else {
-                normal = sampler.sample(uv[0], uv[1], closest->material->normal.get()).xyz;
+                normal = sampler.sample(uv, closest->material->normal.get()).xyz;
                 normal = (normal * 2.0f) - 1.0f;
             }
             
@@ -368,7 +368,7 @@ namespace mine {
             }
             
             simd_float2 uv = closest->uv;
-            simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo.get()).xyz;
+            simd::float3 albedo = sampler.sample(uv, closest->material->albedo.get()).xyz;
             return albedo;
         }
     private:

@@ -36,17 +36,18 @@ namespace mine {
             converter = buildConverter(wantedEdge);
             sampler = buildSampler(wantedFilter);
         }
-        simd::float4 sample(float u, float v, mine::Bitmap const * texture) {
+        simd::float4 sample(simd::float2 const & uv,
+                            mine::Bitmap const * texture) {
             if (edge == Edge::ZeroEdge) {
-                if (u > 1.0f || u < 0.0f) {
+                if (uv.x > 1.0f || uv.x < 0.0f) {
                     return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
                 }
-                if (v > 1.0f || v < 0.0f) {
+                if (uv.y > 1.0f || uv.y < 0.0f) {
                     return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
                 }
             }
-            simd::float2 convertedCoordinates = converter->convert(simd_make_float2(u, v));
-            return sampler->sample(convertedCoordinates.x, convertedCoordinates.y, texture);
+            simd::float2 convertedCoordinates = converter->convert(uv);
+            return sampler->sample(convertedCoordinates, texture);
         }
     private:
         static std::unique_ptr<Sampler> buildSampler(Filter filter) {
