@@ -13,7 +13,8 @@
 namespace mine {
     enum class BitmapType {
         RGBAUInt8,
-        RGBAFloat32
+        RGBAFloat32,
+        RGBFloat32
     };
     struct Bitmap {
         BitmapType type;
@@ -32,6 +33,7 @@ namespace mine {
     };
     struct RGBAUint8Bitmap : public Bitmap  {
         static constexpr uint8_t bytesPerPixel = 4;
+        static constexpr uint8_t channels = 4;
         std::vector<uint8_t> data;
         
         RGBAUint8Bitmap(simd_float4 const & color);
@@ -56,6 +58,7 @@ namespace mine {
     
     struct RGBAFloat32Bitmap : public Bitmap  {
         static constexpr uint8_t bytesPerPixel = 16;
+        static constexpr uint8_t channels = 4;
         std::vector<float32_t> data;
         
         RGBAFloat32Bitmap(simd_float4 const & color);
@@ -73,6 +76,26 @@ namespace mine {
                  simd_float4 const & normalized) override;
     };
 
+    struct RGBFloat32Bitmap : public Bitmap  {
+        static constexpr uint8_t bytesPerPixel = 12;
+        static constexpr uint8_t channels = 3;
+        std::vector<float32_t> data;
+        
+        RGBFloat32Bitmap(simd::float3 const & color);
+        
+        RGBFloat32Bitmap(const RGBFloat32Bitmap & other) = default;
+        
+        RGBFloat32Bitmap & operator=(const RGBFloat32Bitmap & other) = default;
+        
+        RGBFloat32Bitmap(uint16_t width, uint16_t height);
+        
+        simd::float4 get(uint16_t x, uint16_t y) const override;
+        
+        void set(uint16_t x,
+                 uint16_t y,
+                 simd::float4 const & normalized) override;
+    };
+
     struct BitmapConverter {
         RGBAFloat32Bitmap convert(RGBAUint8Bitmap const & bitmap) {
             RGBAFloat32Bitmap result(bitmap.width, bitmap.height);
@@ -87,6 +110,28 @@ namespace mine {
         
         RGBAUint8Bitmap convert(RGBAFloat32Bitmap const & bitmap) {
             RGBAUint8Bitmap result(bitmap.width, bitmap.height);
+            for (uint16_t x = 0; x < bitmap.width; ++x) {
+                for (uint16_t y = 0; y < bitmap.height; ++y) {
+                    simd::float4 color = bitmap.get(x, y);
+                    result.set(x, y, color);
+                }
+            }
+            return result;
+        }
+        
+        RGBFloat32Bitmap dropAlpha(RGBAFloat32Bitmap const & bitmap) {
+            RGBFloat32Bitmap result(bitmap.width, bitmap.height);
+            for (uint16_t x = 0; x < bitmap.width; ++x) {
+                for (uint16_t y = 0; y < bitmap.height; ++y) {
+                    simd::float4 color = bitmap.get(x, y);
+                    result.set(x, y, color);
+                }
+            }
+            return result;
+        }
+        
+        RGBAFloat32Bitmap extendAlpha(RGBFloat32Bitmap const & bitmap) {
+            RGBAFloat32Bitmap result(bitmap.width, bitmap.height);
             for (uint16_t x = 0; x < bitmap.width; ++x) {
                 for (uint16_t y = 0; y < bitmap.height; ++y) {
                     simd::float4 color = bitmap.get(x, y);

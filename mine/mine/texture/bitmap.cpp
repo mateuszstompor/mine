@@ -40,7 +40,7 @@ mine::RGBAUint8Bitmap::RGBAUint8Bitmap(uint8_t const * rawData,
 simd::float4 mine::RGBAUint8Bitmap::get(uint16_t x, uint16_t y) const {
     assert(x < width);
     assert(y < height);
-    uint32_t offset = (y * width + x) * bytesPerPixel;
+    uint32_t offset = (y * width + x) * channels;
     return simd::make_float4(
                              data[offset] / 255.0f,
                              data[offset + 1] / 255.0f,
@@ -52,7 +52,7 @@ simd::float4 mine::RGBAUint8Bitmap::get(uint16_t x, uint16_t y) const {
 void mine::RGBAUint8Bitmap::set(uint16_t x,
                                 uint16_t y,
                                 simd_float4 const & normalized) {
-    uint32_t offset = (y * width + x) * bytesPerPixel;
+    uint32_t offset = (y * width + x) * channels;
     data[offset]     = floatToByte(normalized.x);
     data[offset + 1] = floatToByte(normalized.y);
     data[offset + 2] = floatToByte(normalized.z);
@@ -78,7 +78,7 @@ mine::RGBAFloat32Bitmap::RGBAFloat32Bitmap(uint16_t width, uint16_t height)
 simd::float4 mine::RGBAFloat32Bitmap::get(uint16_t x, uint16_t y) const {
     assert(x < width);
     assert(y < height);
-    uint32_t offset = (y * width + x) * bytesPerPixel;
+    uint32_t offset = (y * width + x) * channels;
     return simd::make_float4(data[offset],
                              data[offset + 1],
                              data[offset + 2],
@@ -86,12 +86,46 @@ simd::float4 mine::RGBAFloat32Bitmap::get(uint16_t x, uint16_t y) const {
 }
 
 void mine::RGBAFloat32Bitmap::set(uint16_t x,
-                                uint16_t y,
-                                simd_float4 const & normalized) {
-    uint32_t offset = (y * width + x) * bytesPerPixel;
+                                  uint16_t y,
+                                  simd_float4 const & normalized) {
+    uint32_t offset = (y * width + x) * channels;
     data[offset]     = normalized.x;
     data[offset + 1] = normalized.y;
     data[offset + 2] = normalized.z;
     data[offset + 3] = normalized.w;
 }
 
+// RGB Float32
+
+mine::RGBFloat32Bitmap::RGBFloat32Bitmap(simd::float3 const & color)
+: RGBFloat32Bitmap(1, 1) {
+    set(0, 0, simd_make_float4(color, 1.0f));
+}
+
+mine::RGBFloat32Bitmap::RGBFloat32Bitmap(uint16_t width, uint16_t height)
+: Bitmap(width, height, BitmapType::RGBFloat32)
+, data(static_cast<int>(width) *
+       static_cast<int>(height) *
+       static_cast<int>(bytesPerPixel))
+{
+    // Empty
+}
+
+simd::float4 mine::RGBFloat32Bitmap::get(uint16_t x, uint16_t y) const {
+    assert(x < width);
+    assert(y < height);
+    uint32_t offset = (y * width + x) * channels;
+    return simd::make_float4(data[offset],
+                             data[offset + 1],
+                             data[offset + 2],
+                             1.0f);
+}
+
+void mine::RGBFloat32Bitmap::set(uint16_t x,
+                                 uint16_t y,
+                                 simd::float4 const & normalized) {
+    uint32_t offset = (y * width + x) * channels;
+    data[offset]     = normalized.x;
+    data[offset + 1] = normalized.y;
+    data[offset + 2] = normalized.z;
+}
