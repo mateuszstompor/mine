@@ -351,6 +351,70 @@ public:
         return SceneFlattener().flatten(loadedGraph);
     }
     
+    static Scene buildLightenMitsubishiGraph() {
+        NSBundle * bundle = [NSBundle mainBundle];
+        NSString * path = [bundle pathForResource:@"Mitsubishi_Lancer_Evolution_6___www.vecarz" ofType:@"usdz"];
+        ModelLoader loader;
+        SceneGraph loadedGraph = loader.load([path UTF8String]);
+        std::unique_ptr<BaseNode> & root = loadedGraph.root;
+        Node<TransformNodeContents> * transformNode = (Node<TransformNodeContents> *)(root.get());
+        simd::float4x4 s = scale(simd_make_float3(10, 10, 10));
+        float angle = -M_PI/2.0f;
+        simd_quatf q = simd_quaternion(angle, simd_make_float3(0, 1, 0));
+        simd_float3x3 rotMatrix = simd_matrix3x3(q);
+        simd_float4x4 M = simd_matrix(
+            simd_make_float4(rotMatrix.columns[0], 0.0f),
+            simd_make_float4(rotMatrix.columns[1], 0.0f),
+            simd_make_float4(rotMatrix.columns[2], 0.0f),
+            simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f)
+        );
+        transformNode->data.transform = translation(simd_make_float3(0, -5, 30)) * s * M;
+        Scene flatscene = SceneFlattener().flatten(loadedGraph);
+        
+        float scaleX = 100.0f;
+        float scaleY = 5.0f;
+        float scaleZ = 100.0f;
+        
+        Triangle bottom7({
+            simd::make_float3( -1.0 * scaleX,  -1.0 * scaleY, -1.0 * scaleZ),
+            simd::make_float3( -1.0 * scaleX, -1.0 * scaleY, 1.0 * scaleZ),
+            simd::make_float3( 1.0 * scaleX, -1.0 * scaleY,  -1.0 * scaleZ)
+        }, {
+            simd::make_float2(0, 1),
+            simd::make_float2(0, 0),
+            simd::make_float2(1, 1)
+        });
+        
+        Triangle bottom8({
+            simd::make_float3( 1.0 * scaleX,  -1.0 * scaleY,  -1.0 * scaleZ),
+            simd::make_float3( -1.0 * scaleX,  -1.0 * scaleY, 1.0 * scaleZ),
+            simd::make_float3( 1.0 * scaleX, -1.0 * scaleY,  1.0 * scaleZ)
+        }, {
+            simd::make_float2(1, 1),
+            simd::make_float2(0, 0),
+            simd::make_float2(1, 0)
+        });
+        
+        auto white = std::make_shared<Material>(RGBAUint8Bitmap(simd_make_float4(0.9, 0.9, 0.9, 1.0)),
+                                                RGBAUint8Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                RGBAUint8Bitmap(simd_make_float4(0.0, 0.0, 0.0, 1.0)),
+                                                RGBAUint8Bitmap(defaultNormalMapColor()),
+                                                RGBAUint8Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)),
+                                                RGBAUint8Bitmap(simd_make_float4(1.0, 1.0, 1.0, 1.0)));
+        
+        flatscene.triangles.push_back(TriangleObject(bottom7, white));
+        flatscene.triangles.push_back(TriangleObject(bottom8, white));
+        
+        
+        std::vector<OmniLight> lights = {
+            OmniLight(Sphere({0, 50, -40}, 10), 20000, {1, 1, 1}),
+        };
+        
+        flatscene.omnilights = lights;
+        
+        return flatscene;
+    }
+    
     static Scene buildGraph() {
         SceneGraph g;
         auto gold = std::make_shared<Material>(*BitmapLoader::load("Metal048A_2K-JPG_Color.jpg"),

@@ -165,7 +165,9 @@ namespace mine {
             simd_float3 point = closest->point;
             simd_float2 uv = closest->uv;
             
-            simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo.get()).xyz;
+            simd::float4 color = sampler.sample(uv[0], uv[1], closest->material->albedo.get());
+            simd::float3 albedo = color.xyz;
+            float alpha = color.a;
             simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal.get()).xyz;
             float metalness = sampler.sample(uv[0], uv[1], closest->material->metalness.get()).x;
             float roughness = sampler.sample(uv[0], uv[1], closest->material->roughness.get()).x;
@@ -180,6 +182,12 @@ namespace mine {
             
             normal = simd::normalize(tbn * normal);
             
+//            if (alpha < 1.0f || opacity < 1.0f) {
+//                Ray newRay(closest->point + r.direction * 1e-4, r.direction);
+//                simd::float3 behindSurface = trace(newRay, scene, config, currentDepth - 1, metadata);
+//                albedo = (1 - opacity) * behindSurface + opacity * albedo;
+//            }
+                        
             simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
             simd_float3 kS = fresnelSchlick(f0, -r.direction, normal);
             simd_float3 kD = simd::float3(1.0) - kS;
