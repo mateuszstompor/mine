@@ -5,6 +5,7 @@
 #include <chrono>
 #include <algorithm>
 #include <spdlog/spdlog.h>
+#include <OpenImageDenoise/oidn.hpp>
 
 #include "../assertion/finite.h"
 #include "../scene/look/bitmaploader.h"
@@ -67,6 +68,42 @@ void mine::RTWriter::capture(Scene & scene) {
         RGBAUint8Bitmap saveableImage = converter.convert(accumulator);
         BitmapLoader::dumpScreenshot(saveableImage, iteration);
     }
+    
+    BitmapConverter converter;
+    
+    RGBFloat32Bitmap accumulatorRGB = converter.dropAlpha(accumulator);
+    
+    oidn::DeviceRef device = oidn::newDevice(oidn::DeviceType::CPU);
+    device.commit();
+
+
+    oidn::BufferRef colorBuf  = device.newBuffer(accumulator.width * accumulator.height * 3 * sizeof(float));
+    
+    
+    float * colorPtr = (float*)colorBuf.getData();
+    std::memcpy(colorPtr, accumulatorRGB.data.data(), accumulator.width * accumulator.height * 3 * sizeof(float));
+    
+    oidn::FilterRef filter = device.newFilter("RT"); // generic ray tracing filter
+    filter.setImage("color",  colorBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // beauty
+    filter.setImage("output", colorBuf,  oidn::Format::Float3, accumulator.width, accumulator.height); // denoised beauty
+
+    filter.set("hdr", true); // beauty image is HDR
+    filter.commit();
+
+
+    filter.execute();
+
+    const char* errorMessage;
+    if (device.getError(errorMessage) != oidn::Error::None) {
+        std::cout << "Error: " << errorMessage << std::endl;
+    }
+    
+    colorPtr = (float*)colorBuf.getData();
+    std::memcpy(accumulatorRGB.data.data(), colorPtr, accumulator.width * accumulator.height * 3 * sizeof(float));
+    RGBAFloat32Bitmap finalImage = converter.extendAlpha(accumulatorRGB);
+    accumulator = finalImage;
+    RGBAUint8Bitmap saveableImage = converter.convert(finalImage);
+    BitmapLoader::dumpScreenshot(saveableImage, config.raysPerPixel);
 }
 
 void mine::RTWriter::capturePixel(Scene & scene,
