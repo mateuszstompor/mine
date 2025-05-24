@@ -17,8 +17,8 @@ namespace mine {
                actual <= higherBounad + epsilon);
     }
 
-    inline void assertEachInClosedRange(simd::float2 actual,
-                                        simd::float2 range,
+    inline void assertEachInClosedRange(simd::float2 const & actual,
+                                        simd::float2 const & range,
                                         float epsilon = 1e-6f) {
         assert(actual.x >= range.x - epsilon &&
                actual.x <= range.y + epsilon);
