@@ -319,6 +319,51 @@ namespace mine {
                 return aC + rfC + rrC + iC;
             }
         }
+        simd_float3 traceNormal(Ray const & r,
+                                mine::Scene const & scene,
+                                mine::Config const & config,
+                                int currentDepth,
+                                Metadata const & metadata) {
+            std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
+            if (closest == std::nullopt) {
+                return simd_make_float3(0.0f, 0.0f, 0.0f);
+            }
+            
+            if (closest->material == nullptr) {
+                return *(closest->lightColor);
+            }
+            
+            simd_float3 point = closest->point;
+            simd_float2 uv = closest->uv;
+            simd::float3 normal = sampler.sample(uv[0], uv[1], closest->material->normal.get()).xyz;
+            normal = (normal * 2.0f) - 1.0f;
+            
+            simd::float3x3 tbn(closest->T,
+                               closest->B,
+                               closest->N);
+            
+            normal = simd::normalize(tbn * normal);
+            return normal;
+        }
+        simd_float3 traceAlbedo(Ray const & r,
+                                mine::Scene const & scene,
+                                mine::Config const & config,
+                                int currentDepth,
+                                Metadata const & metadata) {
+            std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
+            if (closest == std::nullopt) {
+                return simd_make_float3(0.0f, 0.0f, 0.0f);
+            }
+            
+            if (closest->material == nullptr) {
+                return *(closest->lightColor);
+            }
+            
+            simd_float3 point = closest->point;
+            simd_float2 uv = closest->uv;
+            simd::float3 albedo = sampler.sample(uv[0], uv[1], closest->material->albedo.get()).xyz;
+            return albedo;
+        }
     private:
         RNGSTD rng;
         Intersector intersector;

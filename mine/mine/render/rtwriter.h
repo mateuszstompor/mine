@@ -24,6 +24,8 @@ namespace mine {
         void capturePixel(Scene & scene,
                           simd::float2 const & coordinate);
         RGBAFloat32Bitmap accumulator;
+        RGBAFloat32Bitmap normals;
+        RGBAFloat32Bitmap albedo;
         CGBitmap getBitmap();
         
     private:
@@ -32,6 +34,12 @@ namespace mine {
         void captureRegion(Region<uint16_t> const & region,
                            Scene & scene,
                            uint32_t iteration);
+        void captureRegionNormals(Region<uint16_t> const & region,
+                                  Scene & scene,
+                                  uint32_t iteration);
+        void captureRegionAlbedo(Region<uint16_t> const & region,
+                                  Scene & scene,
+                                  uint32_t iteration);
         RayTracer rt;
         Config config;
         NSOperationQueue * queue;
