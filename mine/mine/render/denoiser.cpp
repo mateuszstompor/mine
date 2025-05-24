@@ -33,7 +33,8 @@ void mine::Denoiser::dump(oidn::BufferRef const & source, RGBFloat32Bitmap & des
     std::memcpy(destination.data.data(), rawBufferPointer, bytesConsumed);
 }
 
-oidn::BufferRef mine::Denoiser::createBufferFromBitmap(RGBFloat32Bitmap const & bitmap, oidn::DeviceRef & device) const {
+oidn::BufferRef mine::Denoiser::createBufferFromBitmap(RGBFloat32Bitmap const & bitmap,
+                                                       oidn::DeviceRef const & device) const {
     std::size_t bytesTotal = bitmap.width * bitmap.height * 3 * sizeof(float32_t);
     oidn::BufferRef buffer  = device.newBuffer(bytesTotal);
     float32_t * bufferRawPointer = static_cast<float32_t *>(buffer.getData());

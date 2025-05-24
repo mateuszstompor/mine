@@ -23,7 +23,8 @@ namespace mine {
         bool denoise(RGBFloat32Bitmap & lightenScene,
                      RGBFloat32Bitmap const & normals,
                      RGBFloat32Bitmap const & albedo) const;
-        oidn::BufferRef createBufferFromBitmap(RGBFloat32Bitmap const & bitmap, oidn::DeviceRef & device) const;
+        oidn::BufferRef createBufferFromBitmap(RGBFloat32Bitmap const & bitmap,
+                                               oidn::DeviceRef const & device) const;
         void dump(oidn::BufferRef const & source, RGBFloat32Bitmap & destination) const;
     private:
         bool denoise(RGBFloat32Bitmap & lightenScene,
