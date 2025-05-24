@@ -6,68 +6,25 @@
 
 #include <memory>
 
-#include "./core/nearestsampler.h"
-#include "./core/linearsampler.h"
+#include "edge.h"
+#include "filter.h"
 
-#include "./conversion/pcoordinatesconverter.h"
-#include "./conversion/ctecoordinatesconverter.h"
-#include "./conversion/rcoordinatesconverter.h"
-#include "./conversion/rmcoordinatesconverter.h"
+#include "./core/sampler.h"
+
+#include "./conversion/coordinatesconverter.h"
 
 namespace mine {
-    enum class Filter {
-        Linear,
-        Nearest
-    };
-    enum class Edge {
-        ClampToEdge,
-        ZeroEdge,
-        Repeat,
-        RepeatMirrored,
-    };
     class TextureSampler {
     private:
         Edge edge;
         std::unique_ptr<CoordinatesConverter> converter;
         std::unique_ptr<Sampler> sampler;
     public:
-        TextureSampler(Filter wantedFilter, Edge wantedEdge)
-        : edge{wantedEdge} {
-            converter = buildConverter(wantedEdge);
-            sampler = buildSampler(wantedFilter);
-        }
-        simd::float4 sample(simd::float2 const & uv,
-                            mine::Bitmap const * texture) {
-            if (edge == Edge::ZeroEdge) {
-                if (uv.x > 1.0f || uv.x < 0.0f) {
-                    return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
-                }
-                if (uv.y > 1.0f || uv.y < 0.0f) {
-                    return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
-                }
-            }
-            simd::float2 convertedCoordinates = converter->convert(uv);
-            return sampler->sample(convertedCoordinates, texture);
-        }
+        TextureSampler(Filter wantedFilter, Edge wantedEdge);
+        simd::float4 sample(simd::float2 uv,
+                            mine::Bitmap const * texture);
     private:
-        static std::unique_ptr<Sampler> buildSampler(Filter filter) {
-            if (filter == Filter::Linear) {
-                return std::make_unique<LinearSampler>();
-            } else {
-                return std::make_unique<NearestSampler>();
-            }
-        }
-        static std::unique_ptr<CoordinatesConverter> buildConverter(Edge edge) {
-            switch (edge) {
-            case Edge::ZeroEdge:
-                return std::make_unique<PassthroughCoordinatesConverter>();
-            case Edge::ClampToEdge:
-                return std::make_unique<ClampToEdgeCoordinatesConverter>();
-            case Edge::RepeatMirrored:
-                return std::make_unique<RepeatMirroredCoordinatesConverter>();
-            case Edge::Repeat:
-                return std::make_unique<RepeatCoordinatesConverter>();
-            }
-        }
+        static std::unique_ptr<Sampler> buildSampler(Filter filter);
+        static std::unique_ptr<CoordinatesConverter> buildConverter(Edge edge);
     };
 }
