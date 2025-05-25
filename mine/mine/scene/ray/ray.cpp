@@ -6,8 +6,8 @@
 
 #include "ray.h"
 
-mine::Ray::Ray(simd_float3 const & origin,
-               simd_float3 const & direction)
+mine::Ray::Ray(simd::float3 const & origin,
+               simd::float3 const & direction)
 : origin{origin}
 , direction{direction} {
     assertEqual(simd::length(direction), 1.0f, 1e-5f);

@@ -8,9 +8,9 @@
 
 namespace mine {
     struct Ray {
-        Ray(simd_float3 const & origin,
-            simd_float3 const & direction);
-        simd_float3 origin;
-        simd_float3 direction;
+        Ray(simd::float3 const & origin,
+            simd::float3 const & direction);
+        simd::float3 origin;
+        simd::float3 direction;
     };
 }
