@@ -57,12 +57,14 @@ bool mine::Denoiser::denoise(RGBFloat32Bitmap & lightenScene,
     filter.setImage("output", colorBuf,  oidn::Format::Float3, lightenScene.width, lightenScene.height);
     
     filter.set("hdr", true);
+    
+    filter.set("cleanAux", true);
+    
     filter.commit();
     
     filter.execute();
     
-    const char* errorMessage;
-    if (device.getError(errorMessage) != oidn::Error::None) {
+    if (device.getError() != oidn::Error::None) {
         return false;
     }
     
