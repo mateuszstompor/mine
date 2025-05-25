@@ -83,5 +83,5 @@ simd::float2 mine::SphereCoordinates::getEquirectangularCoordinates(const simd::
     assertInClosedRange(direction.y, -1.0f, 1.0f);
     float u = atan2(direction.z, direction.x) * INV_TWO_PI + 0.5f;
     float v = acos(direction.y) * INV_PI;
-    return simd_make_float2(u, v);
+    return simd::make_float2(u, v);
 }

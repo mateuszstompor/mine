@@ -11,8 +11,8 @@ std::optional<float> mine::DiskIntersector::intersect(const mine::Ray& ray,
     assert(b != 0);
     float t = a / b;
     
-    simd_float3 point = ray.origin + ray.direction * t;
-    simd_float3 distance = point - disk.origin;
+    simd::float3 point = ray.origin + ray.direction * t;
+    simd::float3 distance = point - disk.origin;
     
     if (simd::dot(distance, distance) <= pow(disk.radius, 2)) {
         assert(simd::length(point - disk.origin) <= disk.radius);

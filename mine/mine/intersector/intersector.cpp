@@ -53,25 +53,25 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
         return std::nullopt;
     }
     assert(closestT >= 0 && "Must be in front of the ray origin");
-    simd_float3 point = r.origin + r.direction * closestT;
+    simd::float3 point = r.origin + r.direction * closestT;
     if (closestKind == IntersectionKind::sphereLight) {
         OmniLight const & sObject = * reinterpret_cast<OmniLight const *>(closestObject);
         Sphere const & sphere = sObject.representation;
-        simd_float3 normal = simd::normalize(point - sphere.center);
+        simd::float3 normal = simd::normalize(point - sphere.center);
         simd::float3 tangent, bitangent;
         mine::generateTBForNormal(tangent, bitangent, normal);
         return RayIntersection(tangent,
                                bitangent,
                                normal,
                                point,
-                               simd_make_float2(0.0f, 0.0f),
+                               simd::make_float2(0.0f, 0.0f),
                                nullptr,
                                sObject.color,
                                closestT);
     } else if (closestKind == IntersectionKind::sphere) {
         SphereObject const & sObject = *reinterpret_cast<SphereObject const *>(closestObject);
         Sphere const & sphere = sObject.sphere;
-        simd_float3 normal = simd::normalize(point - sphere.center);
+        simd::float3 normal = simd::normalize(point - sphere.center);
         simd::float2 uv = sCoordinates.getTextureCoordinates(point, sphere);
         simd::float3 tangent, bitangent;
         mine::generateTBForNormal(tangent, bitangent, normal);
