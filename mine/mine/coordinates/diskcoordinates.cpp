@@ -7,7 +7,8 @@
 #include "../assertion/equal.h"
 #include "../assertion/range.h"
 
-simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point, const Disk& disk) {
+simd::float2 mine::DiskCoordinates::getPolarCoordinates(simd::float3 const & point,
+                                                        Disk const & disk) {
     return simd::float2 {
         // Angle
         std::atan2(point.y, point.x),
@@ -16,7 +17,9 @@ simd_float2 mine::DiskCoordinates::getPolarCoordinates(const simd_float3& point,
     };
 }
 
-simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk const & disk) {
+simd::float3 mine::DiskCoordinates::polarToCartesian(float r,
+                                                     float theta,
+                                                     Disk const & disk) {
     assertInClosedRange(theta, 0.0f, 2.0f * static_cast<float>(M_PI));
     assertInClosedRange(r, 0.0f, disk.radius);
     
@@ -29,19 +32,21 @@ simd_float3 mine::DiskCoordinates::polarToCartesian(float r, float theta, Disk c
     return tbn * simd::make_float3(x, y, z) + disk.origin;
 }
 
-simd_float2 mine::DiskCoordinates::getTextureCoordinates(const simd_float2& polarCoordinates, const Disk& disk) {
+simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float2 const & polarCoordinates,
+                                                          Disk const & disk) {
     assert(disk.radius > 0.0f);
-    simd_float2 uvCoordinates = {
+    simd::float2 uvCoordinates = {
         (polarCoordinates.x + static_cast<float>(M_PI)) / (2.0f * static_cast<float>(M_PI)),
         polarCoordinates.y / disk.radius
     };
-    assertEachInClosedRange(uvCoordinates, simd_make_float2(0.0f, 1.0f));
+    assertEachInClosedRange(uvCoordinates, simd::make_float2(0.0f, 1.0f));
     return uvCoordinates;
 }
 
-simd_float2 mine::DiskCoordinates::getTextureCoordinates(const simd_float3& point, const Disk& disk) {
-    simd_float2 polar = getPolarCoordinates(point, disk);
-    simd_float2 uvCoordinates = getTextureCoordinates(polar, disk);
-    assertEachInClosedRange(uvCoordinates, simd_make_float2(0.0f, 1.0f));
+simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float3 const & point,
+                                                          Disk const & disk) {
+    simd::float2 polar = getPolarCoordinates(point, disk);
+    simd::float2 uvCoordinates = getTextureCoordinates(polar, disk);
+    assertEachInClosedRange(uvCoordinates, simd::make_float2(0.0f, 1.0f));
     return uvCoordinates;
 }

@@ -11,17 +11,17 @@
 namespace mine {
     class DiskCoordinates {
     public:
-        simd_float2 getPolarCoordinates(const simd_float3& point,
-                                        const Disk& disk);
+        simd::float2 getPolarCoordinates(simd::float3 const & point,
+                                         Disk const & disk);
         
-        simd_float3 polarToCartesian(float r,
-                                     float theta,
-                                     Disk const & disk);
+        simd::float3 polarToCartesian(float r,
+                                      float theta,
+                                      Disk const & disk);
 
-        simd_float2 getTextureCoordinates(const simd_float2& polarCoordinates,
-                                          const Disk& disk);
+        simd::float2 getTextureCoordinates(simd::float2 const & polarCoordinates,
+                                           Disk const & disk);
 
-        simd_float2 getTextureCoordinates(const simd_float3& point,
-                                          const Disk& disk);
+        simd::float2 getTextureCoordinates(simd::float3 const & point,
+                                           Disk const & disk);
     };
 }
