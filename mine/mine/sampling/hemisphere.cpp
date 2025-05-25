@@ -11,9 +11,9 @@
 #include "../assertion/finite.h"
 
 // Cosine-weighted hemisphere sampling
-simd::float3 mine::sampleHemisphere(const simd::float3& normal, float u, float v) {
-    float theta = std::acos(std::sqrt(1.0f - u));
-    float phi = mine::TWO_PI * v;
+simd::float3 mine::sampleHemisphere(const simd::float3& normal, simd::float2 uv) {
+    float theta = std::acos(std::sqrt(1.0f - uv.x));
+    float phi = TWO_PI * uv.y;
     
     float x = std::sin(theta) * std::cos(phi);
     float y = std::sin(theta) * std::sin(phi);
@@ -26,19 +26,18 @@ simd::float3 mine::sampleHemisphere(const simd::float3& normal, float u, float v
     return sample;
 }
 
-simd_float3 mine::sampleHemisphereGGXVNDF(const simd_float3& v,
-                                          const simd_float3& n,
+simd_float3 mine::sampleHemisphereGGXVNDF(simd_float3 const & view,
+                                          simd_float3 const & normal,
                                           float roughness,
-                                          float u1,
-                                          float u2) {
+                                          simd::float2 uv) {
     // Transform view vector to tangent space
-    simd_float3 up = fabs(n.z) < 0.999f ? simd_make_float3(0.0f, 0.0f, 1.0f) : simd_make_float3(1.0f, 0.0f, 0.0f);
-    simd_float3 t = simd::normalize(simd::cross(up, n));
-    simd_float3 b = simd::cross(n, t);
+    simd_float3 up = fabs(normal.z) < 0.999f ? simd_make_float3(0.0f, 0.0f, 1.0f) : simd_make_float3(1.0f, 0.0f, 0.0f);
+    simd_float3 t = simd::normalize(simd::cross(up, normal));
+    simd_float3 b = simd::cross(normal, t);
     simd_float3 vLocal = simd::normalize(simd_make_float3(
-                                                          simd::dot(v, t),
-                                                          simd::dot(v, b),
-                                                          simd::dot(v, n)
+                                                          simd::dot(view, t),
+                                                          simd::dot(view, b),
+                                                          simd::dot(view, normal)
                                                           ));
     
     // Stretch view
@@ -51,8 +50,8 @@ simd_float3 mine::sampleHemisphereGGXVNDF(const simd_float3& v,
     simd_float3 t2 = simd::cross(vStretched, t1);
     
     // Sample point on hemisphere
-    float r = std::sqrt(u1);
-    float phi = 2.0f * M_PI * u2;
+    float r = std::sqrt(uv.x);
+    float phi = TWO_PI * uv.y;
     float x = r * std::cos(phi);
     float y = r * std::sin(phi);
     float z = std::sqrt(std::fmax(0.0f, 1.0f - x * x - y * y));
@@ -66,12 +65,12 @@ simd_float3 mine::sampleHemisphereGGXVNDF(const simd_float3& v,
                                                      std::fmax(0.0f, hStretched.z)));
     
     // Transform h back to world space
-    simd_float3 hWorld = simd::normalize(h.x * t + h.y * b + h.z * n);
+    simd_float3 hWorld = simd::normalize(h.x * t + h.y * b + h.z * normal);
     
     // Reflect view over sampled normal
-    simd::float3 result = simd::reflect(-v, hWorld);
-    assert(!simd::isnan(result.x));
-    assert(!simd::isnan(result.y));
-    assert(!simd::isnan(result.z));
+    simd::float3 result = simd::reflect(-view, hWorld);
+    
+    assertFinite(result);
+    
     return result;
 }

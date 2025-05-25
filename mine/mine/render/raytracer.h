@@ -252,7 +252,7 @@ namespace mine {
             simd::float3 totalIndirect(0);
             if (config.indirectLightSamples > 0) {
                 for (int i = 0; i < config.indirectLightSamples; ++i) {
-                    simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
+                    simd::float3 sample = sampleHemisphere(normal, rng.random2());
                     simd::float3 newDirection = simd::normalize(tbn * sample);
                     Ray newRay(closest->point + normal * 1e-4, newDirection);
                     simd::float3 incoming = trace(newRay,
@@ -274,8 +274,7 @@ namespace mine {
                     reflectDir = sampleHemisphereGGXVNDF(-r.direction,
                                                          normal,
                                                          roughness * roughness,
-                                                         rng.random(),
-                                                         rng.random());
+                                                         rng.random2());
                 } else {
                     reflectDir = simd::reflect(r.direction, normal);
                 }
@@ -293,7 +292,7 @@ namespace mine {
             simd::float3 refractedColor = simd_make_float3(0, 0, 0);
             simd::float3 perturbedNormal = normal;
             if (roughness > 0) {
-                simd::float3 sample = sampleHemisphere(normal, rng.random(), rng.random());
+                simd::float3 sample = sampleHemisphere(normal, rng.random2());
                 simd::float3 newDirection = simd::normalize(tbn * sample);
                 perturbedNormal = simd::normalize(normal + roughness * newDirection);
             }

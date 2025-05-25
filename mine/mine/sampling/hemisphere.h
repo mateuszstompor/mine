@@ -7,11 +7,11 @@
 #include <simd/simd.h>
 
 namespace mine {
-    simd::float3 sampleHemisphere(const simd::float3& normal, float u, float v);
+    simd::float3 sampleHemisphere(simd::float3 const & normal,
+                                  simd::float2 uv);
 
-    simd_float3 sampleHemisphereGGXVNDF(const simd_float3& v,
-                                        const simd_float3& n,
+    simd_float3 sampleHemisphereGGXVNDF(simd_float3 const & view,
+                                        simd_float3 const & normal,
                                         float roughness,
-                                        float u1,
-                                        float u2);
+                                        simd::float2 uv);
 };
