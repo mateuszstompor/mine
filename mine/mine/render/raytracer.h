@@ -273,6 +273,7 @@ namespace mine {
                 if (roughness > 0) {
                     reflectDir = sampleHemisphereGGXVNDF(-r.direction,
                                                          normal,
+                                                         tbn,
                                                          roughness * roughness,
                                                          rng.random2());
                 } else {

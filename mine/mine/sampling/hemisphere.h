@@ -12,6 +12,7 @@ namespace mine {
 
     simd_float3 sampleHemisphereGGXVNDF(simd_float3 const & view,
                                         simd_float3 const & normal,
+                                        simd::float3x3 const & tbn,
                                         float roughness,
                                         simd::float2 uv);
 };
