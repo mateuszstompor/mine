@@ -13,3 +13,7 @@ mine::RNGSTD::RNGSTD()
 float mine::RNGSTD::random() {
     return distribution(generator);
 };
+
+simd::float2 mine::RNGSTD::random2() {
+    return simd::make_float2(random(), random());
+}
