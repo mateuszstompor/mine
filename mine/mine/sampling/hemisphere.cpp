@@ -26,21 +26,21 @@ simd::float3 mine::sampleHemisphere(const simd::float3& normal, simd::float2 uv)
     return sample;
 }
 
-simd_float3 mine::sampleHemisphereGGXVNDF(simd_float3 const & view,
-                                          simd_float3 const & normal,
-                                          simd::float3x3 const & tbn,
-                                          float roughness,
-                                          simd::float2 uv) {
+simd::float3 mine::sampleHemisphereGGXVNDF(simd::float3 const & view,
+                                           simd::float3 const & normal,
+                                           simd::float3x3 const & tbn,
+                                           float roughness,
+                                           simd::float2 uv) {
     simd::float3 vLocal = simd::normalize(simd::transpose(tbn) * view);
     
     // Stretch view
-    simd_float3 vStretched = simd::normalize(simd_make_float3(roughness * vLocal.x, roughness * vLocal.y, vLocal.z));
+    simd::float3 vStretched = simd::normalize(simd_make_float3(roughness * vLocal.x, roughness * vLocal.y, vLocal.z));
     
     // Orthonormal basis
     float lensq = vStretched.x * vStretched.x + vStretched.y * vStretched.y;
-    simd_float3 t1 = lensq > 0 ? simd_make_float3(-vStretched.y, vStretched.x, 0.0f) / std::sqrt(lensq)
+    simd::float3 t1 = lensq > 0 ? simd_make_float3(-vStretched.y, vStretched.x, 0.0f) / std::sqrt(lensq)
     : simd_make_float3(1.0f, 0.0f, 0.0f);
-    simd_float3 t2 = simd::cross(vStretched, t1);
+    simd::float3 t2 = simd::cross(vStretched, t1);
     
     // Sample point on hemisphere
     float r = std::sqrt(uv.x);
@@ -50,15 +50,15 @@ simd_float3 mine::sampleHemisphereGGXVNDF(simd_float3 const & view,
     float z = std::sqrt(std::fmax(0.0f, 1.0f - x * x - y * y));
     
     // Half vector in stretched space
-    simd_float3 hStretched = x * t1 + y * t2 + z * vStretched;
+    simd::float3 hStretched = x * t1 + y * t2 + z * vStretched;
     
     // Unstretch
-    simd_float3 h = simd::normalize(simd_make_float3(roughness * hStretched.x,
-                                                     roughness * hStretched.y,
-                                                     std::fmax(0.0f, hStretched.z)));
+    simd::float3 h = simd::normalize(simd_make_float3(roughness * hStretched.x,
+                                                      roughness * hStretched.y,
+                                                      std::fmax(0.0f, hStretched.z)));
     
     // Transform h back to world space
-    simd_float3 hWorld = simd::normalize(tbn * h);
+    simd::float3 hWorld = simd::normalize(tbn * h);
     
     // Reflect view over sampled normal
     simd::float3 result = simd::reflect(-view, hWorld);
