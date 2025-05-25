@@ -41,7 +41,7 @@ mine::Vertex operator*(simd::float4x4 const & matrix,
     
     position4 /= position4.w;
     
-    simd::float3x3 rotationMatrix = mine::float4x4_to_float3x3(matrix);
+    simd::float3x3 rotationMatrix = mine::float3x3(matrix);
     rotationMatrix = simd::transpose(simd::inverse(rotationMatrix));
     mine::Vertex result = vertex;
     result.normal = simd::normalize(rotationMatrix * result.normal);

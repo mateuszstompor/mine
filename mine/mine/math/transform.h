@@ -13,19 +13,19 @@ namespace mine {
         return matrix;
     }
     
-    inline simd::float4x4 scale(simd::float3 const & s) {
+    inline simd::float4x4 scale(simd::float3 const & scale) {
         simd::float4x4 matrix = matrix_identity_float4x4;
-        matrix.columns[0].x = s.x;
-        matrix.columns[1].y = s.y;
-        matrix.columns[2].z = s.z;
+        matrix.columns[0].x = scale.x;
+        matrix.columns[1].y = scale.y;
+        matrix.columns[2].z = scale.z;
         return matrix;
     }
 
-    inline simd::float3x3 float4x4_to_float3x3(const simd::float4x4& mat4x4) {
+    inline simd::float3x3 float3x3(simd::float4x4 const & input) {
         return simd::float3x3(
-            simd::float3(mat4x4.columns[0].xyz),
-            simd::float3(mat4x4.columns[1].xyz),
-            simd::float3(mat4x4.columns[2].xyz)
+            simd::float3(input.columns[0].xyz),
+            simd::float3(input.columns[1].xyz),
+            simd::float3(input.columns[2].xyz)
         );
     }
 }
