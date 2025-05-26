@@ -36,7 +36,7 @@ namespace mine {
         static constexpr uint8_t channels = 4;
         std::vector<uint8_t> data;
         
-        RGBAUint8Bitmap(simd_float4 const & color);
+        RGBAUint8Bitmap(simd::float4 const & color);
         
         RGBAUint8Bitmap(const RGBAUint8Bitmap & other) = default;
         
@@ -53,7 +53,7 @@ namespace mine {
                 
         void set(uint16_t x,
                  uint16_t y,
-                 simd_float4 const & normalized) override;
+                 simd::float4 const & normalized) override;
     };
     
     struct RGBAFloat32Bitmap : public Bitmap  {
@@ -61,7 +61,7 @@ namespace mine {
         static constexpr uint8_t channels = 4;
         std::vector<float32_t> data;
         
-        RGBAFloat32Bitmap(simd_float4 const & color);
+        RGBAFloat32Bitmap(simd::float4 const & color);
         
         RGBAFloat32Bitmap(const RGBAFloat32Bitmap & other) = default;
         
@@ -73,7 +73,7 @@ namespace mine {
         
         void set(uint16_t x,
                  uint16_t y,
-                 simd_float4 const & normalized) override;
+                 simd::float4 const & normalized) override;
     };
 
     struct RGBFloat32Bitmap : public Bitmap  {

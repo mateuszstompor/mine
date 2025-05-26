@@ -12,7 +12,7 @@ inline static uint8_t floatToByte(float x) {
     return static_cast<uint8_t>(std::round(std::clamp(x * 255.0f, 0.0f, 255.0f)));
 }
 
-mine::RGBAUint8Bitmap::RGBAUint8Bitmap(simd_float4 const & color)
+mine::RGBAUint8Bitmap::RGBAUint8Bitmap(simd::float4 const & color)
 : RGBAUint8Bitmap(1, 1) {
     set(0, 0, color);
 }
@@ -51,7 +51,7 @@ simd::float4 mine::RGBAUint8Bitmap::get(uint16_t x, uint16_t y) const {
 
 void mine::RGBAUint8Bitmap::set(uint16_t x,
                                 uint16_t y,
-                                simd_float4 const & normalized) {
+                                simd::float4 const & normalized) {
     uint32_t offset = (y * width + x) * channels;
     data[offset]     = floatToByte(normalized.x);
     data[offset + 1] = floatToByte(normalized.y);
@@ -61,7 +61,7 @@ void mine::RGBAUint8Bitmap::set(uint16_t x,
 
 // Float32
 
-mine::RGBAFloat32Bitmap::RGBAFloat32Bitmap(simd_float4 const & color)
+mine::RGBAFloat32Bitmap::RGBAFloat32Bitmap(simd::float4 const & color)
 : RGBAFloat32Bitmap(1, 1) {
     set(0, 0, color);
 }
@@ -87,7 +87,7 @@ simd::float4 mine::RGBAFloat32Bitmap::get(uint16_t x, uint16_t y) const {
 
 void mine::RGBAFloat32Bitmap::set(uint16_t x,
                                   uint16_t y,
-                                  simd_float4 const & normalized) {
+                                  simd::float4 const & normalized) {
     uint32_t offset = (y * width + x) * channels;
     data[offset]     = normalized.x;
     data[offset + 1] = normalized.y;
@@ -99,7 +99,7 @@ void mine::RGBAFloat32Bitmap::set(uint16_t x,
 
 mine::RGBFloat32Bitmap::RGBFloat32Bitmap(simd::float3 const & color)
 : RGBFloat32Bitmap(1, 1) {
-    set(0, 0, simd_make_float4(color, 1.0f));
+    set(0, 0, simd::make_float4(color, 1.0f));
 }
 
 mine::RGBFloat32Bitmap::RGBFloat32Bitmap(uint16_t width, uint16_t height)
