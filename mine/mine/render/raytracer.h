@@ -40,14 +40,14 @@ namespace mine {
                 n = -N;
                 swap = true;
             }
-
+            
             float eta = etai / etat;
             float k = 1.0f - eta * eta * (1.0f - cosi * cosi);
-
+            
             if (k < 0) {
                 return std::make_pair(false, false); // Total internal reflection
             }
-
+            
             outRefracted = eta * I + (eta * cosi - sqrtf(k)) * n;
             return std::make_pair(true, swap);
         }
@@ -56,28 +56,28 @@ namespace mine {
             float cosi = simd::clamp(simd::dot(I, N), -1.0f, 1.0f);
             float etai = 1.0f;
             float etat = ior;
-
+            
             if (cosi > 0.0f) {
                 std::swap(etai, etat);
             }
-
+            
             // Compute sine of transmission angle using Snell’s law
             float sint = etai / etat * sqrtf(fmaxf(0.0f, 1.0f - cosi * cosi));
-
+            
             // Total internal reflection
             if (sint >= 1.0f) {
                 return 1.0f;
             }
-
+            
             float cost = sqrtf(fmaxf(0.0f, 1.0f - sint * sint));
             cosi = fabsf(cosi);
-
+            
             float Rs = ((etat * cosi) - (etai * cost)) / ((etat * cosi) + (etai * cost));
             float Rp = ((etai * cosi) - (etat * cost)) / ((etai * cosi) + (etat * cost));
             return (Rs * Rs + Rp * Rp) * 0.5f;
         }
         
-        float distributionGGX(float alpha, const simd_float3& n, const simd_float3& h) {
+        float distributionGGX(float alpha, const simd::float3& n, const simd::float3& h) {
             alpha = std::max(alpha, 1e-3f);
             float nDotH = std::max(simd::dot(n, h), 0.0f);
             float alphaSq = alpha * alpha;
@@ -88,64 +88,64 @@ namespace mine {
             return result;
         }
         
-        simd_float3 fresnelSchlick(const simd_float3& f0,
-                                   const simd_float3& v,
-                                   const simd_float3& h) {
+        simd::float3 fresnelSchlick(const simd::float3& f0,
+                                    const simd::float3& v,
+                                    const simd::float3& h) {
             float cosTheta = simd::max(simd::dot(v, h), 0.0f);
             return f0 + (1.0f - f0) * std::pow(1.0f - cosTheta, 5.0f);
         }
-
-        float geometrySchlickGGX(const simd_float3& v, const simd_float3& n, float k) {
+        
+        float geometrySchlickGGX(const simd::float3& v, const simd::float3& n, float k) {
             float nDotV = std::max(simd::dot(n, v), 0.0f);
             return nDotV / (nDotV * (1.0f - k) + k);
         }
-
-        float geometrySmith(const simd_float3& v, const simd_float3& n, const simd_float3& l, float k) {
+        
+        float geometrySmith(const simd::float3& v, const simd::float3& n, const simd::float3& l, float k) {
             float gV = geometrySchlickGGX(v, n, k);
             float gL = geometrySchlickGGX(l, n, k);
             return gV * gL;
         }
-
-        simd_float3 cookTorrance(const simd_float3& v,
-                                 const simd_float3& n,
-                                 const simd_float3& l,
-                                 const simd_float3& albedo,
-                                 float metalness,
-                                 float roughness) {
-            simd_float3 diffuse = albedo / M_PI;
+        
+        simd::float3 cookTorrance(const simd::float3& v,
+                                  const simd::float3& n,
+                                  const simd::float3& l,
+                                  const simd::float3& albedo,
+                                  float metalness,
+                                  float roughness) {
+            simd::float3 diffuse = albedo / M_PI;
             float alpha = std::pow(roughness, 2.0f);
-            simd_float3 h = simd::normalize(l + v);
+            simd::float3 h = simd::normalize(l + v);
             float d = distributionGGX(alpha, n, h);
             
-            simd_float3 f0 = simd::lerp(simd_float3(0.04f),
-                                        albedo,
-                                        simd_float3(metalness));
-
-            simd_float3 f = fresnelSchlick(f0, v, h);
+            simd::float3 f0 = simd::lerp(simd::float3(0.04f),
+                                         albedo,
+                                         simd::float3(metalness));
             
-            simd_float3 kS = f;
-            simd_float3 kD = simd::float3(1.0) - kS;
+            simd::float3 f = fresnelSchlick(f0, v, h);
+            
+            simd::float3 kS = f;
+            simd::float3 kD = simd::float3(1.0) - kS;
             kD *= 1.0 - metalness;
-
+            
             float k = std::pow(alpha + 1.0f, 2.0f) / 8.0f;
             float g = geometrySmith(v, n, l, k);
             const float epsilon = 1e-5;
-
+            
             float denominator = std::max(4.0f * simd::dot(n, l) * simd::dot(n, v), epsilon);
-            simd_float3 specular = (f * g * d) / denominator;
+            simd::float3 specular = (f * g * d) / denominator;
             simd::float3 diffuseComponent = kD * diffuse;
             simd::float3 specularComponent = kS * specular;
             assertFinite(diffuseComponent);
             assertFinite(specularComponent);
             return diffuseComponent + specularComponent;
         }
-        simd_float3 trace(Ray const & r,
-                          mine::Scene const & scene,
-                          mine::Config const & config,
-                          int currentDepth,
-                          Metadata const & metadata) {
+        simd::float3 trace(Ray const & r,
+                           mine::Scene const & scene,
+                           mine::Config const & config,
+                           int currentDepth,
+                           Metadata const & metadata) {
             if (currentDepth < 0) {
-                return simd_make_float3(0.0f, 0.0f, 0.0f);
+                return simd::make_float3(0.0f, 0.0f, 0.0f);
             }
             
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
@@ -154,7 +154,7 @@ namespace mine {
                     simd::float2 uv = sc.getEquirectangularCoordinates(r.direction);
                     return sampler.sample(uv, scene.environmentMap.get()).xyz;
                 } else {
-                    return simd_make_float3(0.0f, 0.0f, 0.0f);
+                    return simd::make_float3(0.0f, 0.0f, 0.0f);
                 }
             }
             
@@ -162,8 +162,8 @@ namespace mine {
                 return *(closest->lightColor);
             }
             
-            simd_float3 point = closest->point;
-            simd_float2 uv = closest->uv;
+            simd::float3 point = closest->point;
+            simd::float2 uv = closest->uv;
             
             simd::float4 color = sampler.sample(uv, closest->material->albedo.get());
             simd::float3 albedo = color.xyz;
@@ -182,15 +182,15 @@ namespace mine {
             
             normal = simd::normalize(tbn * normal);
             
-//            if (alpha < 1.0f || opacity < 1.0f) {
-//                Ray newRay(closest->point + r.direction * 1e-4, r.direction);
-//                simd::float3 behindSurface = trace(newRay, scene, config, currentDepth - 1, metadata);
-//                albedo = (1 - opacity) * behindSurface + opacity * albedo;
-//            }
-                        
+            //            if (alpha < 1.0f || opacity < 1.0f) {
+            //                Ray newRay(closest->point + r.direction * 1e-4, r.direction);
+            //                simd::float3 behindSurface = trace(newRay, scene, config, currentDepth - 1, metadata);
+            //                albedo = (1 - opacity) * behindSurface + opacity * albedo;
+            //            }
+            
             simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
-            simd_float3 kS = fresnelSchlick(f0, -r.direction, normal);
-            simd_float3 kD = simd::float3(1.0) - kS;
+            simd::float3 kS = fresnelSchlick(f0, -r.direction, normal);
+            simd::float3 kD = simd::float3(1.0) - kS;
             kD *= 1.0 - metalness;
             
             simd::float3 accumulatedColor = simd::float3(0);
@@ -198,12 +198,12 @@ namespace mine {
             for (auto const & light: scene.omnilights) {
                 
                 float shadowInfluence = 0.0f;
-
+                
                 if (config.shadowSamples > 0) {
                     for (int i = 0; i < config.shadowSamples; ++i) {
                         simd::float3 lightCenter = light.representation.center;
                         simd::float3 toCenter = simd::normalize(lightCenter - closest->point);
-                                        
+                        
                         Disk d(lightCenter, -toCenter, light.representation.radius);
                         
                         float radius = rng.random() * light.representation.radius;
@@ -215,7 +215,7 @@ namespace mine {
                         
                         // TODO: Check it
                         // assert(SphereIntersector().isInsideSphere(randomCartesian, light.representation));
-
+                        
                         simd::float3 newDirection = simd::normalize(randomCartesian - closest->point);
                         
                         Ray newray(closest->point + normal * 1e-4f, newDirection);
@@ -231,13 +231,13 @@ namespace mine {
                     assert(shadowInfluence <= 1.0);
                 }
                 
-                simd_float3 l = light.representation.center - point;
-                simd_float3 ln = simd::normalize(l);
+                simd::float3 l = light.representation.center - point;
+                simd::float3 ln = simd::normalize(l);
                 float l2 = fmax(simd::dot(l, l), 1e-5);
                 
                 float li = light.intensity * 1.0f/l2;
                 
-                simd_float3 v = -r.direction;
+                simd::float3 v = -r.direction;
                 float lamberts = simd::max(simd::dot(ln, normal), 0.0f);
                 simd::float3 brdf = cookTorrance(v,
                                                  normal,
@@ -269,7 +269,7 @@ namespace mine {
             
             simd::float3 reflectedColor(0);
             if (config.reflections) {
-                simd_float3 reflectDir(0);
+                simd::float3 reflectDir(0);
                 if (roughness > 0) {
                     reflectDir = sampleHemisphereGGXVNDF(-r.direction,
                                                          normal,
@@ -289,8 +289,8 @@ namespace mine {
                 reflectedColor *= kS;
             }
             
-            simd::float3 refracted = simd_make_float3(0, 0, 0);
-            simd::float3 refractedColor = simd_make_float3(0, 0, 0);
+            simd::float3 refracted = simd::make_float3(0, 0, 0);
+            simd::float3 refractedColor = simd::make_float3(0, 0, 0);
             simd::float3 perturbedNormal = normal;
             if (roughness > 0) {
                 simd::float3 sample = sampleHemisphere(normal, rng.random2());
@@ -300,7 +300,7 @@ namespace mine {
             auto refract_r = refract(simd::normalize(r.direction), simd::normalize(perturbedNormal), ior, refracted);
             float reflectionFactor = 1.0f;
             if (ior != 1.0f && std::get<0>(refract_r)) {
-                reflectedColor = simd_make_float3(0, 0, 0);
+                reflectedColor = simd::make_float3(0, 0, 0);
                 Ray newRay(closest->point + perturbedNormal * 1e-4 * (((int)std::get<1>(refract_r)) ? 1 : -1), simd::normalize(refracted));
                 refractedColor = trace(newRay,
                                        scene,
@@ -327,21 +327,21 @@ namespace mine {
                 return aC + rfC + rrC + iC;
             }
         }
-        simd_float3 traceNormal(Ray const & r,
-                                mine::Scene const & scene,
-                                mine::Config const & config,
-                                int currentDepth,
-                                Metadata const & metadata) {
+        simd::float3 traceNormal(Ray const & r,
+                                 mine::Scene const & scene,
+                                 mine::Config const & config,
+                                 int currentDepth,
+                                 Metadata const & metadata) {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
-                return simd_make_float3(0.0f, 0.0f, 0.0f);
+                return simd::make_float3(0.0f, 0.0f, 0.0f);
             }
             
             simd::float3 normal;
-            simd_float2 uv = closest->uv;
+            simd::float2 uv = closest->uv;
             
             if (closest->material == nullptr) {
-                normal = simd_make_float3(0.0f, 0.0f, 1.0f);
+                normal = simd::make_float3(0.0f, 0.0f, 1.0f);
             } else {
                 normal = sampler.sample(uv, closest->material->normal.get()).xyz;
                 normal = (normal * 2.0f) - 1.0f;
@@ -353,21 +353,21 @@ namespace mine {
             
             return simd::normalize(tbn * normal);
         }
-        simd_float3 traceAlbedo(Ray const & r,
-                                mine::Scene const & scene,
-                                mine::Config const & config,
-                                int currentDepth,
-                                Metadata const & metadata) {
+        simd::float3 traceAlbedo(Ray const & r,
+                                 mine::Scene const & scene,
+                                 mine::Config const & config,
+                                 int currentDepth,
+                                 Metadata const & metadata) {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
-                return simd_make_float3(0.0f, 0.0f, 0.0f);
+                return simd::make_float3(0.0f, 0.0f, 0.0f);
             }
             
             if (closest->material == nullptr) {
                 return *(closest->lightColor);
             }
             
-            simd_float2 uv = closest->uv;
+            simd::float2 uv = closest->uv;
             simd::float3 albedo = sampler.sample(uv, closest->material->albedo.get()).xyz;
             return albedo;
         }

@@ -35,18 +35,18 @@ void mine::RTWriter::captureRegion(Region<uint16_t> const & region,
                                        y,
                                        accumulator.width,
                                        accumulator.height);
-            simd_float3 color = rt.trace(ray,
-                                         scene,
-                                         config,
-                                         config.depth,
-                                         meta);
+            simd::float3 color = rt.trace(ray,
+                                          scene,
+                                          config,
+                                          config.depth,
+                                          meta);
             assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
-                                                    simd_make_float3(0, 0, 0),
-                                                    simd_make_float3(1, 1, 1));
-            simd::float4 clampedRGBA = simd_make_float4(clampedColor, 1.0f);
-            simd_float4 currentColor = accumulator.get(x, y);
-            simd_float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
+                                                    simd::make_float3(0, 0, 0),
+                                                    simd::make_float3(1, 1, 1));
+            simd::float4 clampedRGBA = simd::make_float4(clampedColor, 1.0f);
+            simd::float4 currentColor = accumulator.get(x, y);
+            simd::float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
             accumulator.set(x, y, newColor);
         }
     }
@@ -62,26 +62,26 @@ void mine::RTWriter::captureRegionNormals(Region<uint16_t> const & region,
                                        y,
                                        accumulator.width,
                                        accumulator.height);
-            simd_float3 color = rt.traceNormal(ray,
-                                         scene,
-                                         config,
-                                         config.depth,
-                                         meta);
+            simd::float3 color = rt.traceNormal(ray,
+                                                scene,
+                                                config,
+                                                config.depth,
+                                                meta);
             assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
-                                                    simd_make_float3(0, 0, 0),
-                                                    simd_make_float3(1, 1, 1));
-            simd::float4 clampedRGBA = simd_make_float4(clampedColor, 1.0f);
-            simd_float4 currentColor = normals.get(x, y);
-            simd_float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
+                                                    simd::make_float3(0, 0, 0),
+                                                    simd::make_float3(1, 1, 1));
+            simd::float4 clampedRGBA = simd::make_float4(clampedColor, 1.0f);
+            simd::float4 currentColor = normals.get(x, y);
+            simd::float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
             normals.set(x, y, newColor);
         }
     }
 }
 
 void mine::RTWriter::captureRegionAlbedo(Region<uint16_t> const & region,
-                                          Scene & scene,
-                                          uint32_t iteration) {
+                                         Scene & scene,
+                                         uint32_t iteration) {
     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
             Metadata meta(x, y);
@@ -89,18 +89,18 @@ void mine::RTWriter::captureRegionAlbedo(Region<uint16_t> const & region,
                                        y,
                                        accumulator.width,
                                        accumulator.height);
-            simd_float3 color = rt.traceAlbedo(ray,
-                                         scene,
-                                         config,
-                                         config.depth,
-                                         meta);
+            simd::float3 color = rt.traceAlbedo(ray,
+                                                scene,
+                                                config,
+                                                config.depth,
+                                                meta);
             assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
-                                                    simd_make_float3(0, 0, 0),
-                                                    simd_make_float3(1, 1, 1));
-            simd::float4 clampedRGBA = simd_make_float4(clampedColor, 1.0f);
-            simd_float4 currentColor = albedo.get(x, y);
-            simd_float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
+                                                    simd::make_float3(0, 0, 0),
+                                                    simd::make_float3(1, 1, 1));
+            simd::float4 clampedRGBA = simd::make_float4(clampedColor, 1.0f);
+            simd::float4 currentColor = albedo.get(x, y);
+            simd::float4 newColor = (currentColor * iteration + clampedRGBA) / float(iteration + 1);
             albedo.set(x, y, newColor);
         }
     }
@@ -178,7 +178,7 @@ void mine::RTWriter::capturePixel(Scene & scene,
     uint16_t x = coordinate.x * accumulator.width;
     uint16_t y = coordinate.y * accumulator.height;
     Region<uint16_t> region {ClosedRange<uint16_t>{x, x},
-                             ClosedRange<uint16_t>{y, y}};
+        ClosedRange<uint16_t>{y, y}};
     [queue addOperationWithBlock:^{
         captureRegion(region, scene, 1);
     }];

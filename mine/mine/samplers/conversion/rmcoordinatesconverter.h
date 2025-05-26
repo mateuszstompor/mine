@@ -16,7 +16,7 @@ namespace mine {
             float x = ((int)integerPart.x % 2 == 0) ? fractionalPart.x : 1.0f - fractionalPart.x;
             float y = ((int)integerPart.y % 2 == 0) ? fractionalPart.y : 1.0f - fractionalPart.y;
 
-            return simd_make_float2(x, y);
+            return simd::make_float2(x, y);
         }
     };
 }

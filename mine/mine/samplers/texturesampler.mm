@@ -22,10 +22,10 @@ simd::float4 mine::TextureSampler::sample(simd::float2 uv,
                                           mine::Bitmap const * texture) {
     if (edge == Edge::ZeroEdge) {
         if (uv.x > 1.0f || uv.x < 0.0f) {
-            return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
+            return simd::make_float4(0.0f, 0.0f, 0.0f, 1.0f);
         }
         if (uv.y > 1.0f || uv.y < 0.0f) {
-            return simd_make_float4(0.0f, 0.0f, 0.0f, 1.0f);
+            return simd::make_float4(0.0f, 0.0f, 0.0f, 1.0f);
         }
     }
     simd::float2 convertedCoordinates = converter->convert(uv);
