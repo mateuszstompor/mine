@@ -131,7 +131,7 @@
 		0522221F2DE0F5D4008E2E36 /* libtbbmalloc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtbbmalloc.a; path = ../dependencies/tbb/libtbbmalloc.a; sourceTree = "<group>"; };
 		052222202DE0F5D4008E2E36 /* libtbb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtbb.a; path = ../dependencies/tbb/libtbb.a; sourceTree = "<group>"; };
 		052222232DE0F601008E2E36 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		053D4D082D12E08800D1876F /* workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		053D4D082D12E08800D1876F /* Workbench.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workbench.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0562DE5A2DC748580026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 		0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = Glass_Candle_FREE.usdz; sourceTree = "<group>"; };
 		0580A4D32DAD8AE600B2F0EB /* Metal048A_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Metal048A_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 		053D4D092D12E08800D1876F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				053D4D082D12E08800D1876F /* workbench.app */,
+				053D4D082D12E08800D1876F /* Workbench.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -415,7 +415,7 @@
 			packageProductDependencies = (
 			);
 			productName = rt2;
-			productReference = 053D4D082D12E08800D1876F /* workbench.app */;
+			productReference = 053D4D082D12E08800D1876F /* Workbench.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -730,7 +730,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.workbench;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Workbench;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Debug;
@@ -758,7 +758,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.stompor.mateusz.workbench;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Workbench;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
