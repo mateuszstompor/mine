@@ -8,7 +8,7 @@
 
 namespace mine {
     struct Sphere {
-        simd_float3 center;
+        simd::float3 center;
         float radius;
     };
 }

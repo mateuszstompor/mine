@@ -23,8 +23,8 @@ mine::Ray mine::Camera::ray(int x, int y, int width, int height) {
     float spaceY = (newYPlusOne - newY) * antialiasRange;
     float displacementX = rng.random() * spaceX * 2 - spaceX;
     float displacementY = rng.random() * spaceY * 2 - spaceY;
-    simd_float3 origin = simd_make_float3(0, 0, 0);
-    simd_float3 newP = simd_make_float3(newX + displacementX, newY + displacementY, 1.0);
-    simd_float3 direction = simd_normalize(newP - origin);
+    simd::float3 origin = simd::make_float3(0, 0, 0);
+    simd::float3 newP = simd::make_float3(newX + displacementX, newY + displacementY, 1.0);
+    simd::float3 direction = simd::normalize(newP - origin);
     return Ray{origin, direction};
 }
