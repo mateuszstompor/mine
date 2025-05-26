@@ -29,7 +29,7 @@ namespace mine {
                 SphereNodeContents const & contents = sphereNode->data;
                 parentTransform = parentTransform * contents.transform;
                 SphereObject outputObject = contents.sphereObject;
-                outputObject.sphere.center = (parentTransform * simd_make_float4(outputObject.sphere.center, 1.0f)).xyz;
+                outputObject.sphere.center = (parentTransform * simd::make_float4(outputObject.sphere.center, 1.0f)).xyz;
                 output.spheres.push_back(outputObject);
             } else if (Node<TransformNodeContents> * transformNode = dynamic_cast<Node<TransformNodeContents>*>(node.get())) {
                 TransformNodeContents const & contents = transformNode->data;

@@ -12,6 +12,6 @@ namespace mine {
     struct OmniLight {
         Sphere representation;
         float intensity;
-        simd_float3 color;
+        simd::float3 color;
     };
 }

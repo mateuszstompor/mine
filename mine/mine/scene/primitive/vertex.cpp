@@ -34,7 +34,7 @@ mine::Vertex operator*(simd::float4x4 const & matrix,
     mine::assertNormalized(vertex.tangent);
     mine::assertNormalized(vertex.bitangent);
     
-    simd::float4 position4 = simd_make_float4(vertex.position, 1.0f);
+    simd::float4 position4 = simd::make_float4(vertex.position, 1.0f);
     position4 = matrix * position4;
     
     assert(position4.w == 1.0f);
