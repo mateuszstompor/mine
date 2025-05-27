@@ -13,7 +13,7 @@
 
 bool mine::SphereCoordinates::isOnSphere(const simd::float3& point,
                                          const Sphere& sphere,
-                                         float epsilon) {
+                                         float epsilon) const {
     simd::float3 diff = point - sphere.center;
     float distSquared = simd::dot(diff, diff);
     float radiusSquared = sphere.radius * sphere.radius;
@@ -22,7 +22,7 @@ bool mine::SphereCoordinates::isOnSphere(const simd::float3& point,
 
 simd::float3 mine::SphereCoordinates::sphericalToCartesian(float r,
                                                            float thetaDegrees,
-                                                           float phiDegrees) {
+                                                           float phiDegrees) const {
     // Convert angles from degrees to radians if necessary
     // Comment this out if theta and phi are already in radians
     assert(r > 0.0f);
@@ -38,7 +38,7 @@ simd::float3 mine::SphereCoordinates::sphericalToCartesian(float r,
 }
 
 simd::float2 mine::SphereCoordinates::getSphericalCoordinates(const simd::float3& nonCenteredPoint,
-                                                              const Sphere& sphere) {
+                                                              const Sphere& sphere) const {
     assert(isOnSphere(nonCenteredPoint, sphere, 5e-1f));
     
     simd::float3 point = nonCenteredPoint - sphere.center;
@@ -53,7 +53,7 @@ simd::float2 mine::SphereCoordinates::getSphericalCoordinates(const simd::float3
 }
 
 bool mine::SphereCoordinates::isInsideSphere(simd::float3 const & point,
-                                             Sphere const & sphere) {
+                                             Sphere const & sphere) const {
     float a = point.x - sphere.center.x;
     float b = point.y - sphere.center.y;
     float c = point.z - sphere.center.z;
@@ -62,7 +62,7 @@ bool mine::SphereCoordinates::isInsideSphere(simd::float3 const & point,
     return sum <= radiusSquared;
 }
 
-simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float2& sphericalCoordinates) {
+simd::float2 mine::SphereCoordinates::getTextureCoordinates(simd::float2 sphericalCoordinates) const {
     float u = sphericalCoordinates.x * INV_TWO_PI + 0.5f;
     float v = 1.0f - sphericalCoordinates.y * INV_PI;
     
@@ -73,7 +73,7 @@ simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float2& 
 }
 
 simd::float2 mine::SphereCoordinates::getTextureCoordinates(const simd::float3& point,
-                                                            const Sphere& sphere) {
+                                                            const Sphere& sphere) const {
     simd::float2 coordinates = getSphericalCoordinates(point, sphere);
     return getTextureCoordinates(coordinates);
 }

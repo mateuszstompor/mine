@@ -4,13 +4,14 @@
 
 #include "trianglecoordinates.h"
 
-float mine::TriangleCoordinates::area(const simd::float3& v0, const simd::float3& v1,
-                                      const simd::float3& v2) const {
+float mine::TriangleCoordinates::area(simd::float3 const & v0,
+                                      simd::float3 const & v1,
+                                      simd::float3 const & v2) const {
     return simd::length(simd::cross(v1 - v0, v2 - v0)) * 0.5;
 }
 
-simd::float3 mine::TriangleCoordinates::barycentricCoordinates(const simd::float3& point,
-                                                               const Triangle& triangle) const {
+simd::float3 mine::TriangleCoordinates::barycentricCoordinates(simd::float3 const & point,
+                                                               Triangle const & triangle) const {
     const simd::float3& a = triangle.v0;
     const simd::float3& b = triangle.v1;
     const simd::float3& c = triangle.v2;
@@ -33,15 +34,15 @@ simd::float3 mine::TriangleCoordinates::barycentricCoordinates(const simd::float
     return simd::make_float3(u, v, w);
 }
 
-simd::float3 mine::TriangleCoordinates::barycentricToCartesian(const simd::float3& x,
-                                                               const simd::float3& v0,
-                                                               const simd::float3& v1,
-                                                               const simd::float3& v2) const {
+simd::float3 mine::TriangleCoordinates::barycentricToCartesian(simd::float3 const & x,
+                                                               simd::float3 const & v0,
+                                                               simd::float3 const & v1,
+                                                               simd::float3 const & v2) const {
     return v0 * x.x + v1 * x.y + v2 * x.z;
 }
 
-simd::float2 mine::TriangleCoordinates::getTextureCoordinates(const simd::float3& point,
-                                                              const Triangle& triangle) const {
+simd::float2 mine::TriangleCoordinates::getTextureCoordinates(simd::float3 const & point,
+                                                              Triangle const & triangle) const {
     simd::float3 barycentric = barycentricCoordinates(point, triangle);
 
     return triangle.uv0 * barycentric.x +

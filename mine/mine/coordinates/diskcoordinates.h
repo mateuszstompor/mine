@@ -12,16 +12,16 @@ namespace mine {
     class DiskCoordinates {
     public:
         simd::float2 getPolarCoordinates(simd::float3 const & point,
-                                         Disk const & disk);
+                                         Disk const & disk) const;
         
         simd::float3 polarToCartesian(float r,
                                       float theta,
-                                      Disk const & disk);
+                                      Disk const & disk) const;
 
-        simd::float2 getTextureCoordinates(simd::float2 const & polarCoordinates,
-                                           Disk const & disk);
+        simd::float2 getTextureCoordinates(simd::float2 polarCoordinates,
+                                           Disk const & disk) const;
 
         simd::float2 getTextureCoordinates(simd::float3 const & point,
-                                           Disk const & disk);
+                                           Disk const & disk) const;
     };
 }

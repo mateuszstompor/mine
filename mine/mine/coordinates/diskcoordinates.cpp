@@ -8,7 +8,7 @@
 #include "../assertion/range.h"
 
 simd::float2 mine::DiskCoordinates::getPolarCoordinates(simd::float3 const & point,
-                                                        Disk const & disk) {
+                                                        Disk const & disk) const {
     return simd::float2 {
         // Angle
         std::atan2(point.y, point.x),
@@ -19,7 +19,7 @@ simd::float2 mine::DiskCoordinates::getPolarCoordinates(simd::float3 const & poi
 
 simd::float3 mine::DiskCoordinates::polarToCartesian(float r,
                                                      float theta,
-                                                     Disk const & disk) {
+                                                     Disk const & disk) const {
     assertInClosedRange(theta, 0.0f, 2.0f * static_cast<float>(M_PI));
     assertInClosedRange(r, 0.0f, disk.radius);
     
@@ -32,8 +32,8 @@ simd::float3 mine::DiskCoordinates::polarToCartesian(float r,
     return tbn * simd::make_float3(x, y, z) + disk.origin;
 }
 
-simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float2 const & polarCoordinates,
-                                                          Disk const & disk) {
+simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float2 polarCoordinates,
+                                                          Disk const & disk) const {
     assert(disk.radius > 0.0f);
     simd::float2 uvCoordinates = {
         (polarCoordinates.x + static_cast<float>(M_PI)) / (2.0f * static_cast<float>(M_PI)),
@@ -44,7 +44,7 @@ simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float2 const & p
 }
 
 simd::float2 mine::DiskCoordinates::getTextureCoordinates(simd::float3 const & point,
-                                                          Disk const & disk) {
+                                                          Disk const & disk) const {
     simd::float2 polar = getPolarCoordinates(point, disk);
     simd::float2 uvCoordinates = getTextureCoordinates(polar, disk);
     assertEachInClosedRange(uvCoordinates, simd::make_float2(0.0f, 1.0f));

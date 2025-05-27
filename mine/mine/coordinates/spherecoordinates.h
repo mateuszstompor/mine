@@ -12,22 +12,26 @@ namespace mine {
     class SphereCoordinates {
     public:
         // Contains
-        bool isOnSphere(const simd::float3& point, const Sphere& sphere, float epsilon);
-        bool isInsideSphere(simd::float3 const & point, Sphere const & sphere);
+        bool isOnSphere(simd::float3 const & point,
+                        Sphere const & sphere,
+                        float epsilon = 1e-4f) const;
+        
+        bool isInsideSphere(simd::float3 const & point,
+                            Sphere const & sphere) const;
         
         // Conversion
         simd::float3 sphericalToCartesian(float r,
                                           float theta,
-                                          float phi);
+                                          float phi) const;
 
-        simd::float2 getSphericalCoordinates(const simd::float3& nonCenteredPoint, const Sphere& sphere);
+        simd::float2 getSphericalCoordinates(simd::float3 const & nonCenteredPoint,
+                                             Sphere const & sphere) const;
         
+        simd::float2 getTextureCoordinates(simd::float2 sphericalCoordinates) const;
         
+        simd::float2 getTextureCoordinates(simd::float3 const & point,
+                                           Sphere const & sphere) const;
         
-        simd::float2 getTextureCoordinates(const simd::float2& sphericalCoordinates);
-        
-        simd::float2 getTextureCoordinates(const simd::float3& point, const Sphere& sphere);
-        
-        simd::float2 getEquirectangularCoordinates(const simd::float3& direction) const;
+        simd::float2 getEquirectangularCoordinates(simd::float3 const & direction) const;
     };
 }
