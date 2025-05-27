@@ -8,7 +8,7 @@
 #include <optional>
 #include <ModelIO/ModelIO.h>
 
-#include "../texture/bitmap.h"
+#include "../texture/raw/bitmap.h"
 #include "../scene/look/material.h"
 
 namespace mine {
@@ -19,7 +19,7 @@ namespace mine {
     private:
         std::optional<RGBAFloat32Bitmap> loadBitmap(MDLMaterialProperty * property);
         std::map<std::string, std::shared_ptr<Material>> cache;
-        RGBAUint8Bitmap loadPropertyTypeTexture(MDLMaterialProperty * property);
+        RGBAUInt8Bitmap loadPropertyTypeTexture(MDLMaterialProperty * property);
         RGBAFloat32Bitmap loadPropertyTypeColor(MDLMaterialProperty * property);
     };
 }

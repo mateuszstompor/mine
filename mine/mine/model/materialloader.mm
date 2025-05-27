@@ -3,6 +3,7 @@
 //
 
 #include "../texture/color.h"
+#include "../texture/raw/bitmapconverter.h"
 #include "materialloader.h"
 
 std::optional<mine::RGBAFloat32Bitmap> mine::MaterialLoader::loadBitmap(MDLMaterialProperty * property) {
@@ -57,7 +58,7 @@ mine::RGBAFloat32Bitmap mine::MaterialLoader::loadPropertyTypeColor(MDLMaterialP
     return RGBAFloat32Bitmap(simd::make_float4(r, g, b, a));
 }
 
-mine::RGBAUint8Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty * property) {
+mine::RGBAUInt8Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialProperty * property) {
     MDLTexture *mdlTexture = property.textureSamplerValue.texture;
     assert([mdlTexture channelEncoding] == MDLTextureChannelEncodingUint8);
     CGImageRef cgImage = [mdlTexture imageFromTexture];
@@ -81,7 +82,7 @@ mine::RGBAUint8Bitmap mine::MaterialLoader::loadPropertyTypeTexture(MDLMaterialP
     CGContextDrawImage(context, CGRectMake(0, 0, width, height), cgImage);
     CGContextRelease(context);
     
-    mine::RGBAUint8Bitmap bitmap(
+    mine::RGBAUInt8Bitmap bitmap(
         pixelData.data(),
         (uint16_t)width,
         (uint16_t)height

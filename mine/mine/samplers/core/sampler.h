@@ -6,7 +6,7 @@
 
 #include <simd/simd.h>
 
-#include "../../texture/bitmap.h"
+#include "../../texture/raw/bitmap.h"
 
 namespace mine {
     class Sampler {

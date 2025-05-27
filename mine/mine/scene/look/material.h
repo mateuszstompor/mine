@@ -4,7 +4,9 @@
 
 #pragma once
 
-#include "../../texture/bitmap.h"
+#include "../../texture/raw/bitmap.h"
+#include "../../texture/raw/rgbauint8bitmap.h"
+#include "../../texture/raw/rgbafloat32bitmap.h"
 
 namespace mine {
     struct Material {
@@ -15,18 +17,18 @@ namespace mine {
         std::shared_ptr<Bitmap> ior;
         std::shared_ptr<Bitmap> opacity;
         
-        Material(RGBAUint8Bitmap const & providedAlbedo,
-                 RGBAUint8Bitmap const & providedRoughness,
-                 RGBAUint8Bitmap const & providedMetalness,
-                 RGBAUint8Bitmap const & providedNormal,
-                 RGBAUint8Bitmap const & providedIOR,
-                 RGBAUint8Bitmap const & providedOpacity) {
-            albedo = std::make_shared<RGBAUint8Bitmap>(providedAlbedo);
-            roughness = std::make_shared<RGBAUint8Bitmap>(providedRoughness);
-            metalness = std::make_shared<RGBAUint8Bitmap>(providedMetalness);
-            normal = std::make_shared<RGBAUint8Bitmap>(providedNormal);
-            ior = std::make_shared<RGBAUint8Bitmap>(providedIOR);
-            opacity = std::make_shared<RGBAUint8Bitmap>(providedOpacity);
+        Material(RGBAUInt8Bitmap const & providedAlbedo,
+                 RGBAUInt8Bitmap const & providedRoughness,
+                 RGBAUInt8Bitmap const & providedMetalness,
+                 RGBAUInt8Bitmap const & providedNormal,
+                 RGBAUInt8Bitmap const & providedIOR,
+                 RGBAUInt8Bitmap const & providedOpacity) {
+            albedo = std::make_shared<RGBAUInt8Bitmap>(providedAlbedo);
+            roughness = std::make_shared<RGBAUInt8Bitmap>(providedRoughness);
+            metalness = std::make_shared<RGBAUInt8Bitmap>(providedMetalness);
+            normal = std::make_shared<RGBAUInt8Bitmap>(providedNormal);
+            ior = std::make_shared<RGBAUInt8Bitmap>(providedIOR);
+            opacity = std::make_shared<RGBAUInt8Bitmap>(providedOpacity);
         }
         Material(RGBAFloat32Bitmap const & providedAlbedo,
                  RGBAFloat32Bitmap const & providedRoughness,

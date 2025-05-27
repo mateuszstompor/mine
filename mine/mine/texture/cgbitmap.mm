@@ -18,7 +18,7 @@ mine::CGBitmap::CGBitmap(uint16_t width,
                                           kCGImageAlphaPremultipliedLast);
 }
 
-mine::CGBitmap::CGBitmap(RGBAUint8Bitmap const & providedBitmap)
+mine::CGBitmap::CGBitmap(RGBAUInt8Bitmap const & providedBitmap)
 : CGBitmap(providedBitmap.width, providedBitmap.height, 4) {
     std::memcpy(bitmap.data.data(),
                 providedBitmap.data.data(),

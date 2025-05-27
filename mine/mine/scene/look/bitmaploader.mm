@@ -7,7 +7,7 @@
 #include <fstream>
 #include <Cocoa/Cocoa.h>
 
-std::optional<mine::RGBAUint8Bitmap> mine::BitmapLoader::load(const std::string &name) {
+std::optional<mine::RGBAUInt8Bitmap> mine::BitmapLoader::load(const std::string &name) {
     CGImageRef cgImage = loadTextureAsBitmap(name);
     if (!cgImage) return std::nullopt;
 
@@ -18,7 +18,7 @@ std::optional<mine::RGBAUint8Bitmap> mine::BitmapLoader::load(const std::string 
     size_t height = CGImageGetHeight(cgImage);
     CGImageRelease(cgImage);
 
-    return RGBAUint8Bitmap(static_cast<const uint8_t *>([bitmapData bytes]),
+    return RGBAUInt8Bitmap(static_cast<const uint8_t *>([bitmapData bytes]),
                            width,
                            height);
 }
@@ -62,7 +62,7 @@ NSData * mine::BitmapLoader::convertToBitmapData(CGImageRef cgImage) {
     return rawData;
 }
 
-void mine::BitmapLoader::saveBitmapAsPPM(RGBAUint8Bitmap const & bitmap, const std::string& filePath) {
+void mine::BitmapLoader::saveBitmapAsPPM(RGBAUInt8Bitmap const & bitmap, const std::string& filePath) {
     if (bitmap.bytesPerPixel < 3) {
         throw std::runtime_error("Bitmap must have at least 3 bytes per pixel (RGB)");
     }
@@ -86,7 +86,7 @@ void mine::BitmapLoader::saveBitmapAsPPM(RGBAUint8Bitmap const & bitmap, const s
     outputStream.close();
 }
 
-void mine::BitmapLoader::dumpScreenshot(RGBAUint8Bitmap const & bitmap, uint32_t iteration) {
+void mine::BitmapLoader::dumpScreenshot(RGBAUInt8Bitmap const & bitmap, uint32_t iteration) {
     NSDate *now = [NSDate date];
     NSDateFormatter *formatter = [[[NSDateFormatter alloc] init] autorelease];
     [formatter setDateFormat:@"yyyy-MM-dd"];

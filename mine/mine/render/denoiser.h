@@ -6,7 +6,7 @@
 
 #include <functional>
 
-#include "../texture/bitmap.h"
+#include "../texture/raw/rgbfloat32bitmap.h"
 
 // Forward declaration
 namespace oidn {

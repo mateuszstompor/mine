@@ -10,7 +10,7 @@
 #include "graphnode.h"
 #include "nodecontents.h"
 
-#include "../../texture/bitmap.h"
+#include "../../texture/raw/bitmap.h"
 
 namespace mine {
     struct SceneGraph {

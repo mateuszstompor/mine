@@ -4,11 +4,12 @@
 
 #include <CoreGraphics/CoreGraphics.h>
 
-#include "bitmap.h"
+#include "raw/bitmap.h"
+#include "raw/rgbauint8bitmap.h"
 
 namespace mine {
     struct CGBitmap {
-        RGBAUint8Bitmap bitmap;
+        RGBAUInt8Bitmap bitmap;
         CGColorSpaceRef colorSpace;
         CGContextRef bitmapContext;
         
@@ -16,7 +17,7 @@ namespace mine {
                  uint16_t height,
                  uint8_t bytesPerPixel);
         
-        CGBitmap(RGBAUint8Bitmap const & bitmap);
+        CGBitmap(RGBAUInt8Bitmap const & bitmap);
         
         CGBitmap & operator=(CGBitmap const &) = delete;
         ~CGBitmap();

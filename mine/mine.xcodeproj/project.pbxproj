@@ -15,9 +15,33 @@
 		0562DE582DC748450026D141 /* ModelIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ModelIO.framework; path = System/Library/Frameworks/ModelIO.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		05A93C992DE5B8F6007AD983 /* Exceptions for "mine" folder in "mine" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				texture/raw/rgbfloat32bitmap.h,
+			);
+			target = 05617B342D17173400260E40 /* mine */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		05A93C9A2DE5B8F6007AD983 /* Exceptions for "mine" folder in "Compile Sources" phase from "mine" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 05617B322D17173400260E40 /* Sources */;
+			membershipExceptions = (
+				texture/raw/rgbfloat32bitmap.h,
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		05A2DB892D171765001DEC8B /* mine */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				05A93C992DE5B8F6007AD983 /* Exceptions for "mine" folder in "mine" target */,
+				05A93C9A2DE5B8F6007AD983 /* Exceptions for "mine" folder in "Compile Sources" phase from "mine" target */,
+			);
 			path = mine;
 			sourceTree = "<group>";
 		};

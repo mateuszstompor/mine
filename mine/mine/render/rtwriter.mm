@@ -6,11 +6,12 @@
 #include <algorithm>
 #include <spdlog/spdlog.h>
 
+#include "rtwriter.h"
+#include "denoiser.h"
 
 #include "../assertion/finite.h"
 #include "../scene/look/bitmaploader.h"
-#include "rtwriter.h"
-#include "denoiser.h"
+#include "../texture/raw/bitmapconverter.h"
 
 mine::RTWriter::RTWriter(Config const & config)
 : accumulator(config.width, config.height)
@@ -122,7 +123,7 @@ void mine::RTWriter::capture(Scene & scene) {
         spdlog::info("Time taken for an iteration {0} ms, iteration: {1}", duration.count(), iteration);
         
         BitmapConverter converter;
-        RGBAUint8Bitmap saveableImage = converter.convert(accumulator);
+        RGBAUInt8Bitmap saveableImage = converter.convert(accumulator);
         BitmapLoader::dumpScreenshot(saveableImage, iteration);
     }
     
@@ -162,9 +163,9 @@ void mine::RTWriter::capture(Scene & scene) {
     
     RGBAFloat32Bitmap finalImage = converter.extendAlpha(accumulatorRGB);
     accumulator = finalImage;
-    RGBAUint8Bitmap saveableImage = converter.convert(finalImage);
-    RGBAUint8Bitmap saveableNormals = converter.convert(normals);
-    RGBAUint8Bitmap saveableAlbedo = converter.convert(albedo);
+    RGBAUInt8Bitmap saveableImage = converter.convert(finalImage);
+    RGBAUInt8Bitmap saveableNormals = converter.convert(normals);
+    RGBAUInt8Bitmap saveableAlbedo = converter.convert(albedo);
     
     BitmapLoader::dumpScreenshot(saveableImage, config.raysPerPixel);
     BitmapLoader::dumpScreenshot(saveableNormals, config.raysPerPixel + 1);
