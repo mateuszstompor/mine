@@ -328,6 +328,28 @@ public:
         loadedGraph.environment = std::make_shared<RGBAUInt8Bitmap>(simd::make_float4(1.0, 1.0, 1.0, 1.0));
         return SceneFlattener().flatten(loadedGraph);
     }
+    
+    static Scene buildTVScene() {
+        NSBundle * bundle = [NSBundle mainBundle];
+        NSString * path = [bundle pathForResource:@"tv_retro" ofType:@"usdz"];
+        ModelLoader loader;
+        SceneGraph loadedGraph = loader.load([path UTF8String]);
+        std::unique_ptr<BaseNode> & root = loadedGraph.root;
+        Node<TransformNodeContents> * transformNode = (Node<TransformNodeContents> *)(root.get());
+        simd::float4x4 s = scale(simd::make_float3(0.7, 0.7, 0.7));
+        float angle = M_PI + M_PI/4.0f;
+        simd_quatf q = simd_quaternion(angle, simd::make_float3(0, 1, 0));
+        simd::float3x3 rotMatrix = simd_matrix3x3(q);
+        simd::float4x4 M = simd_matrix(
+            simd::make_float4(rotMatrix.columns[0], 0.0f),
+            simd::make_float4(rotMatrix.columns[1], 0.0f),
+            simd::make_float4(rotMatrix.columns[2], 0.0f),
+            simd::make_float4(0.0f, 0.0f, 0.0f, 1.0f)
+        );
+        transformNode->data.transform = translation(simd::make_float3(0, -20, 55)) * s * M;
+        loadedGraph.environment = std::make_shared<RGBAUInt8Bitmap>(simd::make_float4(1.0, 1.0, 1.0, 1.0));
+        return SceneFlattener().flatten(loadedGraph);
+    }
         
     static Scene buildMitsubishiGraph() {
         NSBundle * bundle = [NSBundle mainBundle];

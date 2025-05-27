@@ -182,11 +182,11 @@ namespace mine {
             
             normal = simd::normalize(tbn * normal);
             
-            //            if (alpha < 1.0f || opacity < 1.0f) {
-            //                Ray newRay(closest->point + r.direction * 1e-4, r.direction);
-            //                simd::float3 behindSurface = trace(newRay, scene, config, currentDepth - 1, metadata);
-            //                albedo = (1 - opacity) * behindSurface + opacity * albedo;
-            //            }
+            simd::float3 backgroundColor = simd::make_float3(0.0f, 0.0f, 0.0f);
+            if (alpha < 1.0f || opacity < 1.0f) {
+                Ray newRay(closest->point + r.direction * 1e-4, r.direction);
+                backgroundColor = trace(newRay, scene, config, currentDepth - 1, metadata);
+            }
             
             simd::float3 f0 = simd::lerp(simd::float3(0.04f), albedo, simd::float3(metalness));
             simd::float3 kS = fresnelSchlick(f0, -r.direction, normal);
@@ -324,7 +324,8 @@ namespace mine {
                 greaterEqualZero(rrC);
                 assertFinite(iC);
                 greaterEqualZero(iC);
-                return aC + rfC + rrC + iC;
+                simd::float3 foregroundColor = aC + rfC + rrC + iC;
+                return foregroundColor * alpha + (1.0f - opacity) * backgroundColor * (1.0f - alpha);
             }
         }
         simd::float3 traceNormal(Ray const & r,

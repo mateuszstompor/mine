@@ -16,7 +16,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "053D4D072D12E08800D1876F"
-               BuildableName = "workbench.app"
+               BuildableName = "Workbench.app"
                BlueprintName = "workbench"
                ReferencedContainer = "container:workbench.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
-            BuildableName = "workbench.app"
+            BuildableName = "Workbench.app"
             BlueprintName = "workbench"
             ReferencedContainer = "container:workbench.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "053D4D072D12E08800D1876F"
-            BuildableName = "workbench.app"
+            BuildableName = "Workbench.app"
             BlueprintName = "workbench"
             ReferencedContainer = "container:workbench.xcodeproj">
          </BuildableReference>

@@ -58,6 +58,7 @@
 		05A2DC162D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC002D1717C2001DEC8B /* Metal055A_2K-JPG_Metalness.jpg */; };
 		05A2DC172D1717C2001DEC8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC072D1717C2001DEC8B /* Main.storyboard */; };
 		05A2DC182D1717C2001DEC8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 05A2DC052D1717C2001DEC8B /* Assets.xcassets */; };
+		05A93F2E2DE5F414007AD983 /* tv_retro.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 05A93F2D2DE5F414007AD983 /* tv_retro.usdz */; };
 		05B050692D2C64750016D827 /* libmine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05B050672D2C64710016D827 /* libmine.a */; };
 		05B225E82DAFCAE9001F21F2 /* autumn_field_puresky.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05B225E72DAFCAE9001F21F2 /* autumn_field_puresky.jpg */; };
 		05E1A20C2DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 05E1A2082DA854F400F18592 /* Onyx011_2K-JPG_Displacement.jpg */; };
@@ -157,6 +158,7 @@
 		05A2DC0C2D1717C2001DEC8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		05A2DC0D2D1717C2001DEC8B /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		05A2DC192D1717CD001DEC8B /* mine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = mine.xcodeproj; path = ../mine/mine.xcodeproj; sourceTree = SOURCE_ROOT; };
+		05A93F2D2DE5F414007AD983 /* tv_retro.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = tv_retro.usdz; sourceTree = "<group>"; };
 		05B225E72DAFCAE9001F21F2 /* autumn_field_puresky.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = autumn_field_puresky.jpg; sourceTree = "<group>"; };
 		05B225F82DAFCE87001F21F2 /* workbench.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = workbench.entitlements; sourceTree = "<group>"; };
 		05E1A2072DA854F400F18592 /* Onyx011_2K-JPG_Color.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "Onyx011_2K-JPG_Color.jpg"; sourceTree = "<group>"; };
@@ -192,6 +194,7 @@
 		05094AD22DCEB111006E9882 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				05A93F2D2DE5F414007AD983 /* tv_retro.usdz */,
 				050B8CE42DD1C7BD005A53DB /* Shot_Glass.usdz */,
 				0570E38A2DD156AC007995F1 /* Glass_Candle_FREE.usdz */,
 				05094AB52DCEB111006E9882 /* 3D_Design_Mini_House.usdz */,
@@ -504,6 +507,7 @@
 				05094ADF2DCEB111006E9882 /* 3D_Design_Mini_House.usdz in Resources */,
 				05094AE02DCEB111006E9882 /* 2018_BMW_M5.usdz in Resources */,
 				05094AE12DCEB111006E9882 /* 2017_Ford_Mustang_GT.usdz in Resources */,
+				05A93F2E2DE5F414007AD983 /* tv_retro.usdz in Resources */,
 				050B8CE52DD1C7BD005A53DB /* Shot_Glass.usdz in Resources */,
 				05094AE22DCEB111006E9882 /* Erster_Dreirad-Motorwagen_von_Carl_Benz.usdz in Resources */,
 				05094AE32DCEB111006E9882 /* bull_tank.usdz in Resources */,

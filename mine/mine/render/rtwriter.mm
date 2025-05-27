@@ -161,6 +161,8 @@ void mine::RTWriter::capture(Scene & scene) {
     
     oidnDenoiser.denoise(accumulatorRGB, normalsRGB, albedoRGB);
     
+    spdlog::info("Finished...");
+    
     RGBAFloat32Bitmap finalImage = converter.extendAlpha(accumulatorRGB);
     accumulator = finalImage;
     RGBAUInt8Bitmap saveableImage = converter.convert(finalImage);
