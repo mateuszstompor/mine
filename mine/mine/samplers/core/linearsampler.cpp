@@ -7,7 +7,7 @@
 #include "../../assertion/range.h"
 
 simd::float4 mine::LinearSampler::sample(simd::float2 uv,
-                                         mine::Bitmap const * texture) {
+                                         std::shared_ptr<Bitmap> const & texture) {
     assertInClosedRange(uv.x, 0.0f, 1.0f);
     assertInClosedRange(uv.y, 0.0f, 1.0f);
     float x = uv.x * (texture->width - 1);

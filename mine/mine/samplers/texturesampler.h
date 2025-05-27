@@ -22,7 +22,7 @@ namespace mine {
     public:
         TextureSampler(Filter wantedFilter, Edge wantedEdge);
         simd::float4 sample(simd::float2 uv,
-                            mine::Bitmap const * texture);
+                            std::shared_ptr<Bitmap> const & texture);
     private:
         static std::unique_ptr<Sampler> buildSampler(Filter filter);
         static std::unique_ptr<CoordinatesConverter> buildConverter(Edge edge);

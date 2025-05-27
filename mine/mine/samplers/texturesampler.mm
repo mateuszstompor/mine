@@ -19,7 +19,7 @@ mine::TextureSampler::TextureSampler(Filter wantedFilter, Edge wantedEdge)
 }
 
 simd::float4 mine::TextureSampler::sample(simd::float2 uv,
-                                          mine::Bitmap const * texture) {
+                                          std::shared_ptr<Bitmap> const & texture) {
     if (edge == Edge::ZeroEdge) {
         if (uv.x > 1.0f || uv.x < 0.0f) {
             return simd::make_float4(0.0f, 0.0f, 0.0f, 1.0f);

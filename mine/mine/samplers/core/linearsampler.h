@@ -14,6 +14,6 @@ namespace mine {
     class LinearSampler: public Sampler {
     public:
         simd::float4 sample(simd::float2 uv,
-                            Bitmap const * texture) override;
+                            std::shared_ptr<Bitmap> const & texture) override;
     };
 }
