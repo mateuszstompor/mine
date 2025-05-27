@@ -66,8 +66,7 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                point,
                                simd::make_float2(0.0f, 0.0f),
                                nullptr,
-                               sObject.color,
-                               closestT);
+                               sObject.color);
     } else if (closestKind == IntersectionKind::sphere) {
         SphereObject const & sObject = *reinterpret_cast<SphereObject const *>(closestObject);
         Sphere const & sphere = sObject.sphere;
@@ -81,8 +80,7 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                point,
                                uv,
                                sObject.material.get(),
-                               std::nullopt,
-                               closestT);
+                               std::nullopt);
     } else {
         TriangleObject const & tObject = *reinterpret_cast<TriangleObject const *>(closestObject);
         simd::float2 uv = tCoordinates.getTextureCoordinates(point, tObject.triangle);
@@ -92,8 +90,7 @@ std::optional<mine::RayIntersection> mine::Intersector::closestIntersection(mine
                                point,
                                uv,
                                tObject.material.get(),
-                               std::nullopt,
-                               closestT);
+                               std::nullopt);
     }
     return std::nullopt;
 }

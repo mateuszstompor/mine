@@ -22,15 +22,13 @@ namespace mine {
         simd::float2 uv;
         Material * material;
         std::optional<simd::float3> lightColor;
-        float t;
         RayIntersection(simd::float3 const & proposedT,
                         simd::float3 const & proposedB,
                         simd::float3 const & proposedN,
                         simd::float3 const & proposedPoint,
                         simd::float2 const & proposedUV,
                         Material * proposedMaterial,
-                        std::optional<simd::float3> const & proposedLightColor,
-                        float const & proposedTValue)
+                        std::optional<simd::float3> const & proposedLightColor)
         : T{proposedT}
         , B{proposedB}
         , N{proposedN}
@@ -38,14 +36,12 @@ namespace mine {
         , uv{proposedUV}
         , material{proposedMaterial}
         , lightColor{proposedLightColor}
-        , t{proposedTValue}
         {
             assertFinite(proposedT);
             assertFinite(proposedB);
             assertFinite(proposedN);
             assertFinite(proposedPoint);
             assertFinite(proposedUV);
-            assertFinite(proposedTValue);
             
             assertPerpendicular(T, B);
             assertPerpendicular(T, N);
