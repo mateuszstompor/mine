@@ -329,10 +329,7 @@ namespace mine {
             }
         }
         simd::float3 traceNormal(Ray const & r,
-                                 mine::Scene const & scene,
-                                 mine::Config const & config,
-                                 int currentDepth,
-                                 Metadata const & metadata) {
+                                 mine::Scene const & scene) {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 return simd::make_float3(0.0f, 0.0f, 0.0f);
@@ -355,10 +352,7 @@ namespace mine {
             return simd::normalize(tbn * normal);
         }
         simd::float3 traceAlbedo(Ray const & r,
-                                 mine::Scene const & scene,
-                                 mine::Config const & config,
-                                 int currentDepth,
-                                 Metadata const & metadata) {
+                                 mine::Scene const & scene) {
             std::optional<RayIntersection> closest = intersector.closestIntersection(scene, r);
             if (closest == std::nullopt) {
                 return simd::make_float3(0.0f, 0.0f, 0.0f);

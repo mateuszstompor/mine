@@ -58,16 +58,12 @@ void mine::RTWriter::captureRegionNormals(Region<uint16_t> const & region,
                                           uint32_t iteration) {
     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
-            Metadata meta(x, y);
             Ray ray = scene.camera.ray(x,
                                        y,
                                        accumulator.width,
                                        accumulator.height);
             simd::float3 color = rt.traceNormal(ray,
-                                                scene,
-                                                config,
-                                                config.depth,
-                                                meta);
+                                                scene);
             assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
                                                     simd::make_float3(0, 0, 0),
@@ -85,16 +81,12 @@ void mine::RTWriter::captureRegionAlbedo(Region<uint16_t> const & region,
                                          uint32_t iteration) {
     for (uint16_t x = region.x.lowerBound; x <= region.x.higherBound; x++) {
         for (uint16_t y = region.y.lowerBound; y <= region.y.higherBound; y++) {
-            Metadata meta(x, y);
             Ray ray = scene.camera.ray(x,
                                        y,
                                        accumulator.width,
                                        accumulator.height);
             simd::float3 color = rt.traceAlbedo(ray,
-                                                scene,
-                                                config,
-                                                config.depth,
-                                                meta);
+                                                scene);
             assertFinite(color);
             simd::float3 clampedColor = simd::clamp(color,
                                                     simd::make_float3(0, 0, 0),
