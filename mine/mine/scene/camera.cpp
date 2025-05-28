@@ -6,25 +6,36 @@
 
 #include "camera.h"
 
-mine::Camera::Camera(int antialiasRange)
+mine::Camera::Camera(float32_t antialiasRange)
 : antialiasRange{antialiasRange} {
 
 }
 
-mine::Ray mine::Camera::ray(int x, int y, int width, int height) {
-    assert(x >= 0 && x < width);
-    assert(y >= 0 && y < height);
-    float newX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
-    float newXPlusOne = (static_cast<float>(x + 1) / (width - 1)) * 2 - 1;
+mine::Ray mine::Camera::ray(uint16_t x,
+                            uint16_t y,
+                            uint16_t width,
+                            uint16_t height) {
+    assert(x < width);
+    assert(y < height);
+    
+    float spaceX = 2.0f / width;
+    float spaceY = 2.0f / height;
+    
+    float displacementX = rng.random() * spaceX - spaceX / 2.0f;
+    float displacementY = rng.random() * spaceY - spaceY / 2.0f;
+
     float aspect = static_cast<float>(width) / height;
-    float newY = (static_cast<float>(y) / (height - 1)) / aspect * 2 - 1;
-    float newYPlusOne = (static_cast<float>(y + 1) / (height - 1)) / aspect * 2 - 1;
-    float spaceX = (newXPlusOne - newX) * antialiasRange;
-    float spaceY = (newYPlusOne - newY) * antialiasRange;
-    float displacementX = rng.random() * spaceX * 2 - spaceX;
-    float displacementY = rng.random() * spaceY * 2 - spaceY;
+    float ndcX = (static_cast<float>(x) / (width - 1)) * 2 - 1;
+    float ndcY = (static_cast<float>(y) / (height - 1)) * 2 - 1;
+    
+    float ndcXCenter = ndcX + 0.5f * spaceX;
+    float ndcYCenter = ndcY + 0.5f * spaceY;
+
     simd::float3 origin = simd::make_float3(0, 0, 0);
-    simd::float3 newP = simd::make_float3(newX + displacementX, newY + displacementY, 1.0);
+    simd::float3 newP = simd::make_float3(ndcXCenter * aspect + displacementX * antialiasRange,
+                                          ndcYCenter + displacementY * antialiasRange,
+                                          1.0f);
     simd::float3 direction = simd::normalize(newP - origin);
+    
     return Ray{origin, direction};
 }

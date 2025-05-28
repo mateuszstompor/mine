@@ -11,10 +11,13 @@
 
 namespace mine {
     struct Camera {
-        Camera(int antialiasRange = 1);
-        Ray ray(int x, int y, int width, int height);
+        Camera(float32_t antialiasRange = 1.0f);
+        Ray ray(uint16_t x,
+                uint16_t y,
+                uint16_t width,
+                uint16_t height);
     private:
-        int antialiasRange;
+        float32_t antialiasRange;
         RNGSTD rng;
     };
 }
